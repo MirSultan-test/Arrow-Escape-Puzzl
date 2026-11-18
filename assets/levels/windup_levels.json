@@ -1,0 +1,4652 @@
+[
+  {
+    "id": 1,
+    "name": "Sorting Station",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 3,
+    "cols": 3,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "easy",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3"
+    ],
+    "tutorialText": "Tap a parcel to dispatch it to the Sorting Rack, then tap the rack to load the truck!",
+    "manifest": [
+      "star",
+      "star",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Buffer Basics",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 3,
+    "cols": 3,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "easy",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4"
+    ],
+    "tutorialText": "The Sorting Rack holds 2 parcels. Match the truck's order to load!",
+    "manifest": [
+      "star",
+      "sun",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Traffic Priority",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 3,
+    "cols": 3,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "easy",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p4",
+      "p4",
+      "p3"
+    ],
+    "tutorialText": "Plan ahead! If the rack fills with the wrong parcels, deliveries will jam.",
+    "manifest": [
+      "star",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Depot Jam",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "A",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "B",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "C",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "D",
+        "row": 2,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "A",
+      "A",
+      "B",
+      "B",
+      "C",
+      "C",
+      "D",
+      "D"
+    ],
+    "tutorialText": "Clear blockers on the board before filling the rack to avoid deadlocks.",
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Wind-Up Gears",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4"
+    ],
+    "tutorialText": "Dispatching from the board rotates surviving gear parcels 90° clockwise!",
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Clockwork Buffer",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p3",
+      "p3",
+      "p2",
+      "p5",
+      "p4",
+      "p4",
+      "p5"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Shift & Sort",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p4",
+      "p3",
+      "p3",
+      "p4",
+      "p5",
+      "p5"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Fleet Departure",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 1,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Clog Prevention",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p2",
+      "p2",
+      "p1",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Depot Grand Master",
+    "campaign": "depot",
+    "district": 1,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 3,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p4",
+      "p3",
+      "p3",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Manifest Call",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "pA",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "pB",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "pC",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "easy",
+    "exampleSolution": [
+      "pA",
+      "pA",
+      "pB",
+      "pC",
+      "pC",
+      "pB"
+    ],
+    "tutorialText": "Delivery Manifest: dispatch parcels matching the required symbol at the top ribbon.",
+    "manifest": [
+      "star",
+      "moon",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Color Coded",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "easy",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "moon",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Sun & Star",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "easy",
+    "exampleSolution": [
+      "p2",
+      "p1",
+      "p1",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4"
+    ],
+    "manifest": [
+      "sun",
+      "star",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Triple Stamp",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Conveyor Line",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 4,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Manifest & Gear",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 4,
+    "cols": 4,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4"
+    ],
+    "tutorialText": "Gears rotate on every delivery, even while following the manifest!",
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      2,
+      2
+    ]
+  },
+  {
+    "id": 17,
+    "name": "The Sorter",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Cargo Bay",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 0,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Alternating Shift",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p4",
+      "p4",
+      "p2",
+      "p6",
+      "p6",
+      "p2",
+      "p7",
+      "p7",
+      "p3",
+      "p3",
+      "p5",
+      "p5"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Grand Sorter",
+    "campaign": "depot",
+    "district": 2,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 3,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Junction Gate",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Steampipe Loop",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "sun",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Valve Control",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "medium",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Gearmesh Lane",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p5",
+      "p6",
+      "p6",
+      "p3",
+      "p3",
+      "p2",
+      "p2",
+      "p5",
+      "p4",
+      "p4"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Greenhouse Rail",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 0,
+        "col": 4,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Boiler Room",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6"
+    ],
+    "manifest": [
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Crankshaft Crossing",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 3,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p3",
+      "p2",
+      "p2",
+      "p3",
+      "p4",
+      "p4",
+      "p6",
+      "p5",
+      "p5",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Dual Escapement",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "hard",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p4",
+      "p3",
+      "p3",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Piston Relay",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 3,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Steam Hub",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 1,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 3,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p3",
+      "p2",
+      "p2",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Interlocking Wheels",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 0,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 32,
+    "name": "High Pressure Line",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 1,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p5",
+      "p4",
+      "p4",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Governor Gear",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p3",
+      "p2",
+      "p2",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Flywheel Chamber",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 0,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 35,
+    "name": "Water Tower Switch",
+    "campaign": "depot",
+    "district": 3,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p5",
+        "row": 4,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 5,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 3,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p5",
+      "p4",
+      "p4",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 36,
+    "name": "The Central Turntable",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 0,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 37,
+    "name": "Synchronized Gears",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7"
+    ],
+    "manifest": [
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Hourglass Track",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 5,
+    "cols": 5,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 4,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Courier Quad",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 4,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 40,
+    "name": "The Grand Rotunda",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 0,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p5",
+      "p7",
+      "p7",
+      "p5",
+      "p8",
+      "p6",
+      "p6",
+      "p4",
+      "p4",
+      "p8"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 41,
+    "name": "Spiral Dispatch",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 5,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p8",
+        "row": 2,
+        "col": 5,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Pendulum Alley",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 4,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 5,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 0,
+        "col": 0,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 43,
+    "name": "Quartermaster Lock",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 4,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 1,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 0,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p9",
+        "row": 5,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8",
+      "p9",
+      "p9"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Escapement Bridge",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p7",
+        "row": 0,
+        "col": 5,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "expert",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p4",
+      "p7",
+      "p7",
+      "p4",
+      "p8",
+      "p8",
+      "p5",
+      "p6",
+      "p6",
+      "p3",
+      "p3",
+      "p5"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 45,
+    "name": "Clock Tower Ascent",
+    "campaign": "depot",
+    "district": 4,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 1,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "master",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 46,
+    "name": "The Grand Orrery",
+    "campaign": "depot",
+    "district": 5,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 1,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      }
+    ],
+    "difficulty": "master",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p3",
+      "p2",
+      "p2",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 47,
+    "name": "Perpetual Route",
+    "campaign": "depot",
+    "district": 5,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 2,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 5,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 3,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "master",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8"
+    ],
+    "manifest": [
+      "sun",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "star",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      4
+    ]
+  },
+  {
+    "id": 48,
+    "name": "Centennial Express",
+    "campaign": "depot",
+    "district": 5,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p9",
+        "row": 5,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "master",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p3",
+      "p6",
+      "p6",
+      "p3",
+      "p2",
+      "p7",
+      "p7",
+      "p8",
+      "p8",
+      "p2",
+      "p9",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p9"
+    ],
+    "manifest": [
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "id": 49,
+    "name": "Chronos Gate",
+    "campaign": "depot",
+    "district": 5,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 2,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p2",
+        "row": 1,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p6",
+        "row": 4,
+        "col": 1,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 4,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 5,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p9",
+        "row": 2,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      }
+    ],
+    "difficulty": "master",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8",
+      "p9",
+      "p9"
+    ],
+    "manifest": [
+      "moon",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "sun",
+      "star",
+      "moon",
+      "sun"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      3,
+      3,
+      3
+    ]
+  },
+  {
+    "id": 50,
+    "name": "Master of the Depot",
+    "campaign": "depot",
+    "district": 5,
+    "rows": 6,
+    "cols": 6,
+    "parcels": [
+      {
+        "id": "p1",
+        "row": 0,
+        "col": 1,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p2",
+        "row": 0,
+        "col": 4,
+        "direction": "up",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p3",
+        "row": 1,
+        "col": 2,
+        "direction": "left",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p4",
+        "row": 2,
+        "col": 3,
+        "direction": "right",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p5",
+        "row": 3,
+        "col": 1,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p6",
+        "row": 3,
+        "col": 4,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p7",
+        "row": 4,
+        "col": 2,
+        "direction": "down",
+        "colorType": "standard",
+        "hasGear": true,
+        "manifestSymbol": "star"
+      },
+      {
+        "id": "p8",
+        "row": 4,
+        "col": 5,
+        "direction": "right",
+        "colorType": "standard",
+        "manifestSymbol": "moon"
+      },
+      {
+        "id": "p9",
+        "row": 5,
+        "col": 0,
+        "direction": "left",
+        "colorType": "standard",
+        "manifestSymbol": "sun"
+      },
+      {
+        "id": "p10",
+        "row": 5,
+        "col": 3,
+        "direction": "down",
+        "colorType": "standard",
+        "manifestSymbol": "star"
+      }
+    ],
+    "difficulty": "master",
+    "exampleSolution": [
+      "p1",
+      "p1",
+      "p2",
+      "p2",
+      "p3",
+      "p3",
+      "p4",
+      "p4",
+      "p5",
+      "p5",
+      "p6",
+      "p6",
+      "p7",
+      "p7",
+      "p8",
+      "p8",
+      "p9",
+      "p9",
+      "p10",
+      "p10"
+    ],
+    "manifest": [
+      "star",
+      "moon",
+      "sun",
+      "star",
+      "sun",
+      "moon",
+      "star",
+      "moon",
+      "sun",
+      "star"
+    ],
+    "rackCapacity": 2,
+    "truckSizes": [
+      4,
+      3,
+      3
+    ]
+  }
+]

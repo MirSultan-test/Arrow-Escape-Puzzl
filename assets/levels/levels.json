@@ -1,0 +1,5352 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-17T10:00:00Z",
+  "totalLevels": 50,
+  "levels": [
+    {
+      "id": 1,
+      "name": "Tutorial: Clear Path",
+      "rows": 3,
+      "cols": 3,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "tutorial",
+      "exampleSolution": [
+        "p1"
+      ],
+      "tutorialText": "Tap a parcel with a clear path."
+    },
+    {
+      "id": 2,
+      "name": "Tutorial: Clearing Blockers",
+      "rows": 3,
+      "cols": 3,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 1,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "tutorial",
+      "exampleSolution": [
+        "p2",
+        "p1"
+      ],
+      "tutorialText": "Parcel is blocked! Tap the outer parcel first to clear the exit path."
+    },
+    {
+      "id": 3,
+      "name": "Tutorial: Chain Reaction",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 1,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "tutorial",
+      "exampleSolution": [
+        "p3",
+        "p2",
+        "p1"
+      ],
+      "tutorialText": "Unblock packages step by step. Tapping a blocked package gives a gentle bump."
+    },
+    {
+      "id": 4,
+      "name": "Crossroads Express",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Corner Depot",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 0,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 1,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 1,
+          "direction": "right",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Central Hub",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 2,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 2,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p1",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p2"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Pinwheel Turn",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 1,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 2,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Dual Conveyor",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 0,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 2,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 2,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p5",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p5",
+        "p6",
+        "p7",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Warehouse Aisle",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 2,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p5",
+          "row": 3,
+          "col": 1,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p3",
+        "p2",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p1"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Dispatch Gate",
+      "rows": 4,
+      "cols": 4,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 2,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "easy",
+      "exampleSolution": [
+        "p1",
+        "p4",
+        "p6",
+        "p8",
+        "p2",
+        "p3",
+        "p5",
+        "p7"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Level 11: Cargo Maze",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 4,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Level 12: Pallet Stacking",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 1,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 4,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 2,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 3,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Level 13: Freight Transfer",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Level 14: Shipping Corridor",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 2,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 4,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 3,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 0,
+          "col": 2,
+          "direction": "left",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Level 15: Package Cascade",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 4,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 3,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Level 16: Interstate Depot",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 3,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 3,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p10",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Level 17: Priority Loading",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 2,
+          "col": 3,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Level 18: Harbor Terminal",
+      "rows": 4,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 3,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 2,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p4",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 0,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Level 19: Aviation Ramp",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 0,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 1,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Level 20: Overnight Routing",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 4,
+          "col": 3,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 2,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p11",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "medium",
+      "exampleSolution": [
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Level 21: Cross-Dock Matrix",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 2,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 4,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 3,
+          "col": 0,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 0,
+          "col": 4,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p7",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Level 22: Distribution Center",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 4,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 2,
+          "direction": "left",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Level 23: Container Bay",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 2,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 2,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 2,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 4,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Level 24: Forklift Grid",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 3,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 3,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 2,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p12",
+          "row": 3,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Level 25: Express Junction",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 1,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 3,
+          "col": 3,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p10",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p12",
+          "row": 2,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Level 26: Rail Yard Switch",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 3,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 0,
+          "col": 1,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p8",
+          "row": 4,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p11",
+          "row": 3,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p13",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Level 27: Air Freight Dock",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 4,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 2,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 3,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p10",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Level 28: Logistics Network",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 0,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 1,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p4",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 0,
+          "col": 4,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 1,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Level 29: Transit Terminal",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 1,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 4,
+          "col": 4,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 4,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 4,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 1,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p10",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p11",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p12",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p14",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Level 30: Cargo Labyrinth",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 3,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p9",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 2,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "advanced",
+      "exampleSolution": [
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Level 31: Metro Dispatch",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 2,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Level 32: Sorting Carousel",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 4,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 0,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 2,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 2,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p13",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Level 33: Deep Inventory",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 2,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 4,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 1,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 0,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p12",
+          "row": 3,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Level 34: Heavy Cargo Line",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 3,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 3,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 0,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p13",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Level 35: Automated Conveyor",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 2,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 3,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 1,
+          "col": 4,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 3,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 2,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 1,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 2,
+          "col": 4,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Level 36: High-Density Bay",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 3,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 0,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 0,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 3,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 2,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 1,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p15",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 37,
+      "name": "Level 37: Supply Chain Rush",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 3,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 3,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 2,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 3,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p12",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p13",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p15",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Level 38: Intermodal Depot",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 0,
+          "col": 3,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p7",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p11",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p13",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p15",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Level 39: Customs Clearance",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 1,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 4,
+          "col": 3,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 4,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p7",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 4,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p11",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 3,
+          "col": 2,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p15",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p16",
+          "row": 2,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 40,
+      "name": "Level 40: Transshipment Zone",
+      "rows": 5,
+      "cols": 5,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 3,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p7",
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p9",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p13",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p14",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p15",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p16",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Level 41: Master Courier",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 2,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 5,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 5,
+          "col": 3,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 4,
+          "col": 2,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 5,
+          "col": 1,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 2,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 1,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 3,
+          "col": 3,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p15",
+          "row": 5,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p16",
+          "row": 2,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p17",
+          "row": 2,
+          "col": 5,
+          "direction": "right",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Level 42: Flight Deck Bay",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 4,
+          "col": 3,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 3,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 5,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 5,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 1,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 5,
+          "col": 3,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p8",
+          "row": 5,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p9",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 5,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p13",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 2,
+          "col": 1,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p15",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p17",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "hard",
+      "exampleSolution": [
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 43,
+      "name": "Level 43: Strategic Dispatch",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 0,
+          "col": 3,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 1,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 3,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 2,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 2,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p11",
+          "row": 3,
+          "col": 5,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p13",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p14",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p15",
+          "row": 2,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p16",
+          "row": 4,
+          "col": 5,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p17",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 44,
+      "name": "Level 44: Grand Warehouse",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 5,
+          "col": 3,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 0,
+          "col": 5,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 0,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 5,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 3,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 5,
+          "col": 5,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p8",
+          "row": 4,
+          "col": 5,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 4,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 5,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p11",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 2,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p15",
+          "row": 5,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 2,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p17",
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p18",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "priority"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 45,
+      "name": "Level 45: Logistics Mastermind",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 1,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 5,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p5",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p12",
+          "row": 4,
+          "col": 5,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p13",
+          "row": 5,
+          "col": 0,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p14",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p15",
+          "row": 1,
+          "col": 2,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p17",
+          "row": 2,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p18",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 46,
+      "name": "Level 46: Peak Season Rush",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 5,
+          "col": 3,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 2,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p3",
+          "row": 4,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 2,
+          "col": 5,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 1,
+          "col": 4,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 2,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p9",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p12",
+          "row": 5,
+          "col": 4,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 1,
+          "col": 0,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 2,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p15",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p16",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p17",
+          "row": 5,
+          "col": 1,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p18",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p19",
+          "row": 5,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p19",
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 47,
+      "name": "Level 47: Apex Cargo Dock",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 2,
+          "col": 3,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p2",
+          "row": 5,
+          "col": 4,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 3,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 4,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 0,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p7",
+          "row": 3,
+          "col": 5,
+          "direction": "down",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 1,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p9",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 2,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 1,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p12",
+          "row": 3,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p13",
+          "row": 5,
+          "col": 3,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p14",
+          "row": 5,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p15",
+          "row": 3,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 1,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p17",
+          "row": 4,
+          "col": 3,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p18",
+          "row": 4,
+          "col": 2,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p19",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p19",
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 48,
+      "name": "Level 48: The Final Route",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 5,
+          "col": 4,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 5,
+          "col": 2,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 0,
+          "direction": "down",
+          "colorType": "priority"
+        },
+        {
+          "id": "p4",
+          "row": 0,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p5",
+          "row": 5,
+          "col": 1,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p6",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p7",
+          "row": 1,
+          "col": 1,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 5,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p10",
+          "row": 3,
+          "col": 0,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p11",
+          "row": 2,
+          "col": 2,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p12",
+          "row": 2,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p13",
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p14",
+          "row": 0,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p15",
+          "row": 3,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p16",
+          "row": 5,
+          "col": 3,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p17",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p18",
+          "row": 4,
+          "col": 5,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p19",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p19",
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 49,
+      "name": "Level 49: Ultimate Escapement",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 3,
+          "col": 0,
+          "direction": "left",
+          "colorType": "eco"
+        },
+        {
+          "id": "p2",
+          "row": 1,
+          "col": 0,
+          "direction": "left",
+          "colorType": "priority"
+        },
+        {
+          "id": "p3",
+          "row": 5,
+          "col": 1,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 3,
+          "col": 4,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p5",
+          "row": 1,
+          "col": 4,
+          "direction": "up",
+          "colorType": "eco"
+        },
+        {
+          "id": "p6",
+          "row": 3,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p7",
+          "row": 2,
+          "col": 4,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p8",
+          "row": 0,
+          "col": 1,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 1,
+          "direction": "left",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 0,
+          "col": 0,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p11",
+          "row": 4,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p12",
+          "row": 1,
+          "col": 5,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 4,
+          "col": 5,
+          "direction": "right",
+          "colorType": "priority"
+        },
+        {
+          "id": "p14",
+          "row": 1,
+          "col": 3,
+          "direction": "up",
+          "colorType": "standard"
+        },
+        {
+          "id": "p15",
+          "row": 2,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 5,
+          "direction": "up",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p17",
+          "row": 1,
+          "col": 2,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p18",
+          "row": 5,
+          "col": 2,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p19",
+          "row": 2,
+          "col": 5,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p20",
+          "row": 0,
+          "col": 4,
+          "direction": "up",
+          "colorType": "eco"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p20",
+        "p19",
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    },
+    {
+      "id": 50,
+      "name": "Level 50: Grand Freight Finale",
+      "rows": 6,
+      "cols": 6,
+      "parcels": [
+        {
+          "id": "p1",
+          "row": 5,
+          "col": 3,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p2",
+          "row": 4,
+          "col": 2,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p3",
+          "row": 1,
+          "col": 2,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p4",
+          "row": 2,
+          "col": 1,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p5",
+          "row": 5,
+          "col": 4,
+          "direction": "right",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p6",
+          "row": 2,
+          "col": 0,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p7",
+          "row": 0,
+          "col": 3,
+          "direction": "right",
+          "colorType": "express"
+        },
+        {
+          "id": "p8",
+          "row": 4,
+          "col": 4,
+          "direction": "right",
+          "colorType": "standard"
+        },
+        {
+          "id": "p9",
+          "row": 4,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p10",
+          "row": 1,
+          "col": 3,
+          "direction": "right",
+          "colorType": "eco"
+        },
+        {
+          "id": "p11",
+          "row": 1,
+          "col": 5,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p12",
+          "row": 5,
+          "col": 1,
+          "direction": "down",
+          "colorType": "fragile"
+        },
+        {
+          "id": "p13",
+          "row": 4,
+          "col": 0,
+          "direction": "left",
+          "colorType": "express"
+        },
+        {
+          "id": "p14",
+          "row": 4,
+          "col": 5,
+          "direction": "down",
+          "colorType": "express"
+        },
+        {
+          "id": "p15",
+          "row": 2,
+          "col": 4,
+          "direction": "up",
+          "colorType": "express"
+        },
+        {
+          "id": "p16",
+          "row": 0,
+          "col": 2,
+          "direction": "up",
+          "colorType": "priority"
+        },
+        {
+          "id": "p17",
+          "row": 5,
+          "col": 0,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p18",
+          "row": 5,
+          "col": 5,
+          "direction": "down",
+          "colorType": "standard"
+        },
+        {
+          "id": "p19",
+          "row": 3,
+          "col": 5,
+          "direction": "left",
+          "colorType": "standard"
+        },
+        {
+          "id": "p20",
+          "row": 1,
+          "col": 1,
+          "direction": "left",
+          "colorType": "fragile"
+        }
+      ],
+      "difficulty": "master",
+      "exampleSolution": [
+        "p20",
+        "p19",
+        "p18",
+        "p17",
+        "p16",
+        "p15",
+        "p14",
+        "p13",
+        "p12",
+        "p11",
+        "p10",
+        "p9",
+        "p8",
+        "p7",
+        "p6",
+        "p5",
+        "p4",
+        "p3",
+        "p2",
+        "p1"
+      ]
+    }
+  ]
+}
