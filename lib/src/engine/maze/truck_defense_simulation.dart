@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui';
 import '../../models/maze/character_animation_state.dart';
 import '../../models/maze/combat_models.dart';
 import '../../models/maze/delivery_state.dart';
@@ -82,6 +83,118 @@ class TruckDefenseSimulation {
   double playerMoveSpeedRatio = 0.0;
   double playerWalkPhase = 0.0;
   double _playerDustTimer = 0.0;
+
+  // Finger-drawn road route navigation (V3.5 / integration brief)
+  bool isDrawingRoadRoute = false;
+  final List<Offset> draftRoadRoute = [];
+  final List<Offset> activeRoadRoute = [];
+  int roadRouteIndex = 0;
+  Offset? invalidDragPoint;
+  bool isStunnedOrKnockedBack = false;
+  double stunDuration = 0.0;
+  bool isTruckBlockingCourier = false;
+
+  bool isRoadPointWalkable(double wx, double wy) {
+    if (wx < RoadArenaBounds.playableMarginX ||
+        wx > RoadArenaBounds.width - RoadArenaBounds.playableMarginX) {
+      return false;
+    }
+    if (wy < RoadArenaBounds.playableMarginTop ||
+        wy > RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom) {
+      return false;
+    }
+    // Check truck hull obstacle
+    final tdx = wx - truck.x;
+    final tdy = wy - truck.y;
+    final distToTruck = math.sqrt(tdx * tdx + tdy * tdy);
+    if (distToTruck < 0.65) {
+      return false;
+    }
+    return true;
+  }
+
+  bool beginRoadRouteDraw(double wx, double wy) {
+    // Touch tolerance: must start near Courier
+    final pdx = wx - playerX;
+    final pdy = wy - playerY;
+    final distToPlayer = math.sqrt(pdx * pdx + pdy * pdy);
+    if (distToPlayer > 1.35) return false;
+
+    isDrawingRoadRoute = true;
+    draftRoadRoute.clear();
+    draftRoadRoute.add(Offset(playerX, playerY));
+    invalidDragPoint = null;
+    return true;
+  }
+
+  bool updateRoadRouteDraw(double wx, double wy) {
+    if (!isDrawingRoadRoute) return false;
+
+    if (!isRoadPointWalkable(wx, wy)) {
+      invalidDragPoint = Offset(wx, wy);
+      // Retain draft without corrupting it
+      return true;
+    }
+
+    invalidDragPoint = null;
+    if (draftRoadRoute.isEmpty) {
+      draftRoadRoute.add(Offset(playerX, playerY));
+    }
+
+    final last = draftRoadRoute.last;
+    final dLast = math.sqrt((wx - last.dx) * (wx - last.dx) + (wy - last.dy) * (wy - last.dy));
+    if (dLast >= 0.28) {
+      // Check for backtracking to simplify route
+      int backtrackIdx = -1;
+      for (int i = 0; i < draftRoadRoute.length - 1; i++) {
+        final pt = draftRoadRoute[i];
+        final dist = math.sqrt((wx - pt.dx) * (wx - pt.dx) + (wy - pt.dy) * (wy - pt.dy));
+        if (dist < 0.32) {
+          backtrackIdx = i;
+          break;
+        }
+      }
+      if (backtrackIdx >= 0) {
+        draftRoadRoute.removeRange(backtrackIdx + 1, draftRoadRoute.length);
+      } else {
+        draftRoadRoute.add(Offset(wx, wy));
+      }
+    }
+    return true;
+  }
+
+  bool commitRoadRouteDraw() {
+    if (!isDrawingRoadRoute) return false;
+    isDrawingRoadRoute = false;
+    invalidDragPoint = null;
+
+    if (draftRoadRoute.length >= 2) {
+      activeRoadRoute.clear();
+      activeRoadRoute.addAll(draftRoadRoute);
+      roadRouteIndex = 1;
+      draftRoadRoute.clear();
+      return true;
+    }
+    draftRoadRoute.clear();
+    return false;
+  }
+
+  void cancelRoadRouteDraw() {
+    isDrawingRoadRoute = false;
+    draftRoadRoute.clear();
+    invalidDragPoint = null;
+  }
+
+  void cancelActiveRoadRoute() {
+    activeRoadRoute.clear();
+    roadRouteIndex = 0;
+    isTruckBlockingCourier = false;
+  }
+
+  void applyStun(double duration) {
+    isStunnedOrKnockedBack = true;
+    stunDuration = math.max(stunDuration, duration);
+  }
 
   // Combat projectiles, hazards, helpers, dust puffs, VFX & popups inside Road Arena
   final List<ProjectileEntity> playerProjectiles = [];
@@ -873,8 +986,22 @@ class TruckDefenseSimulation {
     required bool isSlowed,
     required double attackAnimTimer,
   }) {
+    // Priority 1: Stun/Knockback temporarily suspends movement, retaining route!
+    if (isStunnedOrKnockedBack) {
+      stunDuration -= dt;
+      if (stunDuration <= 0.0) {
+        isStunnedOrKnockedBack = false;
+        stunDuration = 0.0;
+      }
+      playerIsMoving = false;
+      playerMoveSpeedRatio = 0.0;
+      return;
+    }
+
     final mag = math.sqrt(inputDx * inputDx + inputDy * inputDy).clamp(0.0, 1.0);
-    if (mag > 0.05) {
+    // Priority 2: Joystick overrides active route
+    if (mag > 0.08) {
+      cancelActiveRoadRoute();
       playerIsMoving = true;
       playerMoveSpeedRatio = mag;
       if (attackAnimTimer <= 0.05) {
@@ -894,6 +1021,70 @@ class TruckDefenseSimulation {
           y: playerY + 0.28,
           maxRadius: 0.20,
         ));
+      }
+    } else if (activeRoadRoute.isNotEmpty && roadRouteIndex < activeRoadRoute.length) {
+      // Priority 3: Follow finger-drawn road route waypoints!
+      final target = activeRoadRoute[roadRouteIndex];
+      final rdx = target.dx - playerX;
+      final rdy = target.dy - playerY;
+      final rdist = math.sqrt(rdx * rdx + rdy * rdy);
+
+      // Check moving truck obstacle: if truck directly blocks path, pause Courier safely
+      final tdx = truck.x - playerX;
+      final tdy = truck.y - playerY;
+      final tdist = math.sqrt(tdx * tdx + tdy * tdy);
+      const minTruckClearance = playerRadius + truckCollisionRadius * 0.95;
+      final bool truckBlocks = tdist < minTruckClearance &&
+          (rdx * tdx + rdy * tdy) > 0.0; // Heading directly into truck
+
+      if (truckBlocks) {
+        isTruckBlockingCourier = true;
+        playerIsMoving = false;
+        playerMoveSpeedRatio = 0.0;
+      } else {
+        isTruckBlockingCourier = false;
+        if (rdist <= 0.08) {
+          playerX = target.dx;
+          playerY = target.dy;
+          roadRouteIndex++;
+          if (roadRouteIndex >= activeRoadRoute.length) {
+            cancelActiveRoadRoute();
+            playerIsMoving = false;
+            playerMoveSpeedRatio = 0.0;
+          }
+        } else {
+          playerIsMoving = true;
+          playerMoveSpeedRatio = 1.0;
+          final dirX = rdx / rdist;
+          final dirY = rdy / rdist;
+          if (attackAnimTimer <= 0.05) {
+            playerFacingAngle = math.atan2(dirY, dirX);
+          }
+          final slow = isSlowed ? 0.62 : 1.0;
+          playerWalkPhase += dt * (8.5 + 6.5) * slow;
+          final moveDist = math.min(rdist, playerMoveSpeed * slow * dt);
+          playerX += dirX * moveDist;
+          playerY += dirY * moveDist;
+
+          _playerDustTimer -= dt;
+          if (_playerDustTimer <= 0.0) {
+            _playerDustTimer = 0.24;
+            dustPuffs.add(DustPuffEntity(
+              x: playerX - dirX * 0.18,
+              y: playerY + 0.28,
+              maxRadius: 0.20,
+            ));
+          }
+
+          if (rdist - moveDist <= 0.06) {
+            roadRouteIndex++;
+            if (roadRouteIndex >= activeRoadRoute.length) {
+              cancelActiveRoadRoute();
+              playerIsMoving = false;
+              playerMoveSpeedRatio = 0.0;
+            }
+          }
+        }
       }
     } else {
       playerIsMoving = false;
@@ -1865,6 +2056,7 @@ class TruckDefenseSimulation {
       lifetime: 1.1,
     ));
     onHitPlayerHealth();
+    applyStun(0.40);
     callbacks.onPlayerDamaged?.call();
   }
 

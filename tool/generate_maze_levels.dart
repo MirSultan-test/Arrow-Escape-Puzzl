@@ -6,6 +6,7 @@ import 'package:parcel_escape/src/engine/maze/maze_pathfinder.dart';
 import 'package:parcel_escape/src/engine/maze/maze_validator.dart';
 import 'package:parcel_escape/src/models/maze/combat_models.dart';
 import 'package:parcel_escape/src/models/maze/food_item.dart';
+import 'package:parcel_escape/src/models/maze/level_roster.dart';
 import 'package:parcel_escape/src/models/maze/maze_level.dart';
 import 'package:parcel_escape/src/models/maze/monster.dart';
 import 'package:parcel_escape/src/models/maze/monster_variants.dart';
@@ -205,8 +206,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(5, 3),
         patrolPath: [GridPoint(5, 3), GridPoint(6, 3)],
         biteDamage: 25,
-        appearanceId: 'lv3_m0_patrolGuardian',
-        movementProfile: MonsterMovementProfile.patrolGuardian,
+        appearanceId: 'L03_bramble_pup',
+        movementProfile: MonsterMovementProfile.fastHunter,
       ),
     ],
   );
@@ -251,7 +252,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(2, 3), GridPoint(8, 3)],
         speed: 1.85,
         biteDamage: 25,
-        appearanceId: 'lv4_m0_slowStalker',
+        appearanceId: 'L04_dewdrop_snail',
         movementProfile: MonsterMovementProfile.slowStalker,
       ),
     ],
@@ -296,8 +297,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(4, 5),
         patrolPath: [GridPoint(4, 5), GridPoint(6, 5)],
         biteDamage: 25,
-        appearanceId: 'lv5_m0_ambushMonster',
-        movementProfile: MonsterMovementProfile.ambushMonster,
+        appearanceId: 'L05_cherrywing',
+        movementProfile: MonsterMovementProfile.flyingMonster,
       ),
       MonsterDefinition(
         id: 'l5_p1',
@@ -306,7 +307,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(3, 7), GridPoint(8, 7)],
         speed: 1.85,
         biteDamage: 25,
-        appearanceId: 'lv5_m1_crawlingMonster',
+        appearanceId: 'l5_s1_minion',
         movementProfile: MonsterMovementProfile.crawlingMonster,
       ),
     ],
@@ -358,8 +359,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(3, 3), GridPoint(9, 3)],
         speed: 1.95,
         biteDamage: 25,
-        appearanceId: 'lv6_m0_zigzagMonster',
-        movementProfile: MonsterMovementProfile.zigzagMonster,
+        appearanceId: 'L06_puddle_pouncer',
+        movementProfile: MonsterMovementProfile.jumpingCreature,
       ),
       MonsterDefinition(
         id: 'l6_p2',
@@ -368,8 +369,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(1, 7), GridPoint(9, 7)],
         speed: 1.95,
         biteDamage: 25,
-        appearanceId: 'lv6_m1_jumpingCreature',
-        movementProfile: MonsterMovementProfile.jumpingCreature,
+        appearanceId: 'l6_s1_minion',
+        movementProfile: MonsterMovementProfile.zigzagMonster,
       ),
     ],
     healthPickups: const [
@@ -427,8 +428,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         speed: 2.1,
         detectionRange: 3.5,
         biteDamage: 30,
-        appearanceId: 'lv7_m0_fastHunter',
-        movementProfile: MonsterMovementProfile.fastHunter,
+        appearanceId: 'L07_cider_tusk',
+        movementProfile: MonsterMovementProfile.patrolGuardian,
       ),
       MonsterDefinition(
         id: 'l7_g1',
@@ -436,7 +437,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 4),
         patrolPath: [GridPoint(1, 3), GridPoint(1, 5)],
         biteDamage: 35,
-        appearanceId: 'lv7_m1_chargingMonster',
+        appearanceId: 'l7_s1_minion',
         movementProfile: MonsterMovementProfile.chargingMonster,
       ),
     ],
@@ -491,8 +492,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 3),
         patrolPath: [GridPoint(1, 3), GridPoint(9, 3)],
         speed: 1.95,
-        appearanceId: 'lv8_m0_flyingMonster',
-        movementProfile: MonsterMovementProfile.flyingMonster,
+        appearanceId: 'L08_peel_pincher',
+        movementProfile: MonsterMovementProfile.zigzagMonster,
       ),
       MonsterDefinition(
         id: 'l8_p2',
@@ -500,7 +501,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(9, 7),
         patrolPath: [GridPoint(9, 7), GridPoint(1, 7)],
         speed: 1.95,
-        appearanceId: 'lv8_m1_crawlingMonster',
+        appearanceId: 'l8_s1_minion',
         movementProfile: MonsterMovementProfile.crawlingMonster,
       ),
       MonsterDefinition(
@@ -508,7 +509,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         type: MonsterType.guardian,
         start: GridPoint(5, 3),
         patrolPath: [GridPoint(5, 3), GridPoint(6, 3)],
-        appearanceId: 'lv8_m2_patrolGuardian',
+        appearanceId: 'l8_s2_minion',
         movementProfile: MonsterMovementProfile.patrolGuardian,
       ),
     ],
@@ -559,8 +560,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 3),
         patrolPath: [GridPoint(1, 3), GridPoint(11, 3)],
         speed: 2.05,
-        appearanceId: 'lv9_m0_zigzagMonster',
-        movementProfile: MonsterMovementProfile.zigzagMonster,
+        appearanceId: 'L09_honeycomb_scout',
+        movementProfile: MonsterMovementProfile.flyingMonster,
       ),
       MonsterDefinition(
         id: 'l9_p2',
@@ -568,7 +569,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(11, 7),
         patrolPath: [GridPoint(11, 7), GridPoint(1, 7)],
         speed: 2.05,
-        appearanceId: 'lv9_m1_jumpingCreature',
+        appearanceId: 'l9_s1_minion',
         movementProfile: MonsterMovementProfile.jumpingCreature,
       ),
       MonsterDefinition(
@@ -577,7 +578,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(5, 3),
         patrolPath: [GridPoint(5, 3), GridPoint(5, 7)],
         speed: 1.9,
-        appearanceId: 'lv9_m2_ambushMonster',
+        appearanceId: 'l9_s2_minion',
         movementProfile: MonsterMovementProfile.ambushMonster,
       ),
     ],
@@ -629,7 +630,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 3),
         patrolPath: [GridPoint(1, 3), GridPoint(11, 3)],
         speed: 2.05,
-        appearanceId: 'lv10_m0_chargingMonster',
+        appearanceId: 'L10_thistle_roller',
         movementProfile: MonsterMovementProfile.chargingMonster,
       ),
       MonsterDefinition(
@@ -638,7 +639,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(11, 7),
         patrolPath: [GridPoint(11, 7), GridPoint(1, 7)],
         speed: 2.05,
-        appearanceId: 'lv10_m1_flyingMonster',
+        appearanceId: 'l10_s1_minion',
         movementProfile: MonsterMovementProfile.flyingMonster,
       ),
       MonsterDefinition(
@@ -648,7 +649,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(3, 5), GridPoint(9, 5)],
         speed: 2.15,
         detectionRange: 3.4,
-        appearanceId: 'lv10_m2_intelligentHunter',
+        appearanceId: 'l10_s2_minion',
         movementProfile: MonsterMovementProfile.intelligentHunter,
       ),
       MonsterDefinition(
@@ -656,7 +657,7 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         type: MonsterType.guardian,
         start: GridPoint(7, 1),
         patrolPath: [GridPoint(6, 1), GridPoint(7, 1)],
-        appearanceId: 'lv10_m3_patrolGuardian',
+        appearanceId: 'l10_s3_minion',
         movementProfile: MonsterMovementProfile.patrolGuardian,
       ),
     ],
@@ -911,7 +912,13 @@ List<MazeLevel> _buildDistrict2To5() {
 
       final patrolPath = _buildPatrolPath(tempLevel, startPt, mType, rng);
       final speedScale = 1.0 + (district - 2) * 0.05 + (isBoss ? 0.04 : 0.0);
-      final profile = _movementProfileForLevelSlot(id, i, mType);
+      final roster = LevelRosterCatalog.forLevel(id);
+      final isSlot0 = i == 0;
+      final profile = isSlot0
+          ? roster.movementProfile
+          : _movementProfileForLevelSlot(id, i, mType);
+      final appearanceId =
+          isSlot0 ? roster.primaryModelId : 'l${id}_s${i}_minion';
 
       monsters.add(MonsterDefinition(
         id: 'l${id}_m$i',
@@ -926,7 +933,7 @@ List<MazeLevel> _buildDistrict2To5() {
             ? (3.6 + (district - 2) * 0.25)
             : mType.defaultDetectionRange,
         biteDamage: mType.defaultBiteDamage,
-        appearanceId: 'lv${id}_m${i}_${profile.name}',
+        appearanceId: appearanceId,
         movementProfile: profile,
       ));
     }
@@ -1233,10 +1240,9 @@ MonsterMovementProfile _movementProfileForLevelSlot(
   MonsterType type,
 ) {
   const allProfiles = MonsterMovementProfile.values;
-  // Slot 0 rotates through all 10 profiles sequentially across levels so
-  // consecutive levels always feature a brand-new signature monster movement!
+  // Slot 0 assigns the exact intended locomotion profile from level_roster.csv!
   if (slotIndex == 0) {
-    return allProfiles[(levelId - 1) % allProfiles.length];
+    return LevelRosterCatalog.forLevel(levelId).movementProfile;
   }
   // Subsequent slots combine level-based stride with anatomy affinity
   final baseOffset = switch (type) {

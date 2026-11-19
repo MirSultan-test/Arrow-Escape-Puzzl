@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../engine/maze/maze_game_engine.dart';
+import '../../engine/maze/truck_defense_simulation.dart';
 import '../../models/maze/combat_models.dart';
 import '../../models/maze/delivery_state.dart';
 import '../../models/maze/maze_level.dart';
@@ -23,6 +24,14 @@ class RoadArenaViewport {
 
   Offset toScreen(double wx, double wy) =>
       Offset(originX + wx * scale, originY + wy * scale);
+
+  Offset toWorld(Offset screenPos) {
+    if (scale <= 0) return Offset.zero;
+    return Offset(
+      (screenPos.dx - originX) / scale,
+      (screenPos.dy - originY) / scale,
+    );
+  }
 
   static RoadArenaViewport compute(Size size) {
     final sx = size.width / RoadArenaBounds.width;
@@ -107,6 +116,9 @@ class RoadBattlePainter extends CustomPainter {
       );
       canvas.drawCircle(pos, s * 0.28, Paint()..color = const Color(0xFFFF715B));
     }
+
+    // 8b. Finger-Drawn Road Route (Active & Draft Waypoints + Rejection)
+    _drawRoadRoute(canvas, vp, td);
 
     // 9. Boss Attack Telegraphs (Bomb Target Circles, Charge Lanes, Slam Danger Zones)
     _drawBossTelegraphs(canvas, vp, td);
@@ -910,6 +922,176 @@ class RoadBattlePainter extends CustomPainter {
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2.8 * alpha,
       );
+    }
+  }
+
+  void _drawRoadRoute(
+    Canvas canvas,
+    RoadArenaViewport vp,
+    TruckDefenseSimulation td,
+  ) {
+    final s = vp.scale;
+
+    // 1. Draw Active Route being followed
+    if (td.activeRoadRoute.isNotEmpty && td.roadRouteIndex < td.activeRoadRoute.length) {
+      final pts = <Offset>[
+        vp.toScreen(td.playerX, td.playerY),
+        for (int i = td.roadRouteIndex; i < td.activeRoadRoute.length; i++)
+          vp.toScreen(td.activeRoadRoute[i].dx, td.activeRoadRoute[i].dy),
+      ];
+
+      if (pts.length >= 2) {
+        final path = Path()..moveTo(pts.first.dx, pts.first.dy);
+        for (int i = 1; i < pts.length; i++) {
+          path.lineTo(pts[i].dx, pts[i].dy);
+        }
+
+        // Luminous glowing route outline
+        canvas.drawPath(
+          path,
+          Paint()
+            ..color = const Color(0x6600E5FF)
+            ..strokeWidth = s * 0.16
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+        // Solid core line
+        canvas.drawPath(
+          path,
+          Paint()
+            ..color = const Color(0xFF00E5FF)
+            ..strokeWidth = s * 0.08
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+
+        // Animated flow dots along remaining waypoints
+        for (int i = 1; i < pts.length; i++) {
+          canvas.drawCircle(
+            pts[i],
+            s * 0.06,
+            Paint()..color = Colors.white,
+          );
+        }
+
+        // Final destination target ring
+        final last = pts.last;
+        canvas.drawCircle(
+          last,
+          s * 0.22,
+          Paint()
+            ..color = const Color(0x8800E5FF)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.5,
+        );
+        canvas.drawCircle(
+          last,
+          s * 0.10,
+          Paint()..color = const Color(0xFF00E5FF),
+        );
+      }
+    }
+
+    // 2. Draw In-Progress Draft Route Drag
+    if (td.isDrawingRoadRoute && td.draftRoadRoute.isNotEmpty) {
+      final draftPts = [
+        for (final pt in td.draftRoadRoute) vp.toScreen(pt.dx, pt.dy),
+      ];
+
+      if (draftPts.length >= 2) {
+        final draftPath = Path()..moveTo(draftPts.first.dx, draftPts.first.dy);
+        for (int i = 1; i < draftPts.length; i++) {
+          draftPath.lineTo(draftPts[i].dx, draftPts[i].dy);
+        }
+
+        // Golden glowing draft trail
+        canvas.drawPath(
+          draftPath,
+          Paint()
+            ..color = const Color(0x66FFD700)
+            ..strokeWidth = s * 0.18
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+        canvas.drawPath(
+          draftPath,
+          Paint()
+            ..color = const Color(0xFFFFD700)
+            ..strokeWidth = s * 0.09
+            ..style = PaintingStyle.stroke
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+      }
+
+      // Draw start ring
+      canvas.drawCircle(
+        draftPts.first,
+        s * 0.20,
+        Paint()
+          ..color = const Color(0xFFFFD700)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.0,
+      );
+
+      // Draw drag head circle
+      canvas.drawCircle(
+        draftPts.last,
+        s * 0.14,
+        Paint()..color = const Color(0xFFFFD700),
+      );
+
+      // 3. Draw Invalid Drag Segment & Rejection Indicator (red dashed line + ✕)
+      if (td.invalidDragPoint != null) {
+        final invalidScr = vp.toScreen(td.invalidDragPoint!.dx, td.invalidDragPoint!.dy);
+        final lastValidScr = draftPts.last;
+
+        // Dashed red line
+        final dashPaint = Paint()
+          ..color = const Color(0xFFEF4444)
+          ..strokeWidth = s * 0.07
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.round;
+
+        final dashDist = (invalidScr - lastValidScr).distance;
+        if (dashDist > 0.01) {
+          final dir = (invalidScr - lastValidScr) / dashDist;
+          double d = 0;
+          while (d < dashDist) {
+            final p1 = lastValidScr + dir * d;
+            final p2 = lastValidScr + dir * math.min(d + s * 0.08, dashDist);
+            canvas.drawLine(p1, p2, dashPaint);
+            d += s * 0.16;
+          }
+        }
+
+        // Red circular warning badge with ✕ mark
+        canvas.drawCircle(
+          invalidScr,
+          s * 0.22,
+          Paint()..color = const Color(0xDDDC2626),
+        );
+        canvas.drawCircle(
+          invalidScr,
+          s * 0.22,
+          Paint()
+            ..color = Colors.white
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.0,
+        );
+
+        // 'X' icon
+        final crossPaint = Paint()
+          ..color = Colors.white
+          ..strokeWidth = 2.5
+          ..strokeCap = StrokeCap.round;
+        final arm = s * 0.09;
+        canvas.drawLine(invalidScr + Offset(-arm, -arm), invalidScr + Offset(arm, arm), crossPaint);
+        canvas.drawLine(invalidScr + Offset(-arm, arm), invalidScr + Offset(arm, -arm), crossPaint);
+      }
     }
   }
 

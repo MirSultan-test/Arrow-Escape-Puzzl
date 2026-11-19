@@ -1,5 +1,6 @@
 import 'combat_models.dart';
 import 'food_item.dart';
+import 'level_roster.dart';
 import 'monster.dart';
 import 'truck_defense_models.dart';
 
@@ -219,6 +220,12 @@ class MazeLevel {
 
   MazeDistrictInfo get districtInfo => MazeDistrictInfo.forDistrict(district);
 
+  /// Explicit level identity, art file, gait, and signature attack from `level_roster.csv`.
+  LevelRosterEntry get rosterEntry => LevelRosterCatalog.forLevel(id);
+  String get primaryModelId => rosterEntry.primaryModelId;
+  String get primaryModelPath => rosterEntry.modelAssetPath;
+  String get primaryPreviewPath => rosterEntry.previewAssetPath;
+
   /// V3.3 per-level Truck Defense boss, cage, winding road & destination config.
   TruckDefenseConfig get truckDefenseConfig => TruckDefenseConfig.forLevel(
         levelId: id,
@@ -246,6 +253,9 @@ class MazeLevel {
         'district': district,
         'title': title,
         'subtitle': subtitle,
+        'primaryModelId': primaryModelId,
+        'primaryModelPath': primaryModelPath,
+        'primaryPreviewPath': primaryPreviewPath,
         if (tutorialTip != null) 'tutorialTip': tutorialTip,
         'cols': cols,
         'rows': rows,

@@ -27,6 +27,13 @@ flutter:
     - assets/levels/
     - assets/audio/
     - assets/sprites/
+    - assets/art_kit/
+    - assets/art_kit/01_Monsters/
+    - assets/art_kit/02_Characters/
+    - assets/art_kit/03_Boss_Studies/
+    - assets/art_kit/04_Style_Boards/
+    - assets/art_kit/05_Environment/
+    - assets/art_kit/06_Implementation/
 
 
   # To add assets to your application, add an assets section, like this:

@@ -34,6 +34,7 @@ class _GameplayScreenState extends State<GameplayScreen>
   Duration _lastTick = Duration.zero;
   bool _endDialogShown = false;
   Size _lastMazeSize = Size.zero;
+  int? _drawingPointerId;
 
   @override
   void initState() {
@@ -193,45 +194,86 @@ class _GameplayScreenState extends State<GameplayScreen>
     widget.controller.canvasRepaintTick.value++;
   }
 
-  void _handleRoutePanStart(DragStartDetails details) {
+  void _handleStagePointerDown(PointerDownEvent event) {
     final eng = widget.controller.engine;
-    if (eng == null ||
-        _lastMazeSize == Size.zero ||
-        eng.phase != MazeGamePhase.playing) {
-      return;
-    }
-    final vp = MazeViewportTransform.compute(_lastMazeSize, eng);
-    final worldPt = vp.screenToWorld(details.localPosition);
-    if (eng.beginRouteDraw(worldPt.dx, worldPt.dy)) {
-      widget.controller.canvasRepaintTick.value++;
+    if (eng == null || _lastMazeSize == Size.zero) return;
+
+    final showRoadArena = eng.phase.isRoadBattleView;
+    if (showRoadArena) {
+      if (eng.phase == MazeGamePhase.truckDefensePlaying) {
+        final vp = RoadArenaViewport.compute(_lastMazeSize);
+        final worldPt = vp.toWorld(event.localPosition);
+        if (eng.truckDefense.beginRoadRouteDraw(worldPt.dx, worldPt.dy)) {
+          _drawingPointerId = event.pointer;
+          widget.controller.canvasRepaintTick.value++;
+        }
+      }
+    } else {
+      if (eng.phase == MazeGamePhase.playing) {
+        final vp = MazeViewportTransform.compute(_lastMazeSize, eng);
+        final worldPt = vp.screenToWorld(event.localPosition);
+        if (eng.beginRouteDraw(worldPt.dx, worldPt.dy)) {
+          _drawingPointerId = event.pointer;
+          widget.controller.canvasRepaintTick.value++;
+        }
+      }
     }
   }
 
-  void _handleRoutePanUpdate(DragUpdateDetails details) {
+  void _handleStagePointerMove(PointerMoveEvent event) {
+    if (event.pointer != _drawingPointerId) return;
     final eng = widget.controller.engine;
-    if (eng == null ||
-        _lastMazeSize == Size.zero ||
-        eng.phase != MazeGamePhase.playing ||
-        !eng.isDrawingRoute) {
-      return;
+    if (eng == null || _lastMazeSize == Size.zero) return;
+
+    final showRoadArena = eng.phase.isRoadBattleView;
+    if (showRoadArena) {
+      if (eng.phase == MazeGamePhase.truckDefensePlaying) {
+        final vp = RoadArenaViewport.compute(_lastMazeSize);
+        final worldPt = vp.toWorld(event.localPosition);
+        eng.truckDefense.updateRoadRouteDraw(worldPt.dx, worldPt.dy);
+        widget.controller.canvasRepaintTick.value++;
+      }
+    } else {
+      if (eng.phase == MazeGamePhase.playing && eng.isDrawingRoute) {
+        final vp = MazeViewportTransform.compute(_lastMazeSize, eng);
+        final worldPt = vp.screenToWorld(event.localPosition);
+        eng.updateRouteDraw(worldPt.dx, worldPt.dy);
+        widget.controller.canvasRepaintTick.value++;
+      }
     }
-    final vp = MazeViewportTransform.compute(_lastMazeSize, eng);
-    final worldPt = vp.screenToWorld(details.localPosition);
-    eng.updateRouteDraw(worldPt.dx, worldPt.dy);
+  }
+
+  void _handleStagePointerUp(PointerUpEvent event) {
+    if (event.pointer != _drawingPointerId) return;
+    _drawingPointerId = null;
+    final eng = widget.controller.engine;
+    if (eng == null) return;
+
+    final showRoadArena = eng.phase.isRoadBattleView;
+    if (showRoadArena) {
+      eng.truckDefense.commitRoadRouteDraw();
+    } else {
+      if (eng.isDrawingRoute) {
+        eng.commitRouteDraw();
+      }
+    }
     widget.controller.canvasRepaintTick.value++;
   }
 
-  void _handleRoutePanEnd(DragEndDetails details) {
+  void _handleStagePointerCancel(PointerCancelEvent event) {
+    if (event.pointer != _drawingPointerId) return;
+    _drawingPointerId = null;
     final eng = widget.controller.engine;
-    if (eng == null || !eng.isDrawingRoute) return;
-    eng.commitRouteDraw();
-    widget.controller.canvasRepaintTick.value++;
-  }
+    if (eng == null) return;
 
-  void _handleRoutePanCancel() {
-    final eng = widget.controller.engine;
-    if (eng == null || !eng.isDrawingRoute) return;
-    eng.cancelRouteDraw();
+    final showRoadArena = eng.phase.isRoadBattleView;
+    if (showRoadArena) {
+      eng.truckDefense.cancelRoadRouteDraw();
+    } else {
+      if (eng.isDrawingRoute) {
+        eng.cancelRouteDraw();
+      }
+    }
     widget.controller.canvasRepaintTick.value++;
   }
 
@@ -284,14 +326,16 @@ class _GameplayScreenState extends State<GameplayScreen>
                           final transitionT =
                               eng.truckDefense.arenaTransitionProgress;
 
-                          return GestureDetector(
+                          return Listener(
                             behavior: HitTestBehavior.opaque,
-                            onTapUp: _handleMazeTap,
-                            onPanStart: showRoadArena ? null : _handleRoutePanStart,
-                            onPanUpdate: showRoadArena ? null : _handleRoutePanUpdate,
-                            onPanEnd: showRoadArena ? null : _handleRoutePanEnd,
-                            onPanCancel: showRoadArena ? null : _handleRoutePanCancel,
-                            child: AnimatedSwitcher(
+                            onPointerDown: _handleStagePointerDown,
+                            onPointerMove: _handleStagePointerMove,
+                            onPointerUp: _handleStagePointerUp,
+                            onPointerCancel: _handleStagePointerCancel,
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTapUp: _handleMazeTap,
+                              child: AnimatedSwitcher(
                               duration: Duration(
                                 milliseconds: reducedMotion ? 0 : 420,
                               ),
@@ -358,6 +402,7 @@ class _GameplayScreenState extends State<GameplayScreen>
                                           ),
                                       ],
                                     ),
+                              ),
                             ),
                           );
                         },

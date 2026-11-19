@@ -1514,6 +1514,56 @@ class SkeletalCharacterAnimator {
       );
     }
 
+    // Boss Study Signature Tells:
+    // 1. Thorn Ravager jagged bramble spines along back
+    final isThorn = (snap.appearance?.title.toLowerCase().contains('thorn') ?? false) ||
+        snap.bossType == DistrictBossType.orchardThornBeast;
+    if (isThorn) {
+      final thornPaint = Paint()..color = palette.claw;
+      for (int i = 0; i < 3; i++) {
+        final tx = -dirX * r * (0.35 + i * 0.16);
+        final ty = -r * (0.30 + i * 0.12);
+        final thornPath = Path()
+          ..moveTo(tx, ty)
+          ..lineTo(tx - dirX * r * 0.20, ty - r * 0.18)
+          ..lineTo(tx - dirX * r * 0.08, ty + r * 0.08)
+          ..close();
+        canvas.drawPath(thornPath, thornPaint);
+      }
+    }
+
+    // 2. Lantern Leviathan bioluminescent swaying lure
+    final isLantern = (snap.appearance?.title.toLowerCase().contains('lantern') ?? false) ||
+        (snap.appearance?.title.toLowerCase().contains('leviathan') ?? false);
+    if (isLantern) {
+      final stalkTip = Offset(dirX * r * 0.45, -r * 1.15 + math.sin(snap.elapsed * 3.0) * r * 0.08);
+      canvas.drawLine(
+        Offset(dirX * r * 0.10, -r * 0.85),
+        stalkTip,
+        Paint()
+          ..color = palette.armor
+          ..strokeWidth = 2.5
+          ..strokeCap = StrokeCap.round,
+      );
+      canvas.drawCircle(stalkTip, r * 0.22, Paint()..color = const Color(0x5500E5FF));
+      canvas.drawCircle(stalkTip, r * 0.11, Paint()..color = const Color(0xFFE0F7FA));
+    }
+
+    // 3. Ironbell Colossus steam release puffing during recovery / idle
+    final isIronbell = (snap.appearance?.title.toLowerCase().contains('iron') ?? false) ||
+        (snap.appearance?.title.toLowerCase().contains('colossus') ?? false) ||
+        snap.bossType == DistrictBossType.marketArmoredBrute;
+    if (isIronbell && (snap.state == BossAnimState.idle || snap.hpRatio <= 0.35)) {
+      final steamPaint = Paint()..color = const Color(0x66FFFFFF);
+      for (int i = 0; i < 3; i++) {
+        final steamPhase = (snap.elapsed * 3.5 + i * 0.33) % 1.0;
+        final sy = -r * 0.45 - steamPhase * r * 0.75;
+        final sx = dirX * r * 0.35 + (i - 1) * r * 0.15;
+        final sRad = r * (0.12 + steamPhase * 0.22);
+        canvas.drawCircle(Offset(sx, sy), sRad, steamPaint);
+      }
+    }
+
     canvas.restore(); // End bodyLean
 
     // --- F. STATUS OVERLAYS (BOSS SHIELD, FREEZE PRISM, STUN STARS, HP BAR) ---

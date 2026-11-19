@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'level_roster.dart';
 import 'monster.dart';
 
 /// 10 distinct monster movement & tactical AI profiles (V3.5 Section 2).
@@ -122,6 +123,8 @@ class MonsterAppearanceSpec {
   final int clawHex;
   final double widthRatio;
   final double heightRatio;
+  final String? modelAssetPath;
+  final String? previewAssetPath;
 
   const MonsterAppearanceSpec({
     required this.appearanceId,
@@ -140,6 +143,8 @@ class MonsterAppearanceSpec {
     required this.clawHex,
     this.widthRatio = 1.0,
     this.heightRatio = 1.0,
+    this.modelAssetPath,
+    this.previewAssetPath,
   });
 
   /// Generates a reproducible, anatomy-matched unique monster design for a given
@@ -280,15 +285,21 @@ class MonsterAppearanceSpec {
     ];
     final pal = palettes[(levelId * 3 + slotIndex * 5 + rng.nextInt(3)) % palettes.length];
 
+    final roster = LevelRosterCatalog.forLevel(levelId);
+    final isPrimarySlot = slotIndex == 0;
+
     final id = explicitAppearanceId ??
-        'mon_l${levelId}_s${slotIndex}_${shape.name}_${movement.name}';
-    final prefix = _speciesPrefixes[(levelId + slotIndex * 7) % _speciesPrefixes.length];
-    final suffix = _speciesSuffixes[(shape.index + movement.index) % _speciesSuffixes.length];
+        (isPrimarySlot
+            ? roster.primaryModelId
+            : 'mon_l${levelId}_s${slotIndex}_${shape.name}_${movement.name}');
+    final name = isPrimarySlot
+        ? roster.monster
+        : '${_speciesPrefixes[(levelId + slotIndex * 7) % _speciesPrefixes.length]} ${_speciesSuffixes[(shape.index + movement.index) % _speciesSuffixes.length]}';
 
     return MonsterAppearanceSpec(
       appearanceId: id,
-      speciesName: '$prefix $suffix',
-      bodyShape: shape,
+      speciesName: name,
+      bodyShape: isPrimarySlot ? roster.bodyShape : shape,
       hornStyle: horn,
       mouthStyle: mouth,
       skinPattern: pattern,
@@ -302,6 +313,8 @@ class MonsterAppearanceSpec {
       clawHex: pal.$6,
       widthRatio: wRatio,
       heightRatio: hRatio,
+      modelAssetPath: isPrimarySlot ? roster.modelAssetPath : null,
+      previewAssetPath: isPrimarySlot ? roster.previewAssetPath : null,
     );
   }
 

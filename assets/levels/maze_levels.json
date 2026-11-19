@@ -7,6 +7,9 @@
       "district": 1,
       "title": "First Orchard Run",
       "subtitle": "Pick up the crisp apple & bring it to the Collector!",
+      "primaryModelId": "L01_pipjack",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L01_pipjack.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L01_pipjack.png",
       "tutorialTip": "Use the joystick to grab the Apple, then walk down to the Delivery Dock!",
       "cols": 9,
       "rows": 7,
@@ -54,6 +57,9 @@
       "district": 1,
       "title": "Twin Fruit Harvest",
       "subtitle": "Your bag holds 2 fruits — grab both before delivering!",
+      "primaryModelId": "L02_acorn_tunneler",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L02_acorn_tunneler.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L02_acorn_tunneler.png",
       "cols": 9,
       "rows": 7,
       "grid": [
@@ -108,6 +114,9 @@
       "district": 1,
       "title": "The Sleepy Guardian",
       "subtitle": "Sneak around the Guardian or take the safe detour!",
+      "primaryModelId": "L03_bramble_pup",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L03_bramble_pup.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L03_bramble_pup.png",
       "cols": 11,
       "rows": 7,
       "grid": [
@@ -175,8 +184,8 @@
           ],
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv3_m0_patrolGuardian",
-          "movementProfile": "patrolGuardian"
+          "appearanceId": "L03_bramble_pup",
+          "movementProfile": "fastHunter"
         }
       ]
     },
@@ -185,6 +194,9 @@
       "district": 1,
       "title": "Orchard Patrol",
       "subtitle": "Watch the Patroller's loop and deliver in 2 trips.",
+      "primaryModelId": "L04_dewdrop_snail",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L04_dewdrop_snail.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L04_dewdrop_snail.png",
       "cols": 11,
       "rows": 9,
       "grid": [
@@ -263,7 +275,7 @@
           "speed": 1.85,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv4_m0_slowStalker",
+          "appearanceId": "L04_dewdrop_snail",
           "movementProfile": "slowStalker"
         }
       ]
@@ -273,6 +285,9 @@
       "district": 1,
       "title": "Protect the Basket",
       "subtitle": "Guard your fruit condition — grab a heart if injured!",
+      "primaryModelId": "L05_cherrywing",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L05_cherrywing.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L05_cherrywing.png",
       "cols": 11,
       "rows": 9,
       "grid": [
@@ -350,8 +365,8 @@
           ],
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv5_m0_ambushMonster",
-          "movementProfile": "ambushMonster"
+          "appearanceId": "L05_cherrywing",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l5_p1",
@@ -373,7 +388,7 @@
           "speed": 1.85,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv5_m1_crawlingMonster",
+          "appearanceId": "l5_s1_minion",
           "movementProfile": "crawlingMonster"
         }
       ],
@@ -390,6 +405,9 @@
       "district": 1,
       "title": "Four-Corner Orchard",
       "subtitle": "Choose between the fast guarded center or the safer outer lanes!",
+      "primaryModelId": "L06_puddle_pouncer",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L06_puddle_pouncer.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L06_puddle_pouncer.png",
       "cols": 11,
       "rows": 11,
       "grid": [
@@ -478,8 +496,8 @@
           "speed": 1.95,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv6_m0_zigzagMonster",
-          "movementProfile": "zigzagMonster"
+          "appearanceId": "L06_puddle_pouncer",
+          "movementProfile": "jumpingCreature"
         },
         {
           "id": "l6_p2",
@@ -501,8 +519,8 @@
           "speed": 1.95,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv6_m1_jumpingCreature",
-          "movementProfile": "jumpingCreature"
+          "appearanceId": "l6_s1_minion",
+          "movementProfile": "zigzagMonster"
         }
       ],
       "healthPickups": [
@@ -527,6 +545,9 @@
       "district": 1,
       "title": "Hungry Red Hunter",
       "subtitle": "Stun the Red Hunter with your Bow or slip around the hedges!",
+      "primaryModelId": "L07_cider_tusk",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L07_cider_tusk.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L07_cider_tusk.png",
       "cols": 11,
       "rows": 9,
       "grid": [
@@ -614,8 +635,8 @@
           "detectionRange": 3.5,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv7_m0_fastHunter",
-          "movementProfile": "fastHunter"
+          "appearanceId": "L07_cider_tusk",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l7_g1",
@@ -636,7 +657,7 @@
           ],
           "biteDamage": 35,
           "alertDuration": 0.36,
-          "appearanceId": "lv7_m1_chargingMonster",
+          "appearanceId": "l7_s1_minion",
           "movementProfile": "chargingMonster"
         }
       ],
@@ -662,6 +683,9 @@
       "district": 1,
       "title": "Two-Trip Strategy",
       "subtitle": "Plan which 2 fruits to grab first to avoid backtracking!",
+      "primaryModelId": "L08_peel_pincher",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L08_peel_pincher.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L08_peel_pincher.png",
       "cols": 11,
       "rows": 11,
       "grid": [
@@ -749,8 +773,8 @@
           ],
           "speed": 1.95,
           "alertDuration": 0.36,
-          "appearanceId": "lv8_m0_flyingMonster",
-          "movementProfile": "flyingMonster"
+          "appearanceId": "L08_peel_pincher",
+          "movementProfile": "zigzagMonster"
         },
         {
           "id": "l8_p2",
@@ -771,7 +795,7 @@
           ],
           "speed": 1.95,
           "alertDuration": 0.36,
-          "appearanceId": "lv8_m1_crawlingMonster",
+          "appearanceId": "l8_s1_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -792,7 +816,7 @@
             }
           ],
           "alertDuration": 0.36,
-          "appearanceId": "lv8_m2_patrolGuardian",
+          "appearanceId": "l8_s2_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -809,6 +833,9 @@
       "district": 1,
       "title": "Crossroads Timing",
       "subtitle": "Read three overlapping patrol loops through the orchard!",
+      "primaryModelId": "L09_honeycomb_scout",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L09_honeycomb_scout.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L09_honeycomb_scout.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -896,8 +923,8 @@
           ],
           "speed": 2.05,
           "alertDuration": 0.36,
-          "appearanceId": "lv9_m0_zigzagMonster",
-          "movementProfile": "zigzagMonster"
+          "appearanceId": "L09_honeycomb_scout",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l9_p2",
@@ -918,7 +945,7 @@
           ],
           "speed": 2.05,
           "alertDuration": 0.36,
-          "appearanceId": "lv9_m1_jumpingCreature",
+          "appearanceId": "l9_s1_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -940,7 +967,7 @@
           ],
           "speed": 1.9,
           "alertDuration": 0.36,
-          "appearanceId": "lv9_m2_ambushMonster",
+          "appearanceId": "l9_s2_minion",
           "movementProfile": "ambushMonster"
         }
       ],
@@ -957,6 +984,9 @@
       "district": 1,
       "title": "Grand Orchard Harvest",
       "subtitle": "District 1 Finale: 5 prize fruits, patrols & a prowling Hunter!",
+      "primaryModelId": "L10_thistle_roller",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L10_thistle_roller.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L10_thistle_roller.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -1052,7 +1082,7 @@
           ],
           "speed": 2.05,
           "alertDuration": 0.36,
-          "appearanceId": "lv10_m0_chargingMonster",
+          "appearanceId": "L10_thistle_roller",
           "movementProfile": "chargingMonster"
         },
         {
@@ -1074,7 +1104,7 @@
           ],
           "speed": 2.05,
           "alertDuration": 0.36,
-          "appearanceId": "lv10_m1_flyingMonster",
+          "appearanceId": "l10_s1_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -1097,7 +1127,7 @@
           "speed": 2.15,
           "detectionRange": 3.4,
           "alertDuration": 0.36,
-          "appearanceId": "lv10_m2_intelligentHunter",
+          "appearanceId": "l10_s2_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -1118,7 +1148,7 @@
             }
           ],
           "alertDuration": 0.36,
-          "appearanceId": "lv10_m3_patrolGuardian",
+          "appearanceId": "l10_s3_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -1144,6 +1174,9 @@
       "district": 2,
       "title": "Market Dawn",
       "subtitle": "Collect 4 fresh items and reach the Collector!",
+      "primaryModelId": "L11_copper_kettle",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L11_copper_kettle.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L11_copper_kettle.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -1249,8 +1282,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv11_m0_slowStalker",
-          "movementProfile": "slowStalker"
+          "appearanceId": "L11_copper_kettle",
+          "movementProfile": "chargingMonster"
         },
         {
           "id": "l11_m1",
@@ -1289,7 +1322,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv11_m1_jumpingCreature",
+          "appearanceId": "l11_s1_minion",
           "movementProfile": "jumpingCreature"
         }
       ],
@@ -1315,6 +1348,9 @@
       "district": 2,
       "title": "Cobble Crossing",
       "subtitle": "Collect 4 fresh items and reach the Collector!",
+      "primaryModelId": "L12_lantern_moth",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L12_lantern_moth.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L12_lantern_moth.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -1417,11 +1453,11 @@
             }
           ],
           "speed": 2.75,
-          "detectionRange": 3.6,
+          "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv12_m0_fastHunter",
-          "movementProfile": "fastHunter"
+          "appearanceId": "L12_lantern_moth",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l12_m1",
@@ -1444,7 +1480,7 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv12_m1_zigzagMonster",
+          "appearanceId": "l12_s1_minion",
           "movementProfile": "zigzagMonster"
         }
       ],
@@ -1470,6 +1506,9 @@
       "district": 2,
       "title": "Carrot Alley",
       "subtitle": "Collect 4 fresh items and reach the Collector!",
+      "primaryModelId": "L13_radish_rook",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L13_radish_rook.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L13_radish_rook.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -1575,8 +1614,8 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv13_m0_zigzagMonster",
-          "movementProfile": "zigzagMonster"
+          "appearanceId": "L13_radish_rook",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l13_m1",
@@ -1603,7 +1642,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv13_m1_slowStalker",
+          "appearanceId": "l13_s1_minion",
           "movementProfile": "slowStalker"
         }
       ],
@@ -1629,6 +1668,9 @@
       "district": 2,
       "title": "Tomato Stall",
       "subtitle": "Collect 4 fresh items and reach the Collector!",
+      "primaryModelId": "L14_market_mimic",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L14_market_mimic.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L14_market_mimic.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -1722,8 +1764,8 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv14_m0_patrolGuardian",
-          "movementProfile": "patrolGuardian"
+          "appearanceId": "L14_market_mimic",
+          "movementProfile": "slowStalker"
         },
         {
           "id": "l14_m1",
@@ -1762,7 +1804,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv14_m1_zigzagMonster",
+          "appearanceId": "l14_s1_minion",
           "movementProfile": "zigzagMonster"
         }
       ],
@@ -1788,6 +1830,9 @@
       "district": 2,
       "title": "Bazaar Loop",
       "subtitle": "Collect 4 fresh items and reach the Collector!",
+      "primaryModelId": "L15_noodle_naga",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L15_noodle_naga.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L15_noodle_naga.png",
       "cols": 13,
       "rows": 11,
       "grid": [
@@ -1893,8 +1938,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv15_m0_ambushMonster",
-          "movementProfile": "ambushMonster"
+          "appearanceId": "L15_noodle_naga",
+          "movementProfile": "crawlingMonster"
         },
         {
           "id": "l15_m1",
@@ -1933,7 +1978,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv15_m1_chargingMonster",
+          "appearanceId": "l15_s1_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -1973,7 +2018,7 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv15_m2_jumpingCreature",
+          "appearanceId": "l15_s2_minion",
           "movementProfile": "jumpingCreature"
         }
       ],
@@ -1999,6 +2044,9 @@
       "district": 2,
       "title": "Spice & Citrus",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L16_spice_scorpion",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L16_spice_scorpion.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L16_spice_scorpion.png",
       "cols": 15,
       "rows": 11,
       "grid": [
@@ -2112,8 +2160,8 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv16_m0_jumpingCreature",
-          "movementProfile": "jumpingCreature"
+          "appearanceId": "L16_spice_scorpion",
+          "movementProfile": "crawlingMonster"
         },
         {
           "id": "l16_m1",
@@ -2152,7 +2200,7 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv16_m1_patrolGuardian",
+          "appearanceId": "l16_s1_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -2180,7 +2228,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv16_m2_patrolGuardian",
+          "appearanceId": "l16_s2_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -2206,6 +2254,9 @@
       "district": 2,
       "title": "Vendor Shortcut",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L17_cabbage_gripper",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L17_cabbage_gripper.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L17_cabbage_gripper.png",
       "cols": 15,
       "rows": 11,
       "grid": [
@@ -2319,8 +2370,8 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv17_m0_crawlingMonster",
-          "movementProfile": "crawlingMonster"
+          "appearanceId": "L17_cabbage_gripper",
+          "movementProfile": "chargingMonster"
         },
         {
           "id": "l17_m1",
@@ -2347,7 +2398,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv17_m1_zigzagMonster",
+          "appearanceId": "l17_s1_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -2371,7 +2422,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv17_m2_jumpingCreature",
+          "appearanceId": "l17_s2_minion",
           "movementProfile": "jumpingCreature"
         }
       ],
@@ -2397,6 +2448,9 @@
       "district": 2,
       "title": "Market Rush",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L18_peppercap_imp",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L18_peppercap_imp.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L18_peppercap_imp.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -2500,8 +2554,8 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv18_m0_chargingMonster",
-          "movementProfile": "chargingMonster"
+          "appearanceId": "L18_peppercap_imp",
+          "movementProfile": "zigzagMonster"
         },
         {
           "id": "l18_m1",
@@ -2540,7 +2594,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv18_m1_ambushMonster",
+          "appearanceId": "l18_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -2580,7 +2634,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv18_m2_slowStalker",
+          "appearanceId": "l18_s2_minion",
           "movementProfile": "slowStalker"
         }
       ],
@@ -2606,6 +2660,9 @@
       "district": 2,
       "title": "Merchant Square",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L19_saffron_fan",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L19_saffron_fan.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L19_saffron_fan.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -2721,8 +2778,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv19_m0_flyingMonster",
-          "movementProfile": "flyingMonster"
+          "appearanceId": "L19_saffron_fan",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l19_m1",
@@ -2761,7 +2818,7 @@
           "detectionRange": 3.6,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv19_m1_intelligentHunter",
+          "appearanceId": "l19_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -2801,7 +2858,7 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv19_m2_crawlingMonster",
+          "appearanceId": "l19_s2_minion",
           "movementProfile": "crawlingMonster"
         }
       ],
@@ -2827,6 +2884,9 @@
       "district": 2,
       "title": "Grand Market Day",
       "subtitle": "District 2 Boss Finale! Confront the Maze Guardian & deliver!",
+      "primaryModelId": "L20_scale_sentry",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L20_scale_sentry.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L20_scale_sentry.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -2939,11 +2999,11 @@
             }
           ],
           "speed": 1.77,
-          "detectionRange": 3.6,
+          "detectionRange": 4.3,
           "biteDamage": 40,
           "alertDuration": 0.36,
-          "appearanceId": "lv20_m0_intelligentHunter",
-          "movementProfile": "intelligentHunter"
+          "appearanceId": "L20_scale_sentry",
+          "movementProfile": "slowStalker"
         },
         {
           "id": "l20_m1",
@@ -2974,7 +3034,7 @@
           "detectionRange": 3.6,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv20_m1_jumpingCreature",
+          "appearanceId": "l20_s1_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -3002,7 +3062,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv20_m2_jumpingCreature",
+          "appearanceId": "l20_s2_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -3042,7 +3102,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv20_m3_flyingMonster",
+          "appearanceId": "l20_s3_minion",
           "movementProfile": "flyingMonster"
         }
       ],
@@ -3068,6 +3128,9 @@
       "district": 3,
       "title": "Pinewood Gate",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L21_moss_elk",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L21_moss_elk.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L21_moss_elk.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -3183,8 +3246,8 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv21_m0_slowStalker",
-          "movementProfile": "slowStalker"
+          "appearanceId": "L21_moss_elk",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l21_m1",
@@ -3223,7 +3286,7 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv21_m1_flyingMonster",
+          "appearanceId": "l21_s1_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -3255,7 +3318,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv21_m2_chargingMonster",
+          "appearanceId": "l21_s2_minion",
           "movementProfile": "chargingMonster"
         }
       ],
@@ -3281,6 +3344,9 @@
       "district": 3,
       "title": "Mossy Fork",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L22_fern_skipper",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L22_fern_skipper.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L22_fern_skipper.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -3396,8 +3462,8 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv22_m0_fastHunter",
-          "movementProfile": "fastHunter"
+          "appearanceId": "L22_fern_skipper",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l22_m1",
@@ -3436,7 +3502,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv22_m1_crawlingMonster",
+          "appearanceId": "l22_s1_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -3464,7 +3530,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv22_m2_zigzagMonster",
+          "appearanceId": "l22_s2_minion",
           "movementProfile": "zigzagMonster"
         }
       ],
@@ -3490,6 +3556,9 @@
       "district": 3,
       "title": "Berry Hollow",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L23_bark_centipede",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L23_bark_centipede.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L23_bark_centipede.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -3605,8 +3674,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv23_m0_zigzagMonster",
-          "movementProfile": "zigzagMonster"
+          "appearanceId": "L23_bark_centipede",
+          "movementProfile": "crawlingMonster"
         },
         {
           "id": "l23_m1",
@@ -3633,7 +3702,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv23_m1_slowStalker",
+          "appearanceId": "l23_s1_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -3673,7 +3742,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv23_m2_jumpingCreature",
+          "appearanceId": "l23_s2_minion",
           "movementProfile": "jumpingCreature"
         }
       ],
@@ -3699,6 +3768,9 @@
       "district": 3,
       "title": "Timber Watch",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L24_ambercap",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L24_ambercap.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L24_ambercap.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -3802,8 +3874,8 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv24_m0_patrolGuardian",
-          "movementProfile": "patrolGuardian"
+          "appearanceId": "L24_ambercap",
+          "movementProfile": "zigzagMonster"
         },
         {
           "id": "l24_m1",
@@ -3842,7 +3914,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv24_m1_ambushMonster",
+          "appearanceId": "l24_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -3882,7 +3954,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv24_m2_ambushMonster",
+          "appearanceId": "l24_s2_minion",
           "movementProfile": "ambushMonster"
         }
       ],
@@ -3908,6 +3980,9 @@
       "district": 3,
       "title": "Hunter's Glade",
       "subtitle": "Collect 5 fresh items and reach the Collector!",
+      "primaryModelId": "L25_glasswing_drake",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L25_glasswing_drake.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L25_glasswing_drake.png",
       "cols": 15,
       "rows": 13,
       "grid": [
@@ -4023,8 +4098,8 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv25_m0_ambushMonster",
-          "movementProfile": "ambushMonster"
+          "appearanceId": "L25_glasswing_drake",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l25_m1",
@@ -4063,7 +4138,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv25_m1_patrolGuardian",
+          "appearanceId": "l25_s1_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -4103,7 +4178,7 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv25_m2_jumpingCreature",
+          "appearanceId": "l25_s2_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -4135,7 +4210,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv25_m3_patrolGuardian",
+          "appearanceId": "l25_s3_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -4161,6 +4236,9 @@
       "district": 3,
       "title": "Fern Switchback",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L26_hollow_watcher",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L26_hollow_watcher.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L26_hollow_watcher.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -4286,8 +4364,8 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv26_m0_jumpingCreature",
-          "movementProfile": "jumpingCreature"
+          "appearanceId": "L26_hollow_watcher",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l26_m1",
@@ -4326,7 +4404,7 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv26_m1_patrolGuardian",
+          "appearanceId": "l26_s1_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -4366,7 +4444,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv26_m2_zigzagMonster",
+          "appearanceId": "l26_s2_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -4394,7 +4472,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv26_m3_chargingMonster",
+          "appearanceId": "l26_s3_minion",
           "movementProfile": "chargingMonster"
         }
       ],
@@ -4427,6 +4505,9 @@
       "district": 3,
       "title": "Canopy Detour",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L27_brook_axolotl",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L27_brook_axolotl.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L27_brook_axolotl.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -4552,7 +4633,7 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv27_m0_crawlingMonster",
+          "appearanceId": "L27_brook_axolotl",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -4592,7 +4673,7 @@
           "detectionRange": 3.85,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv27_m1_fastHunter",
+          "appearanceId": "l27_s1_minion",
           "movementProfile": "fastHunter"
         },
         {
@@ -4620,7 +4701,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv27_m2_chargingMonster",
+          "appearanceId": "l27_s2_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -4660,7 +4741,7 @@
           "detectionRange": 3.85,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv27_m3_fastHunter",
+          "appearanceId": "l27_s3_minion",
           "movementProfile": "fastHunter"
         }
       ],
@@ -4693,6 +4774,9 @@
       "district": 3,
       "title": "Woodland Express",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L28_pinecone_pangolin",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L28_pinecone_pangolin.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L28_pinecone_pangolin.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -4818,8 +4902,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv28_m0_chargingMonster",
-          "movementProfile": "chargingMonster"
+          "appearanceId": "L28_pinecone_pangolin",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l28_m1",
@@ -4846,7 +4930,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv28_m1_jumpingCreature",
+          "appearanceId": "l28_s1_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -4886,7 +4970,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv28_m2_slowStalker",
+          "appearanceId": "l28_s2_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -4926,7 +5010,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv28_m3_slowStalker",
+          "appearanceId": "l28_s3_minion",
           "movementProfile": "slowStalker"
         }
       ],
@@ -4959,6 +5043,9 @@
       "district": 3,
       "title": "Deep Grove Run",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L29_birch_longlegs",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L29_birch_longlegs.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L29_birch_longlegs.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -5072,8 +5159,8 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv29_m0_flyingMonster",
-          "movementProfile": "flyingMonster"
+          "appearanceId": "L29_birch_longlegs",
+          "movementProfile": "zigzagMonster"
         },
         {
           "id": "l29_m1",
@@ -5112,7 +5199,7 @@
           "detectionRange": 3.85,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv29_m1_intelligentHunter",
+          "appearanceId": "l29_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -5152,7 +5239,7 @@
           "detectionRange": 3.85,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv29_m2_intelligentHunter",
+          "appearanceId": "l29_s2_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -5192,7 +5279,7 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv29_m3_slowStalker",
+          "appearanceId": "l29_s3_minion",
           "movementProfile": "slowStalker"
         }
       ],
@@ -5225,6 +5312,9 @@
       "district": 3,
       "title": "Forest Trail Boss",
       "subtitle": "District 3 Boss Finale! Confront the Maze Guardian & deliver!",
+      "primaryModelId": "L30_root_lantern",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L30_root_lantern.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L30_root_lantern.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -5347,11 +5437,11 @@
             }
           ],
           "speed": 1.85,
-          "detectionRange": 3.85,
+          "detectionRange": 4.3,
           "biteDamage": 40,
           "alertDuration": 0.36,
-          "appearanceId": "lv30_m0_intelligentHunter",
-          "movementProfile": "intelligentHunter"
+          "appearanceId": "L30_root_lantern",
+          "movementProfile": "slowStalker"
         },
         {
           "id": "l30_m1",
@@ -5390,7 +5480,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv30_m1_flyingMonster",
+          "appearanceId": "l30_s1_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -5430,7 +5520,7 @@
           "detectionRange": 3.85,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv30_m2_slowStalker",
+          "appearanceId": "l30_s2_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -5470,7 +5560,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv30_m3_flyingMonster",
+          "appearanceId": "l30_s3_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -5498,7 +5588,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv30_m4_patrolGuardian",
+          "appearanceId": "l30_s4_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -5531,6 +5621,9 @@
       "district": 4,
       "title": "Valley Entrance",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L31_basalt_ram",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L31_basalt_ram.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L31_basalt_ram.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -5656,8 +5749,8 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv31_m0_slowStalker",
-          "movementProfile": "slowStalker"
+          "appearanceId": "L31_basalt_ram",
+          "movementProfile": "chargingMonster"
         },
         {
           "id": "l31_m1",
@@ -5696,7 +5789,7 @@
           "detectionRange": 4.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv31_m1_fastHunter",
+          "appearanceId": "l31_s1_minion",
           "movementProfile": "fastHunter"
         },
         {
@@ -5736,7 +5829,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv31_m2_zigzagMonster",
+          "appearanceId": "l31_s2_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -5776,7 +5869,7 @@
           "detectionRange": 4.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv31_m3_fastHunter",
+          "appearanceId": "l31_s3_minion",
           "movementProfile": "fastHunter"
         }
       ],
@@ -5809,6 +5902,9 @@
       "district": 4,
       "title": "Echo Canyon",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L32_lava_bellows",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L32_lava_bellows.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L32_lava_bellows.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -5934,7 +6030,7 @@
           "detectionRange": 4.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv32_m0_fastHunter",
+          "appearanceId": "L32_lava_bellows",
           "movementProfile": "fastHunter"
         },
         {
@@ -5974,7 +6070,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv32_m1_zigzagMonster",
+          "appearanceId": "l32_s1_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -6014,7 +6110,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv32_m2_slowStalker",
+          "appearanceId": "l32_s2_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -6042,7 +6138,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv32_m3_jumpingCreature",
+          "appearanceId": "l32_s3_minion",
           "movementProfile": "jumpingCreature"
         }
       ],
@@ -6075,6 +6171,9 @@
       "district": 4,
       "title": "Imp Ambush",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L33_shale_hammer",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L33_shale_hammer.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L33_shale_hammer.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -6200,8 +6299,8 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv33_m0_zigzagMonster",
-          "movementProfile": "zigzagMonster"
+          "appearanceId": "L33_shale_hammer",
+          "movementProfile": "chargingMonster"
         },
         {
           "id": "l33_m1",
@@ -6240,7 +6339,7 @@
           "detectionRange": 4.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv33_m1_intelligentHunter",
+          "appearanceId": "l33_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -6268,7 +6367,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv33_m2_ambushMonster",
+          "appearanceId": "l33_s2_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -6308,7 +6407,7 @@
           "detectionRange": 4.1,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv33_m3_intelligentHunter",
+          "appearanceId": "l33_s3_minion",
           "movementProfile": "intelligentHunter"
         }
       ],
@@ -6341,6 +6440,9 @@
       "district": 4,
       "title": "Twilight Ridge",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L34_gale_harrier",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L34_gale_harrier.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L34_gale_harrier.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -6466,8 +6568,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv34_m0_patrolGuardian",
-          "movementProfile": "patrolGuardian"
+          "appearanceId": "L34_gale_harrier",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l34_m1",
@@ -6494,7 +6596,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv34_m1_ambushMonster",
+          "appearanceId": "l34_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -6534,7 +6636,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv34_m2_flyingMonster",
+          "appearanceId": "l34_s2_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -6574,7 +6676,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv34_m3_flyingMonster",
+          "appearanceId": "l34_s3_minion",
           "movementProfile": "flyingMonster"
         }
       ],
@@ -6607,6 +6709,9 @@
       "district": 4,
       "title": "Obsidian Maze",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L35_frostwhisker",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L35_frostwhisker.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L35_frostwhisker.png",
       "cols": 15,
       "rows": 15,
       "grid": [
@@ -6720,8 +6825,8 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv35_m0_ambushMonster",
-          "movementProfile": "ambushMonster"
+          "appearanceId": "L35_frostwhisker",
+          "movementProfile": "chargingMonster"
         },
         {
           "id": "l35_m1",
@@ -6760,7 +6865,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv35_m1_chargingMonster",
+          "appearanceId": "l35_s1_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -6800,7 +6905,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv35_m2_chargingMonster",
+          "appearanceId": "l35_s2_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -6840,7 +6945,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv35_m3_flyingMonster",
+          "appearanceId": "l35_s3_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -6880,7 +6985,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv35_m4_chargingMonster",
+          "appearanceId": "l35_s4_minion",
           "movementProfile": "chargingMonster"
         }
       ],
@@ -6913,6 +7018,9 @@
       "district": 4,
       "title": "Shadow Bypass",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L36_rift_ray",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L36_rift_ray.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L36_rift_ray.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -7038,8 +7146,8 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv36_m0_jumpingCreature",
-          "movementProfile": "jumpingCreature"
+          "appearanceId": "L36_rift_ray",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l36_m1",
@@ -7078,7 +7186,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv36_m1_crawlingMonster",
+          "appearanceId": "l36_s1_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -7118,7 +7226,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv36_m2_chargingMonster",
+          "appearanceId": "l36_s2_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -7158,7 +7266,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv36_m3_crawlingMonster",
+          "appearanceId": "l36_s3_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -7186,7 +7294,7 @@
           "detectionRange": 4.1,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv36_m4_fastHunter",
+          "appearanceId": "l36_s4_minion",
           "movementProfile": "fastHunter"
         }
       ],
@@ -7224,6 +7332,9 @@
       "district": 4,
       "title": "Double Chase",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L37_copperback_hydra",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L37_copperback_hydra.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L37_copperback_hydra.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -7346,11 +7457,11 @@
             }
           ],
           "speed": 1.38,
-          "detectionRange": 3.4,
+          "detectionRange": 4.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv37_m0_crawlingMonster",
-          "movementProfile": "crawlingMonster"
+          "appearanceId": "L37_copperback_hydra",
+          "movementProfile": "intelligentHunter"
         },
         {
           "id": "l37_m1",
@@ -7389,7 +7500,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv37_m1_chargingMonster",
+          "appearanceId": "l37_s1_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -7429,7 +7540,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv37_m2_jumpingCreature",
+          "appearanceId": "l37_s2_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -7457,7 +7568,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv37_m3_slowStalker",
+          "appearanceId": "l37_s3_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -7497,7 +7608,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv37_m4_jumpingCreature",
+          "appearanceId": "l37_s4_minion",
           "movementProfile": "jumpingCreature"
         }
       ],
@@ -7535,6 +7646,9 @@
       "district": 4,
       "title": "Crag Gauntlet",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L38_crag_lynx",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L38_crag_lynx.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L38_crag_lynx.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -7660,8 +7774,8 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv38_m0_chargingMonster",
-          "movementProfile": "chargingMonster"
+          "appearanceId": "L38_crag_lynx",
+          "movementProfile": "fastHunter"
         },
         {
           "id": "l38_m1",
@@ -7700,7 +7814,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv38_m1_ambushMonster",
+          "appearanceId": "l38_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -7728,7 +7842,7 @@
           "detectionRange": 4.1,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv38_m2_intelligentHunter",
+          "appearanceId": "l38_s2_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -7768,7 +7882,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv38_m3_ambushMonster",
+          "appearanceId": "l38_s3_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -7808,7 +7922,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv38_m4_ambushMonster",
+          "appearanceId": "l38_s4_minion",
           "movementProfile": "ambushMonster"
         }
       ],
@@ -7846,6 +7960,9 @@
       "district": 4,
       "title": "Monster Lair",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L39_quake_clam",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L39_quake_clam.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L39_quake_clam.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -7959,8 +8076,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv39_m0_flyingMonster",
-          "movementProfile": "flyingMonster"
+          "appearanceId": "L39_quake_clam",
+          "movementProfile": "zigzagMonster"
         },
         {
           "id": "l39_m1",
@@ -7987,7 +8104,7 @@
           "detectionRange": 4.1,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv39_m1_intelligentHunter",
+          "appearanceId": "l39_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -8027,7 +8144,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv39_m2_patrolGuardian",
+          "appearanceId": "l39_s2_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -8067,7 +8184,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv39_m3_patrolGuardian",
+          "appearanceId": "l39_s3_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -8107,7 +8224,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv39_m4_ambushMonster",
+          "appearanceId": "l39_s4_minion",
           "movementProfile": "ambushMonster"
         }
       ],
@@ -8145,6 +8262,9 @@
       "district": 4,
       "title": "Valley Overlord",
       "subtitle": "District 4 Boss Finale! Confront the Maze Guardian & deliver!",
+      "primaryModelId": "L40_thunder_totem",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L40_thunder_totem.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L40_thunder_totem.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -8270,7 +8390,7 @@
           "detectionRange": 4.1,
           "biteDamage": 40,
           "alertDuration": 0.36,
-          "appearanceId": "lv40_m0_intelligentHunter",
+          "appearanceId": "L40_thunder_totem",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -8310,7 +8430,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv40_m1_zigzagMonster",
+          "appearanceId": "l40_s1_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -8350,7 +8470,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv40_m2_zigzagMonster",
+          "appearanceId": "l40_s2_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -8390,7 +8510,7 @@
           "detectionRange": 4.1,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv40_m3_patrolGuardian",
+          "appearanceId": "l40_s3_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -8430,7 +8550,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv40_m4_zigzagMonster",
+          "appearanceId": "l40_s4_minion",
           "movementProfile": "zigzagMonster"
         }
       ],
@@ -8468,6 +8588,9 @@
       "district": 5,
       "title": "Downtown Dock",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L41_signal_cyclops",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L41_signal_cyclops.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L41_signal_cyclops.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -8593,8 +8716,8 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv41_m0_slowStalker",
-          "movementProfile": "slowStalker"
+          "appearanceId": "L41_signal_cyclops",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l41_m1",
@@ -8625,7 +8748,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv41_m1_jumpingCreature",
+          "appearanceId": "l41_s1_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -8665,7 +8788,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv41_m2_jumpingCreature",
+          "appearanceId": "l41_s2_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -8705,7 +8828,7 @@
           "detectionRange": 4.35,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv41_m3_fastHunter",
+          "appearanceId": "l41_s3_minion",
           "movementProfile": "fastHunter"
         },
         {
@@ -8733,7 +8856,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv41_m4_crawlingMonster",
+          "appearanceId": "l41_s4_minion",
           "movementProfile": "crawlingMonster"
         }
       ],
@@ -8766,6 +8889,9 @@
       "district": 5,
       "title": "Midtown Avenue",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L42_neon_coil",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L42_neon_coil.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L42_neon_coil.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -8884,11 +9010,11 @@
             }
           ],
           "speed": 3.16,
-          "detectionRange": 4.35,
+          "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv42_m0_fastHunter",
-          "movementProfile": "fastHunter"
+          "appearanceId": "L42_neon_coil",
+          "movementProfile": "crawlingMonster"
         },
         {
           "id": "l42_m1",
@@ -8927,7 +9053,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv42_m1_ambushMonster",
+          "appearanceId": "l42_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -8967,7 +9093,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv42_m2_slowStalker",
+          "appearanceId": "l42_s2_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -8995,7 +9121,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv42_m3_jumpingCreature",
+          "appearanceId": "l42_s3_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -9035,7 +9161,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv42_m4_patrolGuardian",
+          "appearanceId": "l42_s4_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -9068,6 +9194,9 @@
       "district": 5,
       "title": "Plaza Sprint",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L43_rivet_hound",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L43_rivet_hound.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L43_rivet_hound.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -9190,11 +9319,11 @@
             }
           ],
           "speed": 1.44,
-          "detectionRange": 3.4,
+          "detectionRange": 4.35,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv43_m0_zigzagMonster",
-          "movementProfile": "zigzagMonster"
+          "appearanceId": "L43_rivet_hound",
+          "movementProfile": "fastHunter"
         },
         {
           "id": "l43_m1",
@@ -9233,7 +9362,7 @@
           "detectionRange": 4.35,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv43_m1_intelligentHunter",
+          "appearanceId": "l43_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -9261,7 +9390,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv43_m2_ambushMonster",
+          "appearanceId": "l43_s2_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -9297,7 +9426,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv43_m3_patrolGuardian",
+          "appearanceId": "l43_s3_minion",
           "movementProfile": "patrolGuardian"
         },
         {
@@ -9337,7 +9466,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv43_m4_patrolGuardian",
+          "appearanceId": "l43_s4_minion",
           "movementProfile": "patrolGuardian"
         }
       ],
@@ -9370,6 +9499,9 @@
       "district": 5,
       "title": "Expressway Grid",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L44_market_craner",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L44_market_craner.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L44_market_craner.png",
       "cols": 17,
       "rows": 15,
       "grid": [
@@ -9495,8 +9627,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv44_m0_patrolGuardian",
-          "movementProfile": "patrolGuardian"
+          "appearanceId": "L44_market_craner",
+          "movementProfile": "slowStalker"
         },
         {
           "id": "l44_m1",
@@ -9523,7 +9655,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv44_m1_ambushMonster",
+          "appearanceId": "l44_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -9563,7 +9695,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv44_m2_fastHunter",
+          "appearanceId": "l44_s2_minion",
           "movementProfile": "fastHunter"
         },
         {
@@ -9595,7 +9727,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv44_m3_zigzagMonster",
+          "appearanceId": "l44_s3_minion",
           "movementProfile": "zigzagMonster"
         },
         {
@@ -9635,7 +9767,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv44_m4_zigzagMonster",
+          "appearanceId": "l44_s4_minion",
           "movementProfile": "zigzagMonster"
         }
       ],
@@ -9668,6 +9800,9 @@
       "district": 5,
       "title": "Skyline Market",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L45_velvet_glider",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L45_velvet_glider.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L45_velvet_glider.png",
       "cols": 17,
       "rows": 17,
       "grid": [
@@ -9783,8 +9918,8 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv45_m0_ambushMonster",
-          "movementProfile": "ambushMonster"
+          "appearanceId": "L45_velvet_glider",
+          "movementProfile": "jumpingCreature"
         },
         {
           "id": "l45_m1",
@@ -9823,7 +9958,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv45_m1_slowStalker",
+          "appearanceId": "l45_s1_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -9863,7 +9998,7 @@
           "detectionRange": 4.35,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv45_m2_fastHunter",
+          "appearanceId": "l45_s2_minion",
           "movementProfile": "fastHunter"
         },
         {
@@ -9903,7 +10038,7 @@
           "detectionRange": 4.35,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv45_m3_fastHunter",
+          "appearanceId": "l45_s3_minion",
           "movementProfile": "fastHunter"
         },
         {
@@ -9943,7 +10078,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv45_m4_chargingMonster",
+          "appearanceId": "l45_s4_minion",
           "movementProfile": "chargingMonster"
         }
       ],
@@ -9976,6 +10111,9 @@
       "district": 5,
       "title": "Metro Crossroads",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L46_boiler_bison",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L46_boiler_bison.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L46_boiler_bison.png",
       "cols": 17,
       "rows": 17,
       "grid": [
@@ -10103,8 +10241,8 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv46_m0_jumpingCreature",
-          "movementProfile": "jumpingCreature"
+          "appearanceId": "L46_boiler_bison",
+          "movementProfile": "chargingMonster"
         },
         {
           "id": "l46_m1",
@@ -10143,7 +10281,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv46_m1_slowStalker",
+          "appearanceId": "l46_s1_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -10183,7 +10321,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv46_m2_slowStalker",
+          "appearanceId": "l46_s2_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -10223,7 +10361,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv46_m3_crawlingMonster",
+          "appearanceId": "l46_s3_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -10251,7 +10389,7 @@
           "detectionRange": 4.35,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv46_m4_fastHunter",
+          "appearanceId": "l46_s4_minion",
           "movementProfile": "fastHunter"
         }
       ],
@@ -10289,6 +10427,9 @@
       "district": 5,
       "title": "Rush Hour Run",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L47_clockwork_koi",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L47_clockwork_koi.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L47_clockwork_koi.png",
       "cols": 17,
       "rows": 17,
       "grid": [
@@ -10416,8 +10557,8 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv47_m0_crawlingMonster",
-          "movementProfile": "crawlingMonster"
+          "appearanceId": "L47_clockwork_koi",
+          "movementProfile": "flyingMonster"
         },
         {
           "id": "l47_m1",
@@ -10456,7 +10597,7 @@
           "detectionRange": 4.35,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv47_m1_intelligentHunter",
+          "appearanceId": "l47_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -10496,7 +10637,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv47_m2_jumpingCreature",
+          "appearanceId": "l47_s2_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -10524,7 +10665,7 @@
           "detectionRange": 2.7,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv47_m3_slowStalker",
+          "appearanceId": "l47_s3_minion",
           "movementProfile": "slowStalker"
         },
         {
@@ -10564,7 +10705,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv47_m4_flyingMonster",
+          "appearanceId": "l47_s4_minion",
           "movementProfile": "flyingMonster"
         }
       ],
@@ -10602,6 +10743,9 @@
       "district": 5,
       "title": "Harbor Warehouse",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L48_night_hopper",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L48_night_hopper.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L48_night_hopper.png",
       "cols": 17,
       "rows": 17,
       "grid": [
@@ -10729,8 +10873,8 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv48_m0_chargingMonster",
-          "movementProfile": "chargingMonster"
+          "appearanceId": "L48_night_hopper",
+          "movementProfile": "jumpingCreature"
         },
         {
           "id": "l48_m1",
@@ -10769,7 +10913,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv48_m1_ambushMonster",
+          "appearanceId": "l48_s1_minion",
           "movementProfile": "ambushMonster"
         },
         {
@@ -10797,7 +10941,7 @@
           "detectionRange": 4.35,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv48_m2_intelligentHunter",
+          "appearanceId": "l48_s2_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -10837,7 +10981,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv48_m3_flyingMonster",
+          "appearanceId": "l48_s3_minion",
           "movementProfile": "flyingMonster"
         },
         {
@@ -10877,7 +11021,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv48_m4_flyingMonster",
+          "appearanceId": "l48_s4_minion",
           "movementProfile": "flyingMonster"
         }
       ],
@@ -10915,6 +11059,9 @@
       "district": 5,
       "title": "Clocktower Square",
       "subtitle": "Collect 6 fresh items and reach the Collector!",
+      "primaryModelId": "L49_metro_mole",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L49_metro_mole.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L49_metro_mole.png",
       "cols": 17,
       "rows": 17,
       "grid": [
@@ -11042,8 +11189,8 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv49_m0_flyingMonster",
-          "movementProfile": "flyingMonster"
+          "appearanceId": "L49_metro_mole",
+          "movementProfile": "slowStalker"
         },
         {
           "id": "l49_m1",
@@ -11070,7 +11217,7 @@
           "detectionRange": 4.35,
           "biteDamage": 45,
           "alertDuration": 0.36,
-          "appearanceId": "lv49_m1_intelligentHunter",
+          "appearanceId": "l49_s1_minion",
           "movementProfile": "intelligentHunter"
         },
         {
@@ -11110,7 +11257,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv49_m2_crawlingMonster",
+          "appearanceId": "l49_s2_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -11150,7 +11297,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv49_m3_chargingMonster",
+          "appearanceId": "l49_s3_minion",
           "movementProfile": "chargingMonster"
         },
         {
@@ -11190,7 +11337,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv49_m4_chargingMonster",
+          "appearanceId": "l49_s4_minion",
           "movementProfile": "chargingMonster"
         }
       ],
@@ -11228,6 +11375,9 @@
       "district": 5,
       "title": "Grand City Finale",
       "subtitle": "District 5 Boss Finale! Confront the Maze Guardian & deliver!",
+      "primaryModelId": "L50_crownwing_warden",
+      "primaryModelPath": "assets/art_kit/01_Monsters/L50_crownwing_warden.glb",
+      "primaryPreviewPath": "assets/art_kit/01_Monsters/L50_crownwing_warden.png",
       "cols": 17,
       "rows": 17,
       "grid": [
@@ -11336,11 +11486,11 @@
             }
           ],
           "speed": 2.02,
-          "detectionRange": 4.35,
+          "detectionRange": 4.3,
           "biteDamage": 40,
           "alertDuration": 0.36,
-          "appearanceId": "lv50_m0_intelligentHunter",
-          "movementProfile": "intelligentHunter"
+          "appearanceId": "L50_crownwing_warden",
+          "movementProfile": "patrolGuardian"
         },
         {
           "id": "l50_m1",
@@ -11379,7 +11529,7 @@
           "detectionRange": 4.35,
           "biteDamage": 30,
           "alertDuration": 0.36,
-          "appearanceId": "lv50_m1_jumpingCreature",
+          "appearanceId": "l50_s1_minion",
           "movementProfile": "jumpingCreature"
         },
         {
@@ -11419,7 +11569,7 @@
           "detectionRange": 3.2,
           "biteDamage": 18,
           "alertDuration": 0.36,
-          "appearanceId": "lv50_m2_crawlingMonster",
+          "appearanceId": "l50_s2_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -11459,7 +11609,7 @@
           "detectionRange": 3.4,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv50_m3_crawlingMonster",
+          "appearanceId": "l50_s3_minion",
           "movementProfile": "crawlingMonster"
         },
         {
@@ -11499,7 +11649,7 @@
           "detectionRange": 3.1,
           "biteDamage": 25,
           "alertDuration": 0.36,
-          "appearanceId": "lv50_m4_zigzagMonster",
+          "appearanceId": "l50_s4_minion",
           "movementProfile": "zigzagMonster"
         }
       ],

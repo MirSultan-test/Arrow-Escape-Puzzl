@@ -596,6 +596,8 @@ class MazeGameEngine {
       draftRouteCells.clear();
       invalidDragWorldX = null;
       invalidDragWorldY = null;
+      truckDefense.cancelActiveRoadRoute();
+      truckDefense.cancelRoadRouteDraw();
       if (mag > 1.0) {
         _inputDx = dx / mag;
         _inputDy = dy / mag;
@@ -1132,6 +1134,7 @@ class MazeGameEngine {
       _inputDx = 0.0;
       _inputDy = 0.0;
       cancelRouteDraw();
+      truckDefense.cancelRoadRouteDraw();
     }
   }
 
