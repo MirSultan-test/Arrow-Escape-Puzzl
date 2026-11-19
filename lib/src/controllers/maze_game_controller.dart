@@ -103,6 +103,9 @@ class MazeGameController extends ChangeNotifier {
     _runNonce++;
     _newlyUnlockedPostcardId = null;
 
+    // Ensure the level's authentic 2.5D monster sprite is decoded and cached
+    SpriteAtlas.instance.loadMonsterSprite(level.primaryPreviewPath);
+
     _engine = MazeGameEngine(
       level: level,
       autoTargetEnabled: _saveData.autoTargetEnabled,

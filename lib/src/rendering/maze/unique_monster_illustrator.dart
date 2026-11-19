@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../models/maze/monster.dart';
 import '../../models/maze/monster_variants.dart';
+import '../../services/sprite_atlas.dart';
 
 /// V3.5 Articulated 2.5D Unique Monster Renderer.
 /// Renders genuinely distinct monster anatomies (10 silhouettes, 8 horn styles,
@@ -143,48 +144,6 @@ class UniqueMonsterIllustrator {
     final bw = r * 1.48 * spec.widthRatio;
     final bh = r * 1.32 * spec.heightRatio;
 
-    // 1. MOVEMENT-MATCHED ARTICULATED LIMBS / WINGS
-    _drawMonsterLimbsAndWings(
-      canvas,
-      r: r,
-      bw: bw,
-      bh: bh,
-      spec: spec,
-      monster: monster,
-      primary: primary,
-      secondary: secondary,
-      clawColor: clawColor,
-      dirX: dirX,
-    );
-
-    // 2. DISTINCT BODY SILHOUETTE & SKIN TEXTURE
-    _drawBodySilhouette(
-      canvas,
-      r: r,
-      bw: bw,
-      bh: bh,
-      spec: spec,
-      primary: primary,
-      secondary: secondary,
-      belly: belly,
-      glow: glow,
-      elapsed: monster.animPhase,
-    );
-
-    // 3. DISTINCT HORN / HEAD CREST ANATOMY
-    final headY = spec.bodyShape == MonsterBodyShape.lowCrawler
-        ? -bh * 0.18
-        : -bh * 0.36;
-    drawHornCrest(
-      canvas,
-      headCenter: Offset(0, headY),
-      headR: r * 0.52,
-      hornStyle: spec.hornStyle,
-      hornColor: hornColor,
-      glowColor: glow,
-    );
-
-    // 4. EXPRESSIVE EYES (1, 2, 3, OR 4 EYES + DYNAMIC FACIAL EXPRESSIONS!)
     final bool isAggressive = monster.state == MonsterAiState.chase ||
         monster.state == MonsterAiState.detect ||
         monster.state == MonsterAiState.attack ||
@@ -195,27 +154,87 @@ class UniqueMonsterIllustrator {
         monster.biteAnimTimer > 0 ||
         monster.chargeActiveTimer > 0;
 
-    drawMonsterEyes(
-      canvas,
-      headCenter: Offset(dirX * r * 0.06, headY),
-      headR: r * 0.52,
-      eyeCount: spec.eyeCount,
-      dirX: dirX,
-      glowColor: glow,
-      isPain: isHitFlash,
-      isStunned: monster.isStunned,
-      isAggressive: isAggressive,
-    );
+    final sprite = SpriteAtlas.instance.getMonsterArt(spec.previewAssetPath) ??
+        SpriteAtlas.instance.getMonsterArt(spec.appearanceId) ??
+        SpriteAtlas.instance.monsterSpriteFor(monster.type);
 
-    // 5. DISTINCT MOUTH / JAW / FANGS / TUSKS / MANDIBLES
-    drawMonsterMouth(
-      canvas,
-      mouthCenter: Offset(dirX * r * 0.05, headY + r * 0.34),
-      headR: r * 0.52,
-      mouthStyle: spec.mouthStyle,
-      jawOpen: isRoaring ? 1.0 : (isAggressive ? 0.58 : 0.25),
-      clawColor: clawColor,
-    );
+    if (sprite != null) {
+      _drawSpriteMonster(
+        canvas,
+        sprite: sprite,
+        r: r,
+        spec: spec,
+        monster: monster,
+        dirX: dirX,
+        isHitFlash: isHitFlash,
+        isAggressive: isAggressive,
+        isRoaring: isRoaring,
+      );
+    } else {
+      // 1. MOVEMENT-MATCHED ARTICULATED LIMBS / WINGS
+      _drawMonsterLimbsAndWings(
+        canvas,
+        r: r,
+        bw: bw,
+        bh: bh,
+        spec: spec,
+        monster: monster,
+        primary: primary,
+        secondary: secondary,
+        clawColor: clawColor,
+        dirX: dirX,
+      );
+
+      // 2. DISTINCT BODY SILHOUETTE & SKIN TEXTURE
+      _drawBodySilhouette(
+        canvas,
+        r: r,
+        bw: bw,
+        bh: bh,
+        spec: spec,
+        primary: primary,
+        secondary: secondary,
+        belly: belly,
+        glow: glow,
+        elapsed: monster.animPhase,
+      );
+
+      // 3. DISTINCT HORN / HEAD CREST ANATOMY
+      final headY = spec.bodyShape == MonsterBodyShape.lowCrawler
+          ? -bh * 0.18
+          : -bh * 0.36;
+      drawHornCrest(
+        canvas,
+        headCenter: Offset(0, headY),
+        headR: r * 0.52,
+        hornStyle: spec.hornStyle,
+        hornColor: hornColor,
+        glowColor: glow,
+      );
+
+      // 4. EXPRESSIVE EYES (1, 2, 3, OR 4 EYES + DYNAMIC FACIAL EXPRESSIONS!)
+      drawMonsterEyes(
+        canvas,
+        headCenter: Offset(dirX * r * 0.06, headY),
+        headR: r * 0.52,
+        eyeCount: spec.eyeCount,
+        dirX: dirX,
+        glowColor: glow,
+        isPain: isHitFlash,
+        isStunned: monster.isStunned,
+        isAggressive: isAggressive,
+      );
+
+      // 5. DISTINCT MOUTH / JAW / FANGS / TUSKS / MANDIBLES
+      drawMonsterMouth(
+        canvas,
+        mouthCenter: Offset(dirX * r * 0.05, headY + r * 0.34),
+        headR: r * 0.52,
+        mouthStyle: spec.mouthStyle,
+        jawOpen: isRoaring ? 1.0 : (isAggressive ? 0.58 : 0.25),
+        clawColor: clawColor,
+      );
+    }
 
     canvas.restore(); // End bodyLean
 
@@ -845,5 +864,167 @@ class UniqueMonsterIllustrator {
         canvas.drawPath(fang, tooth);
       }
     }
+  }
+
+  /// Renders the authentic 2.5D pre-rendered 3D Nightfall monster sprite with rich
+  /// anatomical locomotion, directional facing, dynamic breathing, and combat VFX.
+  static void _drawSpriteMonster(
+    Canvas canvas, {
+    required dynamic sprite,
+    required double r,
+    required MonsterAppearanceSpec spec,
+    required MonsterEntity monster,
+    required double dirX,
+    required bool isHitFlash,
+    required bool isAggressive,
+    required bool isRoaring,
+  }) {
+    canvas.save();
+
+    // 1. Directional Facing (turn sprite to look in direction of travel or target)
+    canvas.scale(dirX, 1.0);
+
+    // 2. Dynamic Breathing Squash & Stretch
+    final breath = (monster.isFrozen || monster.isStunned)
+        ? 0.0
+        : math.sin(monster.animPhase * 2.6) * 0.038;
+    canvas.scale(1.0 + breath, 1.0 - breath);
+
+    // 3. Creature Anatomy Classification for Movement Simulation
+    final anat = spec.anatomy.toLowerCase();
+    final move = monster.movementProfile;
+
+    final isBatOrWinged = anat == 'bat' ||
+        anat == 'moth' ||
+        anat == 'bee' ||
+        anat == 'drake' ||
+        anat == 'harrier' ||
+        anat == 'griffin' ||
+        anat == 'bird' ||
+        anat == 'ray' ||
+        move == MonsterMovementProfile.flyingMonster;
+
+    final isScorpionOrArthropod = anat == 'scorpion' ||
+        anat == 'crab' ||
+        anat == 'beetle' ||
+        anat == 'centipede';
+
+    final isHeavyCharger = anat == 'boar' ||
+        anat == 'hedgehog' ||
+        anat == 'ram' ||
+        anat == 'bison' ||
+        anat == 'golem' ||
+        anat == 'rhino' ||
+        move == MonsterMovementProfile.chargingMonster;
+
+    final isCrawlerOrSnail = anat == 'snail' ||
+        anat == 'snake' ||
+        anat == 'octopus' ||
+        anat == 'axolotl' ||
+        anat == 'mole' ||
+        anat == 'eel' ||
+        move == MonsterMovementProfile.crawlingMonster;
+
+    final isHopper = anat == 'hare' ||
+        anat == 'frog' ||
+        anat == 'kangaroo' ||
+        move == MonsterMovementProfile.jumpingCreature;
+
+    // 4. Movement-Matched Kinematic Transforms
+    if (isBatOrWinged) {
+      // Wing flap cycle: expands horizontally, compresses vertically
+      final flap = math.sin(monster.animPhase * 8.5) * 0.12;
+      canvas.scale(1.0 + flap, 1.0 - flap * 0.55);
+      if (monster.state == MonsterAiState.attack ||
+          monster.state == MonsterAiState.chase ||
+          monster.biteAnimTimer > 0) {
+        // Swoop / dive lunge forward
+        canvas.translate(0, r * 0.22);
+        canvas.rotate(0.18);
+      }
+    } else if (isScorpionOrArthropod) {
+      // Lateral scuttling step wiggle
+      final scuttle = math.sin(monster.animPhase * 13.0) * r * 0.08;
+      canvas.translate(scuttle, 0);
+      if (monster.biteAnimTimer > 0) {
+        // Tail stinger strike lunge forward
+        final jab = math.sin(monster.biteAnimTimer * math.pi * 5).abs() * r * 0.38;
+        canvas.translate(jab, -jab * 0.35);
+      }
+    } else if (isHeavyCharger) {
+      // Lowered head, forward lean
+      canvas.scale(1.05, 0.95);
+      if (monster.chargeActiveTimer > 0 || monster.state == MonsterAiState.chase) {
+        canvas.rotate(0.20); // Aggressive forward charge tilt
+      } else if (monster.state == MonsterAiState.windup) {
+        // Bracing crouch before charge
+        canvas.scale(1.12, 0.85);
+      }
+      if (monster.isMoving) {
+        final gallop = math.sin(monster.animPhase * 6.5).abs() * r * 0.12;
+        canvas.translate(0, -gallop);
+      }
+    } else if (isCrawlerOrSnail) {
+      // Flattened body profile close to floor
+      canvas.scale(1.14, 0.86);
+      final undulation = math.sin(monster.animPhase * 4.2) * 0.06;
+      canvas.scale(1.0 + undulation, 1.0 - undulation);
+      if (monster.biteAnimTimer > 0) {
+        final snap = math.sin(monster.biteAnimTimer * math.pi * 5).abs() * r * 0.32;
+        canvas.translate(snap, 0);
+      }
+    } else if (isHopper) {
+      // Ballistic hop arc stretch & landing squash
+      if (monster.hopPhase > 0) {
+        final arc = (monster.hopPhase / math.pi).clamp(0.0, 1.0);
+        final stretch = math.sin(arc * math.pi) * 0.22;
+        canvas.scale(1.0 - stretch * 0.45, 1.0 + stretch);
+      }
+    } else {
+      // General dynamic biped/quadruped running bounce
+      if (monster.isMoving) {
+        final bounce = math.sin(monster.animPhase * 5.5).abs() * r * 0.10;
+        canvas.translate(0, -bounce);
+      }
+    }
+
+    // 5. Draw 2.5D High-Res Monster Texture
+    final drawSize = r * 2.50;
+    final dst = Rect.fromCenter(
+      center: Offset(0, -r * 0.10),
+      width: drawSize * spec.widthRatio,
+      height: drawSize * spec.heightRatio,
+    );
+
+    final paint = Paint()..filterQuality = FilterQuality.medium;
+    if (isHitFlash) {
+      paint.colorFilter = const ColorFilter.mode(Colors.white, BlendMode.srcATop);
+    } else if (monster.isFrozen) {
+      paint.colorFilter =
+          const ColorFilter.mode(Color(0xFF38BDF8), BlendMode.srcATop);
+    }
+
+    final src = Rect.fromLTWH(
+      0,
+      0,
+      (sprite.width as int).toDouble(),
+      (sprite.height as int).toDouble(),
+    );
+    canvas.drawImageRect(sprite, src, dst, paint);
+
+    // 6. Expressive Emissive Eye Glow & Menace Highlights
+    final eyeGlow = Color(spec.eyeGlowHex);
+    final glowPaint = Paint()
+      ..color = eyeGlow.withOpacity(isAggressive ? 0.85 : 0.50)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.5);
+    final eyePos = Offset(r * 0.18, -r * 0.34);
+    canvas.drawCircle(eyePos, r * 0.10, glowPaint);
+    canvas.drawCircle(
+      eyePos,
+      r * 0.05,
+      Paint()..color = isAggressive ? Colors.white : eyeGlow,
+    );
+
+    canvas.restore();
   }
 }

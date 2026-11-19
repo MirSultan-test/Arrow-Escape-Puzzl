@@ -114,12 +114,14 @@ class TruckDefenseSimulation {
   }
 
   bool beginRoadRouteDraw(double wx, double wy) {
-    // Touch tolerance: must start near Courier
+    // Touch tolerance: must start near Courier (generous 1.95 world radius for phone screens)
     final pdx = wx - playerX;
     final pdy = wy - playerY;
     final distToPlayer = math.sqrt(pdx * pdx + pdy * pdy);
-    if (distToPlayer > 1.35) return false;
+    if (distToPlayer > 1.95) return false;
 
+    // A new drag near the Courier immediately cancels the previous active path and starts fresh
+    cancelActiveRoadRoute();
     isDrawingRoadRoute = true;
     draftRoadRoute.clear();
     draftRoadRoute.add(Offset(playerX, playerY));
@@ -1029,13 +1031,16 @@ class TruckDefenseSimulation {
       final rdy = target.dy - playerY;
       final rdist = math.sqrt(rdx * rdx + rdy * rdy);
 
-      // Check moving truck obstacle: if truck directly blocks path, pause Courier safely
+      // Check moving truck obstacle: if Courier is directly head-on into truck center, pause safely;
+      // otherwise, let Courier smoothly slide around truck contour along the drawn curved path!
       final tdx = truck.x - playerX;
       final tdy = truck.y - playerY;
       final tdist = math.sqrt(tdx * tdx + tdy * tdy);
-      const minTruckClearance = playerRadius + truckCollisionRadius * 0.95;
-      final bool truckBlocks = tdist < minTruckClearance &&
-          (rdx * tdx + rdy * tdy) > 0.0; // Heading directly into truck
+      const minTruckClearance = playerRadius + truckCollisionRadius * 0.76;
+      final cosHeading = rdist > 0.001 && tdist > 0.001
+          ? (rdx * tdx + rdy * tdy) / (rdist * tdist)
+          : 0.0;
+      final bool truckBlocks = tdist < minTruckClearance && cosHeading > 0.92;
 
       if (truckBlocks) {
         isTruckBlockingCourier = true;

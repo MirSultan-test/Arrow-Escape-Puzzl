@@ -7,7 +7,6 @@ import 'package:parcel_escape/src/engine/maze/maze_game_engine.dart';
 import 'package:parcel_escape/src/models/maze/delivery_state.dart';
 import 'package:parcel_escape/src/models/maze/level_roster.dart';
 import 'package:parcel_escape/src/models/maze/maze_level.dart';
-import 'package:parcel_escape/src/models/maze/truck_defense_models.dart';
 import 'package:parcel_escape/src/rendering/maze/maze_canvas_painter.dart';
 import 'package:parcel_escape/src/rendering/maze/road_battle_painter.dart';
 
@@ -47,7 +46,7 @@ void main() {
 
   group('Visual Proof Captures for Integration Brief', () {
     test('1. Capture Proof 1: 50-Level Identity Roster & 3D Art Kit Showcase', () async {
-      final size = const Size(720, 480);
+      const size = Size(720, 480);
       await _saveCanvasImage(
         size: size,
         painter: (canvas, s) {
@@ -73,7 +72,7 @@ void main() {
           // Draw showcase tiles for sample levels from each district
           final sampleLevels = [1, 3, 7, 10, 18, 25, 33, 42, 50];
           final colW = (s.width - 48) / 3;
-          final rowH = 110.0;
+          const rowH = 110.0;
 
           for (int i = 0; i < sampleLevels.length; i++) {
             final lvlId = sampleLevels[i];
@@ -160,7 +159,7 @@ void main() {
       // Step Courier into motion
       engine.step(0.05);
 
-      final size = const Size(360, 640);
+      const size = Size(360, 640);
       await _saveCanvasImage(
         size: size,
         painter: (canvas, s) {
@@ -187,9 +186,9 @@ void main() {
       // Touch into invalid terrain
       td.updateRoadRouteDraw(-0.5, 8.0);
 
-      final size = const Size(360, 640);
+      const size3 = Size(360, 640);
       await _saveCanvasImage(
-        size: size,
+        size: size3,
         painter: (canvas, s) {
           final painter = RoadBattlePainter(engine: engine, reducedMotion: true);
           painter.paint(canvas, s);
@@ -216,9 +215,9 @@ void main() {
       engine.triggerPrimaryAttack();
       engine.step(0.05);
 
-      final size = const Size(360, 640);
+      const size4 = Size(360, 640);
       await _saveCanvasImage(
-        size: size,
+        size: size4,
         painter: (canvas, s) {
           final painter = RoadBattlePainter(engine: engine, reducedMotion: true);
           painter.paint(canvas, s);

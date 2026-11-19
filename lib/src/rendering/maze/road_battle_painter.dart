@@ -6,6 +6,7 @@ import '../../models/maze/combat_models.dart';
 import '../../models/maze/delivery_state.dart';
 import '../../models/maze/maze_level.dart';
 import '../../models/maze/truck_defense_models.dart';
+import '../../services/sprite_atlas.dart';
 import 'boss_cage_illustrator.dart';
 import 'skeletal_character_animator.dart';
 
@@ -797,13 +798,39 @@ class RoadBattlePainter extends CustomPainter {
   ) {
     canvas.save();
     canvas.translate(pos.dx, pos.dy);
-    canvas.drawCircle(
-      Offset.zero,
-      r,
-      Paint()..color = m.hitFlashTimer > 0 ? Colors.white : const Color(0xFF4C1D95),
-    );
-    canvas.drawCircle(Offset(-r * 0.28, -r * 0.15), r * 0.18, Paint()..color = const Color(0xFFFACC15));
-    canvas.drawCircle(Offset(r * 0.28, -r * 0.15), r * 0.18, Paint()..color = const Color(0xFFFACC15));
+
+    final sprite = SpriteAtlas.instance.monsterSpriteForLevel(engine.level.id);
+    if (sprite != null) {
+      final faceRight = m.x <= engine.truckDefense.truck.x;
+      final dirX = faceRight ? 1.0 : -1.0;
+      canvas.scale(dirX, 1.0);
+
+      // Running step bob
+      final bob = math.sin(engine.elapsedTime * 9.0).abs() * r * 0.15;
+      canvas.translate(0, -bob);
+
+      // Contact shadow
+      canvas.drawOval(
+        Rect.fromCenter(center: Offset(0, r * 0.82), width: r * 1.5, height: r * 0.45),
+        Paint()..color = const Color(0x441A1024),
+      );
+
+      final dst = Rect.fromCenter(center: Offset(0, -r * 0.10), width: r * 2.3, height: r * 2.3);
+      final paint = Paint()..filterQuality = FilterQuality.medium;
+      if (m.hitFlashTimer > 0) {
+        paint.colorFilter = const ColorFilter.mode(Colors.white, BlendMode.srcATop);
+      }
+      final src = Rect.fromLTWH(0, 0, sprite.width.toDouble(), sprite.height.toDouble());
+      canvas.drawImageRect(sprite, src, dst, paint);
+    } else {
+      canvas.drawCircle(
+        Offset.zero,
+        r,
+        Paint()..color = m.hitFlashTimer > 0 ? Colors.white : const Color(0xFF4C1D95),
+      );
+      canvas.drawCircle(Offset(-r * 0.28, -r * 0.15), r * 0.18, Paint()..color = const Color(0xFFFACC15));
+      canvas.drawCircle(Offset(r * 0.28, -r * 0.15), r * 0.18, Paint()..color = const Color(0xFFFACC15));
+    }
     canvas.restore();
   }
 

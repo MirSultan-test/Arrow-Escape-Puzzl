@@ -1,12 +1,6 @@
-FOOD MAZE ADVENTURE — 3D art & movement reference kit
+NIGHTFALL — FOOD MAZE ADVENTURE
+50 monster visual replacements / GLB + 720×720 transparent PNG
 
-Start with 04_Style_Boards/Gameplay_Screens.png. For Antigravity, supply this kit alongside the existing Flutter repository and use 06_Implementation/ANTIGRAVITY_BRIEF.md as the task description.
+01_Monsters/ uses the same 50 filenames as the original kit. The GLBs keep the original animated node hierarchy and unmodified animation clips; added geometry is attached to the matching pivots. Preview PNGs are rendered from these models, not standalone concept illustrations. The visual labels on the contact sheets are optional names, not asset IDs.
 
-01_Monsters — 50 distinct primary enemy model designs, one per level. Each has one GLB and a 512×512 transparent PNG. These are not 50 additional boss models.
-02_Characters — Courier, combat Dock Worker and a peaceful Dock Worker variant without a blade.
-03_Boss_Studies — three optional boss examples; not a complete 50-boss campaign.
-04_Style_Boards — one board per district, cast board, two portrait game-screen mockups.
-05_Environment — five food items and a delivery truck, each as PNG + GLB.
-06_Implementation — English Antigravity brief and explicit CSV level roster.
-
-GLB: Y-up, +Z model forward. Creature and character files have illustrative Travel, Attack and HitReact node animation clips. Mesh sections are rigid, with flat material colors and procedural smooth forms; no external textures, no skeletal skinning, no AI logic, physics or gameplay code. PNGs are transparent 3/4 renders from the models. Lighting and HUD in the boards are illustrative. This kit has not been integrated or tested in your game; check sizing, camera, performance, collision and renderer compatibility in your project.
+For Antigravity: inspect the existing asset loader first. Back up the old 01_Monsters folder and replace only the matching monster assets. If the game already resolves them by these names, retain the current 1-to-1 level mapping. If the game uses a sprite atlas or procedural art, wire the previews/models into that pipeline rather than assuming replacement alone enables them. Preserve the player's save data, characters, controls, boss assets and any other content. Check levels 1, 16, 21, 37, and 50 on-device at gameplay size; inspect visual scale, lighting, framing, glow, and hitboxes. A renderer that ignores emissive materials may display the eyes differently. The static PNGs are not animation sheets. New combat logic, new animation clips, and road pathfinding fixes are not included.

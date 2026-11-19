@@ -125,6 +125,7 @@ class MonsterAppearanceSpec {
   final double heightRatio;
   final String? modelAssetPath;
   final String? previewAssetPath;
+  final String anatomy;
 
   const MonsterAppearanceSpec({
     required this.appearanceId,
@@ -145,6 +146,7 @@ class MonsterAppearanceSpec {
     this.heightRatio = 1.0,
     this.modelAssetPath,
     this.previewAssetPath,
+    this.anatomy = '',
   });
 
   /// Generates a reproducible, anatomy-matched unique monster design for a given
@@ -286,6 +288,10 @@ class MonsterAppearanceSpec {
     final pal = palettes[(levelId * 3 + slotIndex * 5 + rng.nextInt(3)) % palettes.length];
 
     final roster = LevelRosterCatalog.forLevel(levelId);
+    final explicitRoster = explicitAppearanceId != null
+        ? LevelRosterCatalog.byModelId(explicitAppearanceId)
+        : null;
+    final effectiveRoster = explicitRoster ?? roster;
     final isPrimarySlot = slotIndex == 0;
 
     final id = explicitAppearanceId ??
@@ -294,7 +300,9 @@ class MonsterAppearanceSpec {
             : 'mon_l${levelId}_s${slotIndex}_${shape.name}_${movement.name}');
     final name = isPrimarySlot
         ? roster.monster
-        : '${_speciesPrefixes[(levelId + slotIndex * 7) % _speciesPrefixes.length]} ${_speciesSuffixes[(shape.index + movement.index) % _speciesSuffixes.length]}';
+        : (explicitRoster != null
+            ? explicitRoster.monster
+            : '${_speciesPrefixes[(levelId + slotIndex * 7) % _speciesPrefixes.length]} ${_speciesSuffixes[(shape.index + movement.index) % _speciesSuffixes.length]}');
 
     return MonsterAppearanceSpec(
       appearanceId: id,
@@ -313,8 +321,9 @@ class MonsterAppearanceSpec {
       clawHex: pal.$6,
       widthRatio: wRatio,
       heightRatio: hRatio,
-      modelAssetPath: isPrimarySlot ? roster.modelAssetPath : null,
-      previewAssetPath: isPrimarySlot ? roster.previewAssetPath : null,
+      modelAssetPath: effectiveRoster.modelAssetPath,
+      previewAssetPath: effectiveRoster.previewAssetPath,
+      anatomy: effectiveRoster.anatomy,
     );
   }
 

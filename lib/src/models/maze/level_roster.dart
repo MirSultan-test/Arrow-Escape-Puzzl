@@ -234,4 +234,12 @@ class LevelRosterCatalog {
     final idx = (levelId - 1).clamp(0, entries.length - 1);
     return entries[idx];
   }
+
+  static LevelRosterEntry? byModelId(String id) {
+    final clean = id.split('/').last.replaceAll('.glb', '').replaceAll('.png', '').toLowerCase();
+    for (final e in entries) {
+      if (e.primaryModelId.toLowerCase() == clean) return e;
+    }
+    return null;
+  }
 }
