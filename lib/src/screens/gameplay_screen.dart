@@ -190,6 +190,49 @@ class _GameplayScreenState extends State<GameplayScreen>
       // Tapping on the bottom collector/truck dock walks directly to the bottom exit!
       eng.setTapTarget(eng.level.exitCell);
     }
+    widget.controller.canvasRepaintTick.value++;
+  }
+
+  void _handleRoutePanStart(DragStartDetails details) {
+    final eng = widget.controller.engine;
+    if (eng == null ||
+        _lastMazeSize == Size.zero ||
+        eng.phase != MazeGamePhase.playing) {
+      return;
+    }
+    final vp = MazeViewportTransform.compute(_lastMazeSize, eng);
+    final worldPt = vp.screenToWorld(details.localPosition);
+    if (eng.beginRouteDraw(worldPt.dx, worldPt.dy)) {
+      widget.controller.canvasRepaintTick.value++;
+    }
+  }
+
+  void _handleRoutePanUpdate(DragUpdateDetails details) {
+    final eng = widget.controller.engine;
+    if (eng == null ||
+        _lastMazeSize == Size.zero ||
+        eng.phase != MazeGamePhase.playing ||
+        !eng.isDrawingRoute) {
+      return;
+    }
+    final vp = MazeViewportTransform.compute(_lastMazeSize, eng);
+    final worldPt = vp.screenToWorld(details.localPosition);
+    eng.updateRouteDraw(worldPt.dx, worldPt.dy);
+    widget.controller.canvasRepaintTick.value++;
+  }
+
+  void _handleRoutePanEnd(DragEndDetails details) {
+    final eng = widget.controller.engine;
+    if (eng == null || !eng.isDrawingRoute) return;
+    eng.commitRouteDraw();
+    widget.controller.canvasRepaintTick.value++;
+  }
+
+  void _handleRoutePanCancel() {
+    final eng = widget.controller.engine;
+    if (eng == null || !eng.isDrawingRoute) return;
+    eng.cancelRouteDraw();
+    widget.controller.canvasRepaintTick.value++;
   }
 
   @override
@@ -244,6 +287,10 @@ class _GameplayScreenState extends State<GameplayScreen>
                           return GestureDetector(
                             behavior: HitTestBehavior.opaque,
                             onTapUp: _handleMazeTap,
+                            onPanStart: showRoadArena ? null : _handleRoutePanStart,
+                            onPanUpdate: showRoadArena ? null : _handleRoutePanUpdate,
+                            onPanEnd: showRoadArena ? null : _handleRoutePanEnd,
+                            onPanCancel: showRoadArena ? null : _handleRoutePanCancel,
                             child: AnimatedSwitcher(
                               duration: Duration(
                                 milliseconds: reducedMotion ? 0 : 420,
@@ -334,7 +381,40 @@ class _GameplayScreenState extends State<GameplayScreen>
 
                       // ON-DEMAND FLOATING HINT OVERLAY ONLY (never auto-shown at startup!)
                       if (eng.hintMessage != null)
-                        _buildOnDemandHintOverlay(eng),
+                        _buildOnDemandHintOverlay(eng)
+                      else if (eng.routeFeedbackMessage != null &&
+                          eng.phase == MazeGamePhase.playing)
+                        Positioned(
+                          top: 8,
+                          left: 24,
+                          right: 24,
+                          child: IgnorePointer(
+                            child: Center(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 5,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xDD1E293B),
+                                  borderRadius: BorderRadius.circular(14),
+                                  border: Border.all(
+                                    color: const Color(0xFF00B4D8),
+                                    width: 1.2,
+                                  ),
+                                ),
+                                child: Text(
+                                  eng.routeFeedbackMessage!,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11.5,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
 
                       // Cage Escape Cutscene Alert Banner (short & skippable!)
                       if (eng.phase.isCutsceneOrLoading)
@@ -513,7 +593,7 @@ class _GameplayScreenState extends State<GameplayScreen>
                   ),
                   Text(
                     isRoadPhase
-                        ? 'Truck Defense • ${eng.truckDefense.boss.type.displayName}'
+                        ? 'Truck Defense • ${eng.truckDefense.boss.displayName}'
                         : 'Score: ${eng.liveDeliveredFoodScore}',
                     style: TextStyle(
                       fontSize: 10.5,
@@ -1003,17 +1083,25 @@ class _GameplayScreenState extends State<GameplayScreen>
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: List.generate(capacity, (idx) {
-                            final item =
-                                idx < carried.length ? carried[idx] : null;
-                            return _buildCargoSlot(
-                              item,
-                              compact:
-                                  isCompact || capacity >= 3 || combatReady,
-                            );
-                          }),
+                        SizedBox(
+                          width: double.infinity,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: List.generate(capacity, (idx) {
+                                final item =
+                                    idx < carried.length ? carried[idx] : null;
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                                  child: _buildCargoSlot(
+                                    item,
+                                    compact: isCompact || capacity >= 3 || combatReady,
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -1102,7 +1190,7 @@ class _GameplayScreenState extends State<GameplayScreen>
             children: [
               Flexible(
                 child: Text(
-                  boss.isDefeated ? 'BOSS DEFEATED!' : boss.type.displayName,
+                  boss.isDefeated ? 'BOSS DEFEATED!' : boss.displayName,
                   style: TextStyle(
                     fontSize: 9.5,
                     fontWeight: FontWeight.w900,

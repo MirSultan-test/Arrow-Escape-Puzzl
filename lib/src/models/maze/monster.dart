@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'monster_variants.dart';
 
 /// Integer cell coordinate inside a maze grid (col = x, row = y).
 class GridPoint {
@@ -249,6 +250,10 @@ class MonsterDefinition {
   final double? recoverDuration;
   final bool respawns;
 
+  // V3.5 Data-Driven Per-Level Appearance & 10-Profile Movement System
+  final String? appearanceId;
+  final MonsterMovementProfile? movementProfile;
+
   const MonsterDefinition({
     required this.id,
     required this.type,
@@ -262,6 +267,8 @@ class MonsterDefinition {
     this.alertDuration = 0.36,
     this.recoverDuration,
     this.respawns = false,
+    this.appearanceId,
+    this.movementProfile,
   });
 
   int get effectiveMaxHp => maxHp ?? type.defaultMaxHp;
@@ -273,10 +280,20 @@ class MonsterDefinition {
       stunResistance ?? type.defaultStunResistance;
   double get effectiveRecoverDuration =>
       recoverDuration ?? type.defaultRecoverDuration;
+  MonsterMovementProfile get effectiveMovementProfile =>
+      movementProfile ?? MonsterMovementProfile.fromName(null, type);
 
-  MonsterEntity createRuntimeEntity() {
+  MonsterEntity createRuntimeEntity({int levelId = 1, int slotIndex = 0}) {
     final path =
         patrolPath.isNotEmpty ? List<GridPoint>.from(patrolPath) : [start];
+    final profile = effectiveMovementProfile;
+    final spec = MonsterAppearanceSpec.forLevelSlot(
+      levelId: levelId,
+      slotIndex: slotIndex,
+      type: type,
+      movement: profile,
+      explicitAppearanceId: appearanceId,
+    );
     return MonsterEntity(
       id: id,
       type: type,
@@ -293,7 +310,11 @@ class MonsterDefinition {
       alertDuration: alertDuration,
       recoverDuration: effectiveRecoverDuration,
       respawns: respawns,
-      state: path.length > 1 ? MonsterAiState.patrol : MonsterAiState.idle,
+      movementProfile: profile,
+      appearance: spec,
+      state: profile == MonsterMovementProfile.ambushMonster
+          ? MonsterAiState.idle
+          : (path.length > 1 ? MonsterAiState.patrol : MonsterAiState.idle),
     );
   }
 
@@ -310,6 +331,8 @@ class MonsterDefinition {
         'alertDuration': alertDuration,
         if (recoverDuration != null) 'recoverDuration': recoverDuration,
         if (respawns) 'respawns': respawns,
+        if (appearanceId != null) 'appearanceId': appearanceId,
+        if (movementProfile != null) 'movementProfile': movementProfile!.name,
       };
 
   factory MonsterDefinition.fromJson(Map<String, dynamic> json) {
@@ -319,6 +342,7 @@ class MonsterDefinition {
             ?.map((e) => GridPoint.fromJson(e as Map<String, dynamic>))
             .toList() ??
         [start];
+    final rawMove = json['movementProfile'] as String?;
     return MonsterDefinition(
       id: json['id'] as String? ?? 'm0',
       type: type,
@@ -332,6 +356,10 @@ class MonsterDefinition {
       alertDuration: (json['alertDuration'] as num?)?.toDouble() ?? 0.36,
       recoverDuration: (json['recoverDuration'] as num?)?.toDouble(),
       respawns: json['respawns'] as bool? ?? false,
+      appearanceId: json['appearanceId'] as String?,
+      movementProfile: rawMove != null
+          ? MonsterMovementProfile.fromName(rawMove, type)
+          : null,
     );
   }
 }
@@ -351,6 +379,8 @@ class MonsterEntity {
   final double alertDuration;
   final double recoverDuration;
   final bool respawns;
+  final MonsterMovementProfile movementProfile;
+  final MonsterAppearanceSpec appearance;
 
   double x;
   double y;
@@ -365,6 +395,16 @@ class MonsterEntity {
   double specialCooldown;
   double animPhase;
   double biteAnimTimer;
+
+  // V3.5 Movement-Specific Animation & Behavior Timers
+  double hopPhase; // 0..pi during active hop arc for jumpingCreature
+  double hopCooldown;
+  double zigzagPhase; // lateral weaving phase for zigzagMonster
+  double chargeVx;
+  double chargeVy;
+  double chargeActiveTimer;
+  bool ambushCrouched;
+  bool isMoving;
 
   // Combat feedback timers
   double stunTimer;
@@ -392,6 +432,8 @@ class MonsterEntity {
     required this.alertDuration,
     required this.recoverDuration,
     this.respawns = false,
+    MonsterMovementProfile? movementProfile,
+    MonsterAppearanceSpec? appearance,
     this.facingAngle = 0.0,
     this.state = MonsterAiState.patrol,
     this.stateTimer = 0.0,
@@ -403,6 +445,14 @@ class MonsterEntity {
     this.specialCooldown = 2.0,
     this.animPhase = 0.0,
     this.biteAnimTimer = 0.0,
+    this.hopPhase = 0.0,
+    this.hopCooldown = 0.0,
+    this.zigzagPhase = 0.0,
+    this.chargeVx = 0.0,
+    this.chargeVy = 0.0,
+    this.chargeActiveTimer = 0.0,
+    this.ambushCrouched = false,
+    this.isMoving = false,
     this.stunTimer = 0.0,
     this.freezeTimer = 0.0,
     this.hitFlashTimer = 0.0,
@@ -411,7 +461,17 @@ class MonsterEntity {
     this.knockbackVx = 0.0,
     this.knockbackVy = 0.0,
     this.bossPatternIndex = 0,
-  }) : activeNavPath = activeNavPath ?? [];
+  })  : movementProfile =
+            movementProfile ?? MonsterMovementProfile.fromName(null, type),
+        appearance = appearance ??
+            MonsterAppearanceSpec.forLevelSlot(
+              levelId: 1,
+              slotIndex: 0,
+              type: type,
+              movement:
+                  movementProfile ?? MonsterMovementProfile.fromName(null, type),
+            ),
+        activeNavPath = activeNavPath ?? [];
 
   bool get isDefeated => state == MonsterAiState.defeated || hp <= 0;
   bool get isFrozen => freezeTimer > 0.0;

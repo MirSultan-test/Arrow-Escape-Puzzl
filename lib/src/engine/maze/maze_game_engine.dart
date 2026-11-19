@@ -1,9 +1,11 @@
 import 'dart:math' as math;
+import '../../models/maze/character_animation_state.dart';
 import '../../models/maze/combat_models.dart';
 import '../../models/maze/delivery_state.dart';
 import '../../models/maze/food_item.dart';
 import '../../models/maze/maze_level.dart';
 import '../../models/maze/monster.dart';
+import '../../models/maze/monster_variants.dart';
 import '../../models/maze/truck_defense_models.dart';
 import 'maze_pathfinder.dart';
 import 'truck_defense_simulation.dart';
@@ -88,6 +90,7 @@ class MazeGameEngine {
   double playerY = 0.5;
   double playerFacingAngle = 0.0;
   bool playerIsMoving = false;
+  double playerMoveSpeedRatio = 0.0;
   double walkAnimPhase = 0.0;
   int health = 3;
   final int maxHealth = 3;
@@ -98,6 +101,7 @@ class MazeGameEngine {
   double pickupAnimTimer = 0.0;
   double deliveryAnimTimer = 0.0;
   double attackAnimTimer = 0.0;
+  static const double attackAnimDuration = 0.34;
   WeaponType? lastUsedWeapon;
   double poisonSlowTimer = 0.0;
   double _cargoFullCooldown = 0.0;
@@ -111,10 +115,17 @@ class MazeGameEngine {
   final Map<WeaponType, int> weaponAmmo = {};
   final Map<WeaponType, double> weaponCooldowns = {};
 
-  // Input state
+  // Input & V3.5 Drag-to-Move / Tap-to-Move Route State
   double _inputDx = 0.0;
   double _inputDy = 0.0;
   List<GridPoint> _tapMovePath = [];
+  bool isDrawingRoute = false;
+  final List<GridPoint> draftRouteCells = [];
+  double? invalidDragWorldX;
+  double? invalidDragWorldY;
+  GridPoint? autoRouteGoalCell;
+  String? routeFeedbackMessage;
+  double _routeFeedbackTimer = 0.0;
 
   // World entities
   late List<FoodItem> foods;
@@ -130,6 +141,8 @@ class MazeGameEngine {
   // Collector & Truck state
   CollectorAnimState collectorState = CollectorAnimState.waiting;
   double collectorAnimTimer = 0.0;
+  FoodType? collectorCarryingFoodType;
+  double collectorSmileTimer = 0.0;
   TruckAnimState truckState = TruckAnimState.waiting;
   double truckAnimTimer = 0.0;
   double truckDriveOffset = 0.0;
@@ -181,6 +194,7 @@ class MazeGameEngine {
     playerY = level.playerStart.centerY;
     playerFacingAngle = 0.0;
     playerIsMoving = false;
+    playerMoveSpeedRatio = 0.0;
     walkAnimPhase = 0.0;
     health = maxHealth;
     hasShield = false;
@@ -231,9 +245,19 @@ class MazeGameEngine {
     _inputDx = 0.0;
     _inputDy = 0.0;
     _tapMovePath = [];
+    isDrawingRoute = false;
+    draftRouteCells.clear();
+    invalidDragWorldX = null;
+    invalidDragWorldY = null;
+    autoRouteGoalCell = null;
+    routeFeedbackMessage = null;
+    _routeFeedbackTimer = 0.0;
 
     foods = level.foods.map((f) => f.createRuntimeItem()).toList();
-    monsters = level.monsters.map((m) => m.createRuntimeEntity()).toList();
+    monsters = [
+      for (int i = 0; i < level.monsters.length; i++)
+        level.monsters[i].createRuntimeEntity(levelId: level.id, slotIndex: i),
+    ];
     healthPickups =
         level.healthPickups.map((h) => h.createRuntimeItem()).toList();
     combatPickups =
@@ -246,6 +270,8 @@ class MazeGameEngine {
 
     collectorState = CollectorAnimState.waiting;
     collectorAnimTimer = 0.0;
+    collectorCarryingFoodType = null;
+    collectorSmileTimer = 0.0;
     truckState = TruckAnimState.waiting;
     truckAnimTimer = 0.0;
     truckDriveOffset = 0.0;
@@ -369,33 +395,379 @@ class MazeGameEngine {
 
   List<GridPoint> get activeTapPath => List.unmodifiable(_tapMovePath);
 
-  // --- Controls & Combat Actions ---
+  /// Builds the authoritative V3.4 state-driven animation snapshot & facial expression
+  /// for the playable Human Courier (used in BOTH Maze Stage & Truck Defense Arena!).
+  CourierAnimSnapshot buildCourierAnimSnapshot() {
+    final bool inRoad = phase.isRoadBattleView;
+    final double facing =
+        inRoad ? truckDefense.playerFacingAngle : playerFacingAngle;
+    final double speedRatio =
+        inRoad ? truckDefense.playerMoveSpeedRatio : playerMoveSpeedRatio;
+    final double walkPhase =
+        inRoad ? truckDefense.playerWalkPhase : walkAnimPhase;
+
+    // Check if an enemy is approaching nearby (triggers Alert expression!)
+    bool enemyNear = false;
+    if (inRoad) {
+      if (!truckDefense.boss.isDefeated && !truckDefense.boss.isCaged) {
+        final dx = truckDefense.boss.x - truckDefense.playerX;
+        final dy = truckDefense.boss.y - truckDefense.playerY;
+        if (dx * dx + dy * dy <= 3.0 * 3.0) enemyNear = true;
+      }
+    } else {
+      for (final m in monsters) {
+        if (m.isDefeated) continue;
+        final dx = m.x - playerX;
+        final dy = m.y - playerY;
+        if (dx * dx + dy * dy <= 2.5 * 2.5) {
+          enemyNear = true;
+          break;
+        }
+      }
+    }
+
+    // Priority-ordered animation state & expression resolution (Section 2 & 7)
+    CourierAnimState state;
+    CourierExpression expr;
+    double stateProgress = 0.0;
+
+    if (phase == MazeGamePhase.victory || phase == MazeGamePhase.truckArrived) {
+      state = CourierAnimState.celebrate;
+      expr = CourierExpression.excited;
+    } else if (damageFlashTimer > 0) {
+      state = CourierAnimState.hurt;
+      expr = CourierExpression.pain;
+      stateProgress = (1.0 - damageFlashTimer / 0.45).clamp(0.0, 1.0);
+    } else if (attackAnimTimer > 0) {
+      stateProgress =
+          (1.0 - attackAnimTimer / attackAnimDuration).clamp(0.0, 1.0);
+      expr = CourierExpression.determined;
+      switch (lastUsedWeapon ?? activePrimaryWeapon) {
+        case WeaponType.bow:
+          state = stateProgress < 0.35
+              ? CourierAnimState.aimBow
+              : CourierAnimState.releaseBow;
+          break;
+        case WeaponType.energyBlaster:
+          state = CourierAnimState.fireBlaster;
+          break;
+        case WeaponType.freezeOrb:
+        case WeaponType.stunPulse:
+        case WeaponType.foodDecoy:
+          state = CourierAnimState.castOrb;
+          break;
+        case WeaponType.melee:
+          state = CourierAnimState.meleeSlash;
+          break;
+      }
+    } else if (deliveryAnimTimer > 0) {
+      state = CourierAnimState.deliverFood;
+      expr = CourierExpression.smiling;
+      stateProgress = (1.0 - deliveryAnimTimer / 0.55).clamp(0.0, 1.0);
+    } else if (pickupAnimTimer > 0) {
+      state = CourierAnimState.pickupFood;
+      expr = CourierExpression.happy;
+      stateProgress = (1.0 - pickupAnimTimer / 0.35).clamp(0.0, 1.0);
+    } else if (speedRatio > 0.55) {
+      state = CourierAnimState.run;
+      expr = health <= 1
+          ? CourierExpression.worried
+          : (enemyNear ? CourierExpression.alert : CourierExpression.focused);
+    } else if (speedRatio > 0.05) {
+      state = CourierAnimState.walk;
+      expr = health <= 1
+          ? CourierExpression.worried
+          : (enemyNear ? CourierExpression.alert : CourierExpression.focused);
+    } else {
+      state = CourierAnimState.idle;
+      expr = health <= 1
+          ? CourierExpression.worried
+          : (enemyNear ? CourierExpression.alert : CourierExpression.relaxed);
+    }
+
+    return CourierAnimSnapshot(
+      state: state,
+      expression: expr,
+      facingAngle: facing,
+      moveSpeedRatio: speedRatio,
+      walkCyclePhase: walkPhase,
+      stateProgress: stateProgress,
+      elapsed: elapsedTime,
+      equippedWeapon: (hasCombatUnlocked || inRoad) ? activePrimaryWeapon : null,
+      activeAttackWeapon: attackAnimTimer > 0 ? lastUsedWeapon : null,
+      hurtRecoilProgress: (damageFlashTimer / 0.45).clamp(0.0, 1.0),
+      recoilDirX: -math.cos(facing),
+      recoilDirY: -math.sin(facing),
+      hasShield: hasShield,
+      isInvulnerable: invulnerabilityTimer > 0,
+      isPoisonSlowed: poisonSlowTimer > 0,
+      isHealing: healAnimTimer > 0,
+      carriedFoods: inRoad ? const [] : carriedFoods,
+    );
+  }
+
+  /// Builds the authoritative V3.4 animation snapshot for the Peaceful Dock Worker
+  /// during Stage 1 (Maze Gameplay & Cage Escape Cutscene).
+  DockWorkerAnimSnapshot buildMazeDockWorkerAnimSnapshot() {
+    if (truckDefense.ally.hasKnifeDrawn ||
+        phase == MazeGamePhase.cageEscapeCutscene) {
+      return truckDefense.buildRoadAllyAnimSnapshot(elapsedTime);
+    }
+
+    DockWorkerAnimState animState;
+    DockWorkerExpression expr;
+    double progress = 0.0;
+    double facing = math.atan2(
+      playerY - (level.rows + 0.5),
+      playerX - level.exitCell.centerX,
+    );
+
+    if (phase == MazeGamePhase.foodLoadingComplete) {
+      animState = DockWorkerAnimState.closingCargo;
+      expr = DockWorkerExpression.working;
+      progress = (truckDefense.phaseTimer /
+              TruckDefenseSimulation.loadingCompleteDuration)
+          .clamp(0.0, 1.0);
+      facing = 0.0;
+    } else if (collectorState == CollectorAnimState.receiving) {
+      animState = DockWorkerAnimState.receivingFood;
+      expr = DockWorkerExpression.working;
+      progress = (1.0 - collectorAnimTimer / 0.42).clamp(0.0, 1.0);
+      facing = -math.pi * 0.5;
+    } else if (collectorState == CollectorAnimState.carryingToTruck) {
+      final p = (1.0 - collectorAnimTimer / 0.55).clamp(0.0, 1.0);
+      animState = p < 0.65
+          ? DockWorkerAnimState.carryingToTruck
+          : DockWorkerAnimState.loadingTruck;
+      expr = DockWorkerExpression.working;
+      progress = p;
+      facing = 0.0;
+    } else if (collectorSmileTimer > 0) {
+      animState = DockWorkerAnimState.smilingAfterLoad;
+      expr = DockWorkerExpression.smiling;
+      progress = (1.0 - collectorSmileTimer / 1.1).clamp(0.0, 1.0);
+    } else {
+      // Friendly waiting & periodic wave when Courier approaches!
+      final distToExit = math.sqrt(
+        math.pow(playerX - level.exitCell.centerX, 2) +
+            math.pow(playerY - level.exitCell.centerY, 2),
+      );
+      final shouldWave = distToExit < 3.5 || (elapsedTime % 5.0) > 3.6;
+      animState = shouldWave
+          ? DockWorkerAnimState.waving
+          : DockWorkerAnimState.idleWaiting;
+      expr = shouldWave
+          ? DockWorkerExpression.smiling
+          : DockWorkerExpression.friendly;
+    }
+
+    return DockWorkerAnimSnapshot(
+      state: animState,
+      expression: expr,
+      facingAngle: facing,
+      walkCyclePhase: elapsedTime * 9.0,
+      stateProgress: progress,
+      elapsed: elapsedTime,
+      hasKnifeDrawn: false,
+      carriedFoodType: collectorCarryingFoodType,
+    );
+  }
+
+  // --- Controls & V3.5 Drag-to-Move / Tap-to-Move / Joystick Priority ---
+
+  bool get isFollowingAutoRoute => _tapMovePath.isNotEmpty;
+
+  /// Returns the currently active preview route (draft route while dragging,
+  /// or remaining auto-move path once released!).
+  List<GridPoint> get previewRouteCells => isDrawingRoute
+      ? List.unmodifiable(draftRouteCells)
+      : List.unmodifiable(_tapMovePath);
 
   void setJoystickInput(double dx, double dy) {
     final mag = math.sqrt(dx * dx + dy * dy);
     if (mag < 0.08) {
       _inputDx = 0.0;
       _inputDy = 0.0;
-    } else if (mag > 1.0) {
-      _inputDx = dx / mag;
-      _inputDy = dy / mag;
-      _tapMovePath = [];
     } else {
-      _inputDx = dx;
-      _inputDy = dy;
+      // Priority Rule (Section 9): Joystick immediately cancels any active auto-route or draft!
       _tapMovePath = [];
+      autoRouteGoalCell = null;
+      isDrawingRoute = false;
+      draftRouteCells.clear();
+      invalidDragWorldX = null;
+      invalidDragWorldY = null;
+      if (mag > 1.0) {
+        _inputDx = dx / mag;
+        _inputDy = dy / mag;
+      } else {
+        _inputDx = dx;
+        _inputDy = dy;
+      }
     }
   }
 
+  /// Step 1 (Section 7): Begins Drag-to-Move route drawing when touching near the Courier.
+  /// Uses a generous 1.45-tile touch radius so pixel-perfect contact is never needed.
+  /// Does NOT move the Courier until the player releases their finger!
+  bool beginRouteDraw(double worldX, double worldY) {
+    if (phase != MazeGamePhase.playing) return false;
+    final dx = worldX - playerX;
+    final dy = worldY - playerY;
+    if (dx * dx + dy * dy > 1.45 * 1.45) return false;
+
+    isDrawingRoute = true;
+    draftRouteCells
+      ..clear()
+      ..add(playerCell);
+    invalidDragWorldX = null;
+    invalidDragWorldY = null;
+    routeFeedbackMessage = null;
+    return true;
+  }
+
+  /// Step 2 & 3 (Section 7 & 12): Appends valid corridor cells along the player's finger drag.
+  /// Respects walls strictly (never cuts through or teleports across walls!),
+  /// allows tiny touchscreen slip snapping, and simplifies accidental double-backs cleanly.
+  bool updateRouteDraw(double worldX, double worldY) {
+    if (!isDrawingRoute || phase != MazeGamePhase.playing) return false;
+    if (draftRouteCells.isEmpty) {
+      draftRouteCells.add(playerCell);
+    }
+
+    // Clamp to maze bounds for validation
+    final rawCol = worldX.floor();
+    final rawRow = worldY.floor();
+    GridPoint? targetCell;
+
+    if (level.inBounds(rawCol, rawRow) && level.isWalkable(rawCol, rawRow)) {
+      targetCell = GridPoint(rawCol, rawRow);
+    } else if (rawRow >= level.rows &&
+        (rawCol - level.exitCell.col).abs() <= 2) {
+      // Dragging onto the bottom Delivery Dock snaps cleanly to the Dock exit cell!
+      targetCell = level.exitCell;
+    } else {
+      // Minor touchscreen inaccuracy snap: check if an adjacent walkable corridor cell
+      // lies within 0.48 tiles of the finger AND borders the current route tip!
+      final tip = draftRouteCells.last;
+      double bestDistSq = 0.52 * 0.52;
+      for (final d in const [
+        GridPoint(1, 0),
+        GridPoint(-1, 0),
+        GridPoint(0, 1),
+        GridPoint(0, -1),
+      ]) {
+        final cand = GridPoint(tip.col + d.col, tip.row + d.row);
+        if (!level.isWalkable(cand.col, cand.row)) continue;
+        final ddx = worldX - cand.centerX;
+        final ddy = worldY - cand.centerY;
+        final dSq = ddx * ddx + ddy * ddy;
+        if (dSq < bestDistSq) {
+          bestDistSq = dSq;
+          targetCell = cand;
+        }
+      }
+    }
+
+    if (targetCell == null) {
+      // Finger hit a solid wall! Show red invalid-segment indicator & do NOT cross wall!
+      invalidDragWorldX = worldX.clamp(0.0, level.cols.toDouble());
+      invalidDragWorldY = worldY.clamp(0.0, level.rows.toDouble());
+      return false;
+    }
+
+    final tip = draftRouteCells.last;
+    if (targetCell == tip) {
+      invalidDragWorldX = null;
+      invalidDragWorldY = null;
+      return true;
+    }
+
+    // Backtracking / Loop Simplification (Section 12):
+    // If finger drags back over an earlier cell in the drawn route, trim back cleanly!
+    final existingIdx = draftRouteCells.indexOf(targetCell);
+    if (existingIdx >= 0) {
+      draftRouteCells.removeRange(existingIdx + 1, draftRouteCells.length);
+      invalidDragWorldX = null;
+      invalidDragWorldY = null;
+      return true;
+    }
+
+    // 4-way adjacent walkable step: append directly!
+    if (tip.manhattanTo(targetCell) == 1) {
+      draftRouteCells.add(targetCell);
+      invalidDragWorldX = null;
+      invalidDragWorldY = null;
+      return true;
+    }
+
+    // Fast finger drag across multiple corridor cells:
+    // Connect along short walkable corridor ONLY if unobstructed (<= 5 corridor steps)
+    // so walls are NEVER crossed and the user's chosen branch is NEVER silently replaced!
+    final bridge = MazePathfinder.findPath(level, tip, targetCell);
+    if (bridge.length >= 2 && bridge.length <= 6) {
+      for (int i = 1; i < bridge.length; i++) {
+        final stepCell = bridge[i];
+        final backIdx = draftRouteCells.indexOf(stepCell);
+        if (backIdx >= 0) {
+          draftRouteCells.removeRange(backIdx + 1, draftRouteCells.length);
+        } else {
+          draftRouteCells.add(stepCell);
+        }
+      }
+      invalidDragWorldX = null;
+      invalidDragWorldY = null;
+      return true;
+    }
+
+    // Wall separates tip from dragged finger -> show red invalid path indicator!
+    invalidDragWorldX = worldX.clamp(0.0, level.cols.toDouble());
+    invalidDragWorldY = worldY.clamp(0.0, level.rows.toDouble());
+    return false;
+  }
+
+  /// Step 4 (Section 7): Releases finger, commits valid multi-turn route, and starts auto-movement!
+  bool commitRouteDraw() {
+    if (!isDrawingRoute) return false;
+    isDrawingRoute = false;
+    invalidDragWorldX = null;
+    invalidDragWorldY = null;
+
+    if (draftRouteCells.length <= 1) {
+      draftRouteCells.clear();
+      return false;
+    }
+
+    _tapMovePath = draftRouteCells.sublist(1);
+    autoRouteGoalCell = draftRouteCells.last;
+    draftRouteCells.clear();
+    return true;
+  }
+
+  void cancelRouteDraw() {
+    isDrawingRoute = false;
+    draftRouteCells.clear();
+    invalidDragWorldX = null;
+    invalidDragWorldY = null;
+  }
+
+  void cancelAutoRoute() {
+    _tapMovePath = [];
+    autoRouteGoalCell = null;
+  }
+
+  /// Optional Tap-to-Move (Section 8): computes shortest walkable path via BFS/A*.
   bool setTapTarget(GridPoint targetCell) {
     if (phase != MazeGamePhase.playing) return false;
     if (!level.isWalkable(targetCell.col, targetCell.row)) return false;
+    cancelRouteDraw();
     final path = MazePathfinder.findPath(level, playerCell, targetCell);
     if (path.length <= 1) {
       _tapMovePath = [];
+      autoRouteGoalCell = null;
       return false;
     }
     _tapMovePath = path.sublist(1);
+    autoRouteGoalCell = targetCell;
     return true;
   }
 
@@ -481,7 +853,7 @@ class MazeGameEngine {
       weaponAmmo[weapon] = math.max(0, ammoFor(weapon) - 1);
     }
     weaponCooldowns[weapon] = weapon.cooldownSeconds;
-    attackAnimTimer = 0.28;
+    attackAnimTimer = attackAnimDuration;
     lastUsedWeapon = weapon;
 
     // Route weapon execution cleanly to Road Battle Arena during Truck Defense!
@@ -546,15 +918,31 @@ class MazeGameEngine {
 
   void _spawnProjectile(WeaponType weapon, double angle) {
     final speed = weapon.projectileSpeed;
+    // Launch directly from bow-tip / blaster muzzle while never clipping into a solid wall
+    double offset = weapon == WeaponType.bow ? 0.36 : 0.34;
+    double sx = playerX + math.cos(angle) * offset;
+    double sy = playerY + math.sin(angle) * offset;
+    if (level.isWall(sx.floor(), sy.floor())) {
+      sx = playerX + math.cos(angle) * 0.16;
+      sy = playerY + math.sin(angle) * 0.16;
+    }
     projectiles.add(ProjectileEntity(
       weapon: weapon,
-      x: playerX + math.cos(angle) * 0.28,
-      y: playerY + math.sin(angle) * 0.28,
+      x: sx,
+      y: sy,
       vx: math.cos(angle) * speed,
       vy: math.sin(angle) * speed,
       angle: angle,
       damage: weapon.baseDamage,
       remainingRange: weapon.rangeTiles,
+    ));
+    vfx.add(CombatVfx(
+      type: CombatVfxType.hitBurst,
+      x: sx,
+      y: sy,
+      maxRadius: 0.24,
+      colorHex: weapon.colorHex,
+      duration: 0.15,
     ));
   }
 
@@ -743,6 +1131,7 @@ class MazeGameEngine {
       phase = MazeGamePhase.paused;
       _inputDx = 0.0;
       _inputDy = 0.0;
+      cancelRouteDraw();
     }
   }
 
@@ -845,6 +1234,10 @@ class MazeGameEngine {
     }
     vfx.removeWhere((e) => e.isExpired);
 
+    if (_routeFeedbackTimer > 0) {
+      _routeFeedbackTimer = (_routeFeedbackTimer - dt).clamp(0.0, 5.0);
+      if (_routeFeedbackTimer <= 0) routeFeedbackMessage = null;
+    }
     if (hintTimer > 0) {
       hintTimer = (hintTimer - dt).clamp(0.0, 10.0);
       if (hintTimer <= 0) {
@@ -858,12 +1251,17 @@ class MazeGameEngine {
       if (collectorAnimTimer <= 0 && phase == MazeGamePhase.playing) {
         if (collectorState == CollectorAnimState.receiving) {
           collectorState = CollectorAnimState.carryingToTruck;
-          collectorAnimTimer = 0.45;
+          collectorAnimTimer = 0.55;
         } else if (collectorState == CollectorAnimState.carryingToTruck) {
           collectorState = CollectorAnimState.waiting;
+          collectorCarryingFoodType = null;
+          collectorSmileTimer = 1.1;
           truckState = TruckAnimState.waiting;
         }
       }
+    }
+    if (collectorSmileTimer > 0) {
+      collectorSmileTimer = (collectorSmileTimer - dt).clamp(0.0, 5.0);
     }
 
     // --- V3.3 Multi-Phase State Machine Transitions ---
@@ -1112,13 +1510,15 @@ class MazeGameEngine {
       }
     }
 
-    if (vx.abs() > 0.01 || vy.abs() > 0.01) {
+    final speedMag = math.sqrt(vx * vx + vy * vy).clamp(0.0, 1.0);
+    if (speedMag > 0.01) {
       playerIsMoving = true;
+      playerMoveSpeedRatio = speedMag;
       if (attackAnimTimer <= 0.05) {
         playerFacingAngle = math.atan2(vy, vx);
       }
       final slowFactor = poisonSlowTimer > 0 ? 0.58 : 1.0;
-      walkAnimPhase += dt * 11.5 * slowFactor;
+      walkAnimPhase += dt * (8.2 + speedMag * 5.8) * slowFactor;
 
       final moveDist = level.playerSpeed * slowFactor * dt;
       final targetX = playerX + vx * moveDist;
@@ -1153,7 +1553,7 @@ class MazeGameEngine {
       }
     } else {
       playerIsMoving = false;
-      walkAnimPhase += dt * 2.5;
+      playerMoveSpeedRatio = 0.0;
     }
   }
 
@@ -1255,6 +1655,13 @@ class MazeGameEngine {
         }
         item.status = FoodStatus.carried;
         pickupAnimTimer = 0.35;
+        // Step 5 (Section 7): If the drawn auto-route targeted this food, complete route cleanly!
+        if (autoRouteGoalCell != null &&
+            autoRouteGoalCell!.col == item.spawnCol &&
+            autoRouteGoalCell!.row == item.spawnRow) {
+          _tapMovePath = [];
+          autoRouteGoalCell = null;
+        }
         popups.add(FloatingPopup(
           text: '+ ${item.type.displayName}',
           worldX: fx,
@@ -1358,9 +1765,10 @@ class MazeGameEngine {
     }
     if (deliveredBatch.isEmpty) return;
 
-    deliveryAnimTimer = 0.45;
+    deliveryAnimTimer = 0.55;
     collectorState = CollectorAnimState.receiving;
-    collectorAnimTimer = 0.35;
+    collectorAnimTimer = 0.42;
+    collectorCarryingFoodType = deliveredBatch.first.type;
     truckState = TruckAnimState.loading;
 
     popups.add(FloatingPopup(
@@ -1509,7 +1917,11 @@ class MazeGameEngine {
       }
 
       // Defeated monsters never move or attack!
-      if (m.isDefeated) continue;
+      if (m.isDefeated) {
+        m.isMoving = false;
+        continue;
+      }
+      m.isMoving = false;
 
       // Apply decaying knockback while strictly respecting maze walls
       if (m.knockbackVx.abs() > 0.05 || m.knockbackVy.abs() > 0.05) {
@@ -1558,14 +1970,26 @@ class MazeGameEngine {
       final hasLos =
           MazePathfinder.hasLineOfSight(level, m.x, m.y, playerX, playerY);
 
-      // Telegraphed windup attacks for Mushroom Beast, Forest Brute & Maze Guardian
+      // Telegraphed windup attacks (Charging Monster corridor rush, Mushroom Beast cloud, Brute slam)
       if (m.state == MonsterAiState.windup) {
         m.stateTimer += dt;
         m.facingAngle = math.atan2(dy, dx);
-        final windupDur = m.type == MonsterType.mushroomBeast ? 0.85 : 0.55;
+        final isCharger =
+            m.movementProfile == MonsterMovementProfile.chargingMonster;
+        final windupDur = m.type == MonsterType.mushroomBeast
+            ? 0.85
+            : (isCharger ? 0.58 : 0.55);
         if (m.stateTimer >= windupDur) {
           m.stateTimer = 0.0;
-          if (m.type == MonsterType.mushroomBeast ||
+          if (isCharger && m.type != MonsterType.mushroomBeast) {
+            // Launch high-speed wall-safe corridor charge!
+            final angle = math.atan2(dy, dx);
+            m.chargeVx = math.cos(angle) * m.speed * 2.15;
+            m.chargeVy = math.sin(angle) * m.speed * 2.15;
+            m.chargeActiveTimer = 0.72;
+            m.specialCooldown = 3.8;
+            m.state = MonsterAiState.chase;
+          } else if (m.type == MonsterType.mushroomBeast ||
               (m.type == MonsterType.mazeGuardian && m.bossPatternIndex == 1)) {
             poisonClouds.add(PoisonCloudEntity(x: m.x, y: m.y, radius: 1.45));
             m.specialCooldown = 5.5;
@@ -1590,6 +2014,39 @@ class MazeGameEngine {
             }
           }
           m.bossPatternIndex = (m.bossPatternIndex + 1) % 3;
+        }
+        continue;
+      }
+
+      // Active High-Speed Corridor Charge (Charging Monster H — strictly wall-stopping!)
+      if (m.chargeActiveTimer > 0) {
+        m.chargeActiveTimer = (m.chargeActiveTimer - dt).clamp(0.0, 2.0);
+        m.isMoving = true;
+        final nx = m.x + m.chargeVx * dt;
+        final ny = m.y + m.chargeVy * dt;
+        bool hitWall = false;
+        if (!_collidesWithWall(nx, m.y, monsterRadius)) {
+          m.x = nx;
+        } else {
+          hitWall = true;
+        }
+        if (!_collidesWithWall(m.x, ny, monsterRadius)) {
+          m.y = ny;
+        } else {
+          hitWall = true;
+        }
+        if (hitWall || m.chargeActiveTimer <= 0) {
+          m.chargeActiveTimer = 0.0;
+          m.state = MonsterAiState.recover;
+          m.stateTimer = 0.0;
+        }
+        if (distToPlayer <= attackDistance + 0.12 &&
+            hasLos &&
+            m.attackCooldown <= 0.0 &&
+            invulnerabilityTimer <= 0.0) {
+          m.chargeActiveTimer = 0.0;
+          _executeMonsterAttack(m);
+          if (phase != MazeGamePhase.playing) return;
         }
         continue;
       }
@@ -1653,16 +2110,26 @@ class MazeGameEngine {
       switch (m.state) {
         case MonsterAiState.idle:
           m.stateTimer += dt;
-          m.facingAngle += dt * 1.35;
+          m.ambushCrouched =
+              m.movementProfile == MonsterMovementProfile.ambushMonster;
+          if (!m.ambushCrouched) {
+            m.facingAngle += dt * 1.35;
+          } else {
+            m.facingAngle = math.atan2(dy, dx);
+          }
           if (_canDetectPlayer(m, distToPlayer, hasLos)) {
+            m.ambushCrouched = false;
             _enterDetectState(m);
-          } else if (m.patrolPath.length > 1 && m.stateTimer >= 1.15) {
+          } else if (!m.ambushCrouched &&
+              m.patrolPath.length > 1 &&
+              m.stateTimer >= 1.15) {
             m.state = MonsterAiState.patrol;
             m.stateTimer = 0.0;
           }
           break;
 
         case MonsterAiState.patrol:
+          m.ambushCrouched = false;
           if (_canDetectPlayer(m, distToPlayer, hasLos)) {
             _enterDetectState(m);
           } else {
@@ -1671,22 +2138,33 @@ class MazeGameEngine {
           break;
 
         case MonsterAiState.detect:
+          m.ambushCrouched = false;
           m.facingAngle = math.atan2(dy, dx);
           m.stateTimer += dt;
           if (m.stateTimer >= m.alertDuration) {
             m.stateTimer = 0.0;
-            m.state = MonsterAiState.chase;
+            if (m.movementProfile == MonsterMovementProfile.chargingMonster &&
+                hasLos &&
+                m.specialCooldown <= 0.0 &&
+                distToPlayer <= 4.5) {
+              m.state = MonsterAiState.windup;
+            } else {
+              m.state = MonsterAiState.chase;
+            }
             m.repathTimer = 0.0;
           }
           break;
 
         case MonsterAiState.chase:
-          final maxChaseRange = m.type == MonsterType.flyingCreature
+          final isFlying =
+              m.movementProfile == MonsterMovementProfile.flyingMonster;
+          final maxChaseRange = isFlying
               ? m.detectionRange * 1.32
-              : m.detectionRange * 1.5;
+              : (m.movementProfile == MonsterMovementProfile.intelligentHunter
+                  ? m.detectionRange * 1.75
+                  : m.detectionRange * 1.5);
           m.stateTimer += dt;
-          final tiredOut =
-              m.type == MonsterType.flyingCreature && m.stateTimer >= 3.0;
+          final tiredOut = isFlying && m.stateTimer >= 3.0;
 
           if (distToPlayer > maxChaseRange || tiredOut) {
             m.state = MonsterAiState.recover;
@@ -1695,17 +2173,61 @@ class MazeGameEngine {
             break;
           }
 
+          // Charging Monster triggers telegraphed charge down open corridors!
+          if (m.movementProfile == MonsterMovementProfile.chargingMonster &&
+              hasLos &&
+              m.specialCooldown <= 0.0 &&
+              distToPlayer > 1.35 &&
+              distToPlayer <= 4.4) {
+            m.state = MonsterAiState.windup;
+            m.stateTimer = 0.0;
+            break;
+          }
+
           if (m.repathTimer <= 0.0) {
             m.repathTimer = 0.25;
-            final path =
-                MazePathfinder.findPath(level, m.currentCell, playerCell);
+            GridPoint goalCell = playerCell;
+            // Intelligent Hunter (Profile J): predicts & flanks 1-2 cells ahead of player!
+            if (m.movementProfile == MonsterMovementProfile.intelligentHunter &&
+                distToPlayer > 1.8) {
+              final leadCol =
+                  (playerX + math.cos(playerFacingAngle) * 1.6).floor();
+              final leadRow =
+                  (playerY + math.sin(playerFacingAngle) * 1.6).floor();
+              if (level.inBounds(leadCol, leadRow) &&
+                  level.isWalkable(leadCol, leadRow)) {
+                goalCell = GridPoint(leadCol, leadRow);
+              }
+            }
+            final path = MazePathfinder.findPath(level, m.currentCell, goalCell);
             m.activeNavPath = path.length > 1 ? path.sublist(1) : [];
           }
 
-          // Shadow Crawler speeds up dramatically on ambush chase!
-          final chaseMult = m.type == MonsterType.shadowCrawler
-              ? 1.32
-              : (m.type == MonsterType.flyingCreature ? 1.12 : 1.06);
+          // Distinct chase speeds matched to each of the 10 movement profiles!
+          final double chaseMult;
+          switch (m.movementProfile) {
+            case MonsterMovementProfile.slowStalker:
+              chaseMult = 0.88;
+              break;
+            case MonsterMovementProfile.fastHunter:
+              chaseMult = 1.24;
+              break;
+            case MonsterMovementProfile.ambushMonster:
+              chaseMult = 1.36;
+              break;
+            case MonsterMovementProfile.crawlingMonster:
+              chaseMult = 1.28;
+              break;
+            case MonsterMovementProfile.flyingMonster:
+              chaseMult = 1.15;
+              break;
+            case MonsterMovementProfile.intelligentHunter:
+              chaseMult = 1.12;
+              break;
+            default:
+              chaseMult = 1.06;
+              break;
+          }
           final chaseSpeed = m.speed * chaseMult;
 
           if (m.activeNavPath.isNotEmpty) {
@@ -1850,11 +2372,42 @@ class MazeGameEngine {
     final dist = math.sqrt(dx * dx + dy * dy);
     if (dist < 1e-5) return;
 
+    m.isMoving = true;
     m.facingAngle = math.atan2(dy, dx);
-    final stepDist = math.min(speed * dt, dist);
-    final nx = m.x + (dx / dist) * stepDist;
-    final ny = m.y + (dy / dist) * stepDist;
 
+    // Profile F — Jumping Creature: rhythmic hop cycles (takeoff -> leap -> land pause!)
+    double effSpeed = speed;
+    if (m.movementProfile == MonsterMovementProfile.jumpingCreature) {
+      if (m.hopCooldown > 0) {
+        m.hopCooldown = (m.hopCooldown - dt).clamp(0.0, 2.0);
+        m.hopPhase = 0.0;
+        m.isMoving = false;
+        return; // Brief crouch before next hop!
+      }
+      m.hopPhase += dt * 7.8;
+      effSpeed = speed * 1.65;
+      if (m.hopPhase >= math.pi) {
+        m.hopPhase = 0.0;
+        m.hopCooldown = 0.28;
+      }
+    }
+
+    final stepDist = math.min(effSpeed * dt, dist);
+    double vx = (dx / dist) * stepDist;
+    double vy = (dy / dist) * stepDist;
+
+    // Profile C — Zigzag Monster: wall-safe perpendicular lateral weave!
+    if (m.movementProfile == MonsterMovementProfile.zigzagMonster) {
+      m.zigzagPhase += dt * 9.5;
+      final perpX = -dy / dist;
+      final perpY = dx / dist;
+      final weave = math.sin(m.zigzagPhase) * stepDist * 0.42;
+      vx += perpX * weave;
+      vy += perpY * weave;
+    }
+
+    final nx = m.x + vx;
+    final ny = m.y + vy;
     if (!_collidesWithWall(nx, m.y, monsterRadius)) m.x = nx;
     if (!_collidesWithWall(m.x, ny, monsterRadius)) m.y = ny;
   }
@@ -1887,6 +2440,14 @@ class MazeGameEngine {
       ));
       callbacks.onShieldBlocked?.call();
       return;
+    }
+
+    // Section 10: Enemy attack interrupts active auto-route so player immediately regains manual control!
+    if (_tapMovePath.isNotEmpty) {
+      _tapMovePath = [];
+      autoRouteGoalCell = null;
+      routeFeedbackMessage = 'Attacked! Manual control restored.';
+      _routeFeedbackTimer = 2.0;
     }
 
     invulnerabilityTimer = playerInvulnDuration;

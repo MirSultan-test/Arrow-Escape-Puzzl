@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../../models/maze/character_animation_state.dart';
 import '../../models/maze/combat_models.dart';
 import '../../models/maze/delivery_state.dart';
 import '../../models/maze/truck_defense_models.dart';
@@ -78,14 +79,17 @@ class TruckDefenseSimulation {
   double playerY = 2.2;
   double playerFacingAngle = 0.0;
   bool playerIsMoving = false;
+  double playerMoveSpeedRatio = 0.0;
   double playerWalkPhase = 0.0;
+  double _playerDustTimer = 0.0;
 
-  // Combat projectiles, hazards, helpers, VFX & popups inside Road Arena
+  // Combat projectiles, hazards, helpers, dust puffs, VFX & popups inside Road Arena
   final List<ProjectileEntity> playerProjectiles = [];
   final List<BossProjectileEntity> bossProjectiles = [];
   final List<RoadHazardZone> hazards = [];
   final List<RoadHelperMinion> helperMinions = [];
   final List<FoodDecoyEntity> decoys = [];
+  final List<DustPuffEntity> dustPuffs = [];
   final List<CombatVfx> vfx = [];
   final List<FloatingPopup> popups = [];
 
@@ -138,6 +142,7 @@ class TruckDefenseSimulation {
 
     boss = RoadBossEntity(
       type: config.bossType,
+      appearance: config.bossAppearance,
       maxHp: config.bossMaxHp,
       baseSpeed: config.bossSpeed,
       attackInterval: config.bossAttackInterval,
@@ -156,13 +161,16 @@ class TruckDefenseSimulation {
     playerY = (startSample.y + 1.35).clamp(1.8, RoadArenaBounds.height - 2.0);
     playerFacingAngle = math.atan2(boss.y - playerY, boss.x - playerX);
     playerIsMoving = false;
+    playerMoveSpeedRatio = 0.0;
     playerWalkPhase = 0.0;
+    _playerDustTimer = 0.0;
 
     playerProjectiles.clear();
     bossProjectiles.clear();
     hazards.clear();
     helperMinions.clear();
     decoys.clear();
+    dustPuffs.clear();
     vfx.clear();
     popups.clear();
 
@@ -260,6 +268,7 @@ class TruckDefenseSimulation {
         _knifeDrawnEmitted = true;
         ally.state = AllyCombatState.surprised;
         ally.hasKnifeDrawn = true;
+        ally.knifeDrawTimer = 0.45;
         popups.add(FloatingPopup(
           text: 'Protect the Truck!',
           worldX: ally.x,
@@ -550,15 +559,27 @@ class TruckDefenseSimulation {
       case WeaponType.energyBlaster:
       case WeaponType.freezeOrb:
         final speed = weapon.projectileSpeed;
+        // Launch projectile directly from the weapon muzzle / bow-tip world coordinates!
+        final muzzleOffset = weapon == WeaponType.bow ? 0.56 : 0.52;
+        final muzzleX = playerX + math.cos(aimAngle) * muzzleOffset;
+        final muzzleY = playerY + math.sin(aimAngle) * muzzleOffset - 0.08;
         playerProjectiles.add(ProjectileEntity(
           weapon: weapon,
-          x: playerX + math.cos(aimAngle) * 0.45,
-          y: playerY + math.sin(aimAngle) * 0.45,
+          x: muzzleX,
+          y: muzzleY,
           vx: math.cos(aimAngle) * speed,
           vy: math.sin(aimAngle) * speed,
           angle: aimAngle,
           damage: weapon.baseDamage,
           remainingRange: weapon.rangeTiles + 1.8,
+        ));
+        vfx.add(CombatVfx(
+          type: CombatVfxType.hitBurst,
+          x: muzzleX,
+          y: muzzleY,
+          maxRadius: 0.32,
+          colorHex: weapon.colorHex,
+          duration: 0.16,
         ));
         break;
       case WeaponType.stunPulse:
@@ -676,7 +697,10 @@ class TruckDefenseSimulation {
     }
 
     boss.hp = math.max(0, boss.hp - effDmg);
-    boss.hitFlashTimer = 0.18;
+    boss.hitFlashTimer = 0.22;
+    boss.hurtRecoilTimer = 0.28;
+    boss.recoilDirX = math.cos(knockbackAngle);
+    boss.recoilDirY = math.sin(knockbackAngle);
     if (fromPlayer) {
       bossDamageDealtByPlayer += effDmg;
     }
@@ -849,18 +873,31 @@ class TruckDefenseSimulation {
     required bool isSlowed,
     required double attackAnimTimer,
   }) {
-    if (inputDx.abs() > 0.01 || inputDy.abs() > 0.01) {
+    final mag = math.sqrt(inputDx * inputDx + inputDy * inputDy).clamp(0.0, 1.0);
+    if (mag > 0.05) {
       playerIsMoving = true;
+      playerMoveSpeedRatio = mag;
       if (attackAnimTimer <= 0.05) {
         playerFacingAngle = math.atan2(inputDy, inputDx);
       }
       final slow = isSlowed ? 0.62 : 1.0;
-      playerWalkPhase += dt * 11.5 * slow;
+      // Faster movement produces visibly faster running leg cadence!
+      playerWalkPhase += dt * (8.5 + mag * 6.5) * slow;
       playerX += inputDx * playerMoveSpeed * slow * dt;
       playerY += inputDy * playerMoveSpeed * slow * dt;
+
+      _playerDustTimer -= dt;
+      if (mag > 0.55 && _playerDustTimer <= 0.0) {
+        _playerDustTimer = 0.24;
+        dustPuffs.add(DustPuffEntity(
+          x: playerX - inputDx * 0.18,
+          y: playerY + 0.28,
+          maxRadius: 0.20,
+        ));
+      }
     } else {
       playerIsMoving = false;
-      playerWalkPhase += dt * 2.5;
+      playerMoveSpeedRatio = 0.0;
     }
 
     // Clamp cleanly inside playable roadside combat arena
@@ -885,6 +922,22 @@ class TruckDefenseSimulation {
         RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
       );
       playerY = (playerY + (dy / dist) * push).clamp(
+        RoadArenaBounds.playableMarginTop,
+        RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
+      );
+    }
+
+    // Prevent Courier & Dock Worker from visually stacking directly on top of each other!
+    final adx = playerX - ally.x;
+    final ady = playerY - ally.y;
+    final aDist = math.sqrt(adx * adx + ady * ady);
+    if (aDist < 0.72 && aDist > 1e-4) {
+      final push = (0.72 - aDist) * 0.5;
+      playerX = (playerX + (adx / aDist) * push).clamp(
+        RoadArenaBounds.playableMarginX,
+        RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
+      );
+      playerY = (playerY + (ady / aDist) * push).clamp(
         RoadArenaBounds.playableMarginTop,
         RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
       );
@@ -1053,6 +1106,9 @@ class TruckDefenseSimulation {
   void _stepDockWorkerAlly(double dt) {
     if (!ally.hasKnifeDrawn) return;
 
+    if (ally.knifeDrawTimer > 0) {
+      ally.knifeDrawTimer = (ally.knifeDrawTimer - dt).clamp(0.0, 2.0);
+    }
     if (ally.attackCooldown > 0) {
       ally.attackCooldown = (ally.attackCooldown - dt).clamp(0.0, 10.0);
     }
@@ -1062,8 +1118,12 @@ class TruckDefenseSimulation {
     if (ally.hitFlashTimer > 0) {
       ally.hitFlashTimer = (ally.hitFlashTimer - dt).clamp(0.0, 5.0);
     }
+    if (ally.hurtRecoilTimer > 0) {
+      ally.hurtRecoilTimer = (ally.hurtRecoilTimer - dt).clamp(0.0, 2.0);
+    }
 
     if (ally.state == AllyCombatState.recovering) {
+      ally.moveSpeedRatio = 0.0;
       ally.recoverTimer -= dt;
       if (ally.recoverTimer <= 0.0) {
         ally.state = AllyCombatState.escorting;
@@ -1071,13 +1131,85 @@ class TruckDefenseSimulation {
       return;
     }
 
+    // Active Synchronized Knife Swing Sequence (Windup -> Hit Frame -> Follow-through!)
+    if (ally.isSwinging) {
+      ally.swingElapsed += dt;
+      final t = ally.swingProgress;
+      ally.moveSpeedRatio = 0.25;
+
+      // Slight forward lunge step during active slash frames
+      if (t >= 0.20 && t <= 0.55) {
+        ally.x = (ally.x + math.cos(ally.facingAngle) * 1.15 * dt).clamp(
+          RoadArenaBounds.playableMarginX,
+          RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
+        );
+        ally.y = (ally.y + math.sin(ally.facingAngle) * 1.15 * dt).clamp(
+          RoadArenaBounds.playableMarginTop,
+          RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
+        );
+      }
+
+      // EXACT SYNCHRONIZED HIT-FRAME MARKER (t >= 0.36, guarded against duplicate hits!)
+      if (!ally.hitConfirmedThisSwing && t >= 0.36) {
+        ally.hitConfirmedThisSwing = true;
+        ally.slashAnimTimer = 0.24;
+        final impactX = ally.x + math.cos(ally.facingAngle) * 0.62;
+        final impactY = ally.y + math.sin(ally.facingAngle) * 0.62;
+        vfx.add(CombatVfx(
+          type: CombatVfxType.meleeSlash,
+          x: impactX,
+          y: impactY,
+          angle: ally.facingAngle,
+          maxRadius: 1.05,
+          colorHex: ally.comboStep == 0 ? 0xFF38BDF8 : 0xFFFFC857,
+          duration: 0.22,
+        ));
+        callbacks.onAllySlash?.call();
+
+        if (ally.swingTargetingBoss && !boss.isDefeated && !boss.isCaged) {
+          if (_dist(ally.x, ally.y, boss.x, boss.y) <= 1.65) {
+            ally.totalHitsLanded++;
+            final knifeDmg = boss.aiState == BossCombatAiState.stunned ||
+                    boss.aiState == BossCombatAiState.frozen
+                ? 13
+                : 9;
+            damageBoss(
+              damage: knifeDmg,
+              fromPlayer: false,
+              knockbackAngle: ally.facingAngle,
+              knockbackForce: 1.65,
+            );
+            if (boss.aiState == BossCombatAiState.pursuingTruck) {
+              boss.distractedByAlly = true;
+              boss.distractTimer = 1.1;
+            }
+          }
+        } else if (ally.swingTargetMinion != null &&
+            !ally.swingTargetMinion!.isDefeated) {
+          if (_dist(ally.x, ally.y, ally.swingTargetMinion!.x,
+                  ally.swingTargetMinion!.y) <=
+              1.55) {
+            ally.totalHitsLanded++;
+            _damageHelperMinion(ally.swingTargetMinion!, 16, stunDuration: 0.45);
+          }
+        }
+      }
+
+      if (ally.swingElapsed >= ally.swingDuration) {
+        ally.isSwinging = false;
+        ally.swingElapsed = 0.0;
+        ally.state = AllyCombatState.escorting;
+      }
+      return;
+    }
+
     // Escort anchor right next to the moving truck's side
     final perpAngle = truck.angle + math.pi * 0.5;
-    final escortX = (truck.x + math.cos(perpAngle) * 1.05).clamp(
+    final escortX = (truck.x + math.cos(perpAngle) * 1.15).clamp(
       RoadArenaBounds.playableMarginX,
       RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
     );
-    final escortY = (truck.y + math.sin(perpAngle) * 1.05).clamp(
+    final escortY = (truck.y + math.sin(perpAngle) * 1.15).clamp(
       RoadArenaBounds.playableMarginTop,
       RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
     );
@@ -1088,7 +1220,6 @@ class TruckDefenseSimulation {
     RoadHelperMinion? targetMinion;
     bool targetingBoss = false;
 
-    // Prioritize helper minions threatening the truck
     for (final m in helperMinions) {
       if (m.isDefeated) continue;
       if (_dist(m.x, m.y, truck.x, truck.y) <= 3.1) {
@@ -1099,67 +1230,40 @@ class TruckDefenseSimulation {
       }
     }
 
-    // Otherwise intercept Giant Boss when it approaches the truck defensive perimeter
     if (targetX == null && !boss.isDefeated && !boss.isCaged) {
       final bossDistToTruck = _dist(boss.x, boss.y, truck.x, truck.y);
-      if (bossDistToTruck <= 3.35) {
+      if (bossDistToTruck <= 3.4) {
         targetX = boss.x;
         targetY = boss.y;
         targetingBoss = true;
       }
     }
 
-    const allySpeed = 3.15;
+    const allySpeed = 3.25;
     if (targetX != null && targetY != null) {
       final distToTarget = _dist(ally.x, ally.y, targetX, targetY);
       ally.facingAngle = math.atan2(targetY - ally.y, targetX - ally.x);
 
-      if (distToTarget <= 1.15) {
-        // Melee Knife Attack!
+      // Stand at clean readable fighting spacing (0.90..1.25 units) instead of overlapping boss!
+      if (distToTarget <= 1.25) {
+        ally.moveSpeedRatio = 0.0;
         if (ally.attackCooldown <= 0.0) {
           ally.state = AllyCombatState.slashing;
-          ally.attackCooldown = 1.15;
-          ally.slashAnimTimer = 0.28;
-          ally.totalHitsLanded++;
-          vfx.add(CombatVfx(
-            type: CombatVfxType.meleeSlash,
-            x: ally.x,
-            y: ally.y,
-            angle: ally.facingAngle,
-            maxRadius: 1.15,
-            colorHex: 0xFF38BDF8,
-            duration: 0.24,
-          ));
-          callbacks.onAllySlash?.call();
-
-          if (targetingBoss) {
-            // Balanced damage (9-11): supports player & briefly distracts boss, never solo-kills!
-            final knifeDmg = boss.aiState == BossCombatAiState.stunned ||
-                    boss.aiState == BossCombatAiState.frozen
-                ? 13
-                : 9;
-            damageBoss(
-              damage: knifeDmg,
-              fromPlayer: false,
-              knockbackAngle: ally.facingAngle,
-              knockbackForce: 1.55,
-            );
-            // Temporarily distracts boss away from truck if boss isn't mid-charge
-            if (boss.aiState == BossCombatAiState.pursuingTruck) {
-              boss.distractedByAlly = true;
-              boss.distractTimer = 1.1;
-            }
-          } else if (targetMinion != null) {
-            _damageHelperMinion(targetMinion, 16, stunDuration: 0.45);
-          }
+          ally.attackCooldown = 1.18;
+          ally.isSwinging = true;
+          ally.swingElapsed = 0.0;
+          ally.hitConfirmedThisSwing = false;
+          ally.comboStep = (ally.comboStep + 1) % 2; // Alternate Horizontal Swing & Counter Slash!
+          ally.swingTargetingBoss = targetingBoss;
+          ally.swingTargetMinion = targetMinion;
         }
       } else {
         ally.state = AllyCombatState.intercepting;
-        ally.walkPhase += dt * 11.0;
+        ally.moveSpeedRatio = 0.95;
+        ally.walkPhase += dt * 12.0;
         final nx = ally.x + math.cos(ally.facingAngle) * allySpeed * dt;
         final ny = ally.y + math.sin(ally.facingAngle) * allySpeed * dt;
-        // Stay within safe defensive radius around the truck
-        if (_dist(nx, ny, truck.x, truck.y) <= 3.45) {
+        if (_dist(nx, ny, truck.x, truck.y) <= 3.55) {
           ally.x = nx.clamp(
             RoadArenaBounds.playableMarginX,
             RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
@@ -1174,15 +1278,37 @@ class TruckDefenseSimulation {
       // Return smoothly to escorting the moving truck
       ally.state = AllyCombatState.escorting;
       final dEscort = _dist(ally.x, ally.y, escortX, escortY);
-      if (dEscort > 0.15) {
+      if (dEscort > 0.16) {
         final angle = math.atan2(escortY - ally.y, escortX - ally.x);
         ally.facingAngle = angle;
-        ally.walkPhase += dt * 9.0;
+        ally.moveSpeedRatio = 0.72;
+        ally.walkPhase += dt * 9.5;
         final step = math.min(allySpeed * dt, dEscort);
         ally.x += math.cos(angle) * step;
         ally.y += math.sin(angle) * step;
       } else {
-        ally.walkPhase += dt * 2.5;
+        ally.moveSpeedRatio = 0.0;
+        if (!boss.isDefeated && !boss.isCaged) {
+          ally.facingAngle = math.atan2(boss.y - ally.y, boss.x - ally.x);
+        }
+      }
+    }
+
+    // Soft separation so Ally never visually overlaps on top of Boss center
+    if (!boss.isDefeated && !boss.isCaged) {
+      final bdx = ally.x - boss.x;
+      final bdy = ally.y - boss.y;
+      final bDist = math.sqrt(bdx * bdx + bdy * bdy);
+      if (bDist < 0.88 && bDist > 1e-4) {
+        final push = 0.88 - bDist;
+        ally.x = (ally.x + (bdx / bDist) * push).clamp(
+          RoadArenaBounds.playableMarginX,
+          RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
+        );
+        ally.y = (ally.y + (bdy / bDist) * push).clamp(
+          RoadArenaBounds.playableMarginTop,
+          RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
+        );
       }
     }
   }
@@ -1199,6 +1325,12 @@ class TruckDefenseSimulation {
     if (boss.hitFlashTimer > 0) {
       boss.hitFlashTimer = (boss.hitFlashTimer - dt).clamp(0.0, 5.0);
     }
+    if (boss.hurtRecoilTimer > 0) {
+      boss.hurtRecoilTimer = (boss.hurtRecoilTimer - dt).clamp(0.0, 2.0);
+    }
+    if (boss.followThroughTimer > 0) {
+      boss.followThroughTimer = (boss.followThroughTimer - dt).clamp(0.0, 2.0);
+    }
     if (boss.shieldTimer > 0) {
       boss.shieldTimer = (boss.shieldTimer - dt).clamp(0.0, 10.0);
     }
@@ -1210,7 +1342,10 @@ class TruckDefenseSimulation {
       if (boss.distractTimer <= 0) boss.distractedByAlly = false;
     }
 
-    if (boss.isCaged || boss.isDefeated) return;
+    if (boss.isCaged || boss.isDefeated) {
+      boss.moveSpeedRatio = 0.0;
+      return;
+    }
 
     // Apply decaying knockback inside arena bounds
     if (boss.knockbackVx.abs() > 0.05 || boss.knockbackVy.abs() > 0.05) {
@@ -1227,8 +1362,9 @@ class TruckDefenseSimulation {
       boss.knockbackVy *= decay;
     }
 
-    // Frozen state
+    // Frozen state (limbs strictly frozen!)
     if (boss.freezeTimer > 0) {
+      boss.moveSpeedRatio = 0.0;
       boss.freezeTimer = (boss.freezeTimer - dt).clamp(0.0, 10.0);
       if (boss.freezeTimer <= 0) {
         boss.aiState = BossCombatAiState.pursuingTruck;
@@ -1236,8 +1372,9 @@ class TruckDefenseSimulation {
       return;
     }
 
-    // Stunned state
+    // Stunned state (no walking/running while stunned!)
     if (boss.stunTimer > 0) {
+      boss.moveSpeedRatio = 0.0;
       boss.stunTimer = (boss.stunTimer - dt).clamp(0.0, 10.0);
       if (boss.stunTimer <= 0) {
         boss.aiState = BossCombatAiState.pursuingTruck;
@@ -1245,7 +1382,7 @@ class TruckDefenseSimulation {
       return;
     }
 
-    boss.animPhase += dt * (boss.aiState == BossCombatAiState.charging ? 16.0 : 8.0);
+    boss.animPhase += dt * (boss.aiState == BossCombatAiState.charging ? 15.0 : 9.5);
 
     // Check Food Decoy distraction
     if (decoys.isNotEmpty && boss.aiState == BossCombatAiState.pursuingTruck) {
@@ -1271,6 +1408,7 @@ class TruckDefenseSimulation {
         break;
 
       case BossCombatAiState.telegraphing:
+        boss.moveSpeedRatio = 0.0;
         boss.stateTimer += dt;
         boss.facingAngle = math.atan2(
           boss.telegraphTargetY - boss.y,
@@ -1287,6 +1425,7 @@ class TruckDefenseSimulation {
         break;
 
       case BossCombatAiState.charging:
+        boss.moveSpeedRatio = 1.0;
         boss.stateTimer += dt;
         final chargeSpeed = boss.baseSpeed * 2.35;
         final dx = boss.telegraphTargetX - boss.x;
@@ -1302,6 +1441,18 @@ class TruckDefenseSimulation {
             RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
           );
 
+          // Spawn heavy running charge dust puffs beneath feet!
+          boss.dustSpawnTimer -= dt;
+          if (boss.dustSpawnTimer <= 0.0) {
+            boss.dustSpawnTimer = 0.14;
+            dustPuffs.add(DustPuffEntity(
+              x: boss.x - (dx / d) * 0.35,
+              y: boss.y + 0.48,
+              maxRadius: 0.34,
+              colorHex: 0xFFCDB79E,
+            ));
+          }
+
           // Check collision with Truck
           if (_dist(boss.x, boss.y, truck.x, truck.y) <=
               bossRadius + truckCollisionRadius * 0.85) {
@@ -1311,6 +1462,9 @@ class TruckDefenseSimulation {
             if (!isTire) {
               truck.slamSlowTimer = math.max(truck.slamSlowTimer, 1.3);
             }
+            boss.lastExecutedAttack =
+                isTire ? BossAttackType.tireAttack : BossAttackType.directCharge;
+            boss.followThroughTimer = 0.38;
             boss.aiState = BossCombatAiState.recovering;
             boss.stateTimer = 0.0;
             boss.queuedAttack = null;
@@ -1318,13 +1472,15 @@ class TruckDefenseSimulation {
             break;
           }
 
-          // Check collision with Ally (pushes ally into brief recovery)
+          // Check collision with Ally (pushes ally into brief hurt recoil + recovery)
           if (ally.hasKnifeDrawn &&
               ally.state != AllyCombatState.recovering &&
               _dist(boss.x, boss.y, ally.x, ally.y) <= bossRadius + 0.35) {
             ally.state = AllyCombatState.recovering;
+            ally.isSwinging = false;
             ally.recoverTimer = 1.35;
             ally.hitFlashTimer = 0.35;
+            ally.hurtRecoilTimer = 0.36;
           }
 
           // Check collision with Courier
@@ -1433,16 +1589,21 @@ class TruckDefenseSimulation {
 
     switch (attack) {
       case BossAttackType.bombProjectile:
+        // Launch bomb directly from the boss's extended throwing hand!
+        final handX = boss.x + math.cos(boss.facingAngle) * 0.58;
+        final handY = boss.y + math.sin(boss.facingAngle) * 0.58 - 0.25;
         bossProjectiles.add(BossProjectileEntity(
           isBomb: true,
-          startX: boss.x,
-          startY: boss.y,
+          startX: handX,
+          startY: handY,
           targetX: boss.telegraphTargetX,
           targetY: boss.telegraphTargetY,
           travelDuration: 1.05,
           damage: _scaledDmg(15),
           blastRadius: 1.05,
         ));
+        boss.lastExecutedAttack = BossAttackType.bombProjectile;
+        boss.followThroughTimer = 0.42;
         boss.aiState = BossCombatAiState.recovering;
         boss.queuedAttack = null;
         boss.attackCooldown = boss.attackInterval;
@@ -1455,6 +1616,8 @@ class TruckDefenseSimulation {
         break;
 
       case BossAttackType.groundSlam:
+        boss.lastExecutedAttack = BossAttackType.groundSlam;
+        boss.followThroughTimer = 0.45;
         hazards.add(RoadHazardZone(
           kind: RoadHazardKind.groundSlamCrater,
           x: boss.telegraphTargetX,
@@ -1637,8 +1800,12 @@ class TruckDefenseSimulation {
     final dx = tx - boss.x;
     final dy = ty - boss.y;
     final d = math.sqrt(dx * dx + dy * dy);
-    if (d < 0.85) return;
+    if (d < 0.85) {
+      boss.moveSpeedRatio = 0.0;
+      return;
+    }
     boss.facingAngle = math.atan2(dy, dx);
+    boss.moveSpeedRatio = d > 1.8 ? 0.92 : 0.55;
     boss.x = (boss.x + (dx / d) * speed * dt).clamp(
       RoadArenaBounds.playableMarginX,
       RoadArenaBounds.width - RoadArenaBounds.playableMarginX,
@@ -1647,6 +1814,19 @@ class TruckDefenseSimulation {
       RoadArenaBounds.playableMarginTop,
       RoadArenaBounds.height - RoadArenaBounds.playableMarginBottom,
     );
+
+    if (boss.moveSpeedRatio > 0.7) {
+      boss.dustSpawnTimer -= dt;
+      if (boss.dustSpawnTimer <= 0.0) {
+        boss.dustSpawnTimer = 0.28;
+        dustPuffs.add(DustPuffEntity(
+          x: boss.x - (dx / d) * 0.3,
+          y: boss.y + 0.45,
+          maxRadius: 0.25,
+          colorHex: 0xFFD9C7A3,
+        ));
+      }
+    }
   }
 
   void _hitPlayer({
@@ -1698,6 +1878,173 @@ class TruckDefenseSimulation {
       fx.age += dt;
     }
     vfx.removeWhere((fx) => fx.isExpired);
+
+    for (final d in dustPuffs) {
+      d.age += dt;
+    }
+    dustPuffs.removeWhere((d) => d.isExpired);
+  }
+
+  /// Builds the authoritative V3.4 animation snapshot for the Dock Worker Ally
+  /// during the Road Battle & Escape Cutscene.
+  DockWorkerAnimSnapshot buildRoadAllyAnimSnapshot(double elapsed) {
+    DockWorkerAnimState animState;
+    DockWorkerExpression expr;
+    double progress = 0.0;
+
+    if (ally.state == AllyCombatState.celebrating) {
+      animState = DockWorkerAnimState.celebrating;
+      expr = DockWorkerExpression.celebrating;
+    } else if (ally.hurtRecoilTimer > 0) {
+      animState = DockWorkerAnimState.hurtRecoil;
+      expr = DockWorkerExpression.hurt;
+      progress = (1.0 - ally.hurtRecoilTimer / 0.36).clamp(0.0, 1.0);
+    } else if (!ally.hasKnifeDrawn) {
+      animState = ally.state == AllyCombatState.surprised
+          ? DockWorkerAnimState.surprised
+          : DockWorkerAnimState.idleWaiting;
+      expr = ally.state == AllyCombatState.surprised
+          ? DockWorkerExpression.surprised
+          : DockWorkerExpression.friendly;
+    } else if (ally.knifeDrawTimer > 0) {
+      animState = DockWorkerAnimState.drawingKnife;
+      expr = DockWorkerExpression.surprised;
+      progress = (1.0 - ally.knifeDrawTimer / 0.45).clamp(0.0, 1.0);
+    } else if (ally.isSwinging) {
+      animState = ally.comboStep == 0
+          ? DockWorkerAnimState.knifeHorizontalSwing
+          : DockWorkerAnimState.knifeCounterSlash;
+      expr = DockWorkerExpression.determinedStrike;
+      progress = ally.swingProgress;
+    } else if (ally.moveSpeedRatio > 0.2) {
+      animState = DockWorkerAnimState.advancing;
+      expr = DockWorkerExpression.focusedCombat;
+    } else {
+      animState = DockWorkerAnimState.defendStance;
+      expr = DockWorkerExpression.focusedCombat;
+    }
+
+    return DockWorkerAnimSnapshot(
+      state: animState,
+      expression: expr,
+      facingAngle: ally.facingAngle,
+      walkCyclePhase: ally.walkPhase,
+      stateProgress: progress,
+      elapsed: elapsed,
+      hasKnifeDrawn: ally.hasKnifeDrawn,
+      hurtRecoilProgress: (ally.hurtRecoilTimer / 0.36).clamp(0.0, 1.0),
+    );
+  }
+
+  /// Builds the authoritative V3.4 animation snapshot for the Giant District Boss.
+  BossAnimSnapshot buildBossAnimSnapshot(double elapsed) {
+    BossAnimState animState;
+    BossExpression expr;
+    double progress = 0.0;
+    bool holdingBomb = false;
+
+    if (boss.isDefeated) {
+      animState = BossAnimState.defeated;
+      expr = BossExpression.defeatedWeak;
+    } else if (boss.aiState == BossCombatAiState.retreating) {
+      animState = BossAnimState.retreating;
+      expr = BossExpression.defeatedWeak;
+    } else if (boss.isCaged) {
+      final breaking = cageState == BossCageState.rattling ||
+          cageState == BossCageState.lockBreaking;
+      animState = breaking ? BossAnimState.breakingCage : BossAnimState.cagedIdle;
+      expr = breaking ? BossExpression.furiousRoar : BossExpression.angryCaged;
+    } else if (boss.freezeTimer > 0) {
+      animState = BossAnimState.frozen;
+      expr = BossExpression.painRecoil;
+    } else if (boss.stunTimer > 0) {
+      animState = BossAnimState.stunned;
+      expr = BossExpression.dizzyStunned;
+    } else if (boss.hurtRecoilTimer > 0) {
+      animState = BossAnimState.hurtRecoil;
+      expr = BossExpression.painRecoil;
+      progress = (1.0 - boss.hurtRecoilTimer / 0.28).clamp(0.0, 1.0);
+    } else if (boss.aiState == BossCombatAiState.telegraphing) {
+      progress = boss.telegraphProgress;
+      expr = BossExpression.focusedWindup;
+      switch (boss.queuedAttack ?? BossAttackType.directCharge) {
+        case BossAttackType.bombProjectile:
+          animState = BossAnimState.windupBomb;
+          holdingBomb = true;
+          break;
+        case BossAttackType.tireAttack:
+          animState = BossAnimState.windupTireAttack;
+          break;
+        case BossAttackType.directCharge:
+          animState = BossAnimState.windupCharge;
+          break;
+        case BossAttackType.groundSlam:
+          animState = BossAnimState.windupSlam;
+          break;
+        case BossAttackType.specialAbility:
+          animState = BossAnimState.specialCast;
+          break;
+      }
+    } else if (boss.aiState == BossCombatAiState.charging) {
+      animState = boss.queuedAttack == BossAttackType.tireAttack
+          ? BossAnimState.tireStrike
+          : BossAnimState.charging;
+      expr = BossExpression.attackRoar;
+      progress = (boss.stateTimer / 0.85).clamp(0.0, 1.0);
+    } else if (boss.followThroughTimer > 0) {
+      progress = (1.0 - boss.followThroughTimer / 0.42).clamp(0.0, 1.0);
+      expr = BossExpression.attackRoar;
+      switch (boss.lastExecutedAttack ?? BossAttackType.directCharge) {
+        case BossAttackType.bombProjectile:
+          animState = BossAnimState.throwBomb;
+          break;
+        case BossAttackType.groundSlam:
+          animState = BossAnimState.groundSlam;
+          break;
+        case BossAttackType.tireAttack:
+          animState = BossAnimState.tireStrike;
+          break;
+        case BossAttackType.directCharge:
+          animState = BossAnimState.clawStrike;
+          break;
+        case BossAttackType.specialAbility:
+          animState = BossAnimState.specialCast;
+          break;
+      }
+    } else if (boss.moveSpeedRatio > 0.65) {
+      animState = BossAnimState.run;
+      expr = boss.hpRatio <= 0.35
+          ? BossExpression.exhaustedLowHp
+          : BossExpression.aggressiveChase;
+    } else if (boss.moveSpeedRatio > 0.1) {
+      animState = BossAnimState.walk;
+      expr = boss.hpRatio <= 0.35
+          ? BossExpression.exhaustedLowHp
+          : BossExpression.aggressiveChase;
+    } else {
+      animState = BossAnimState.idle;
+      expr = boss.hpRatio <= 0.35
+          ? BossExpression.exhaustedLowHp
+          : BossExpression.angryCaged;
+    }
+
+    return BossAnimSnapshot(
+      bossType: boss.type,
+      appearance: boss.appearance,
+      state: animState,
+      expression: expr,
+      facingAngle: boss.facingAngle,
+      walkCyclePhase: boss.animPhase,
+      stateProgress: progress,
+      elapsed: elapsed,
+      hpRatio: boss.hpRatio,
+      hurtRecoilProgress: (boss.hurtRecoilTimer / 0.28).clamp(0.0, 1.0),
+      recoilDirX: boss.recoilDirX,
+      recoilDirY: boss.recoilDirY,
+      hasShield: boss.hasShield,
+      isHoldingBomb: holdingBomb,
+      isCaged: boss.isCaged,
+    );
   }
 
   int _scaledDmg(int base) =>

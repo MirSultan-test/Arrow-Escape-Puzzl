@@ -8,10 +8,12 @@ import 'package:parcel_escape/src/models/maze/combat_models.dart';
 import 'package:parcel_escape/src/models/maze/food_item.dart';
 import 'package:parcel_escape/src/models/maze/maze_level.dart';
 import 'package:parcel_escape/src/models/maze/monster.dart';
+import 'package:parcel_escape/src/models/maze/monster_variants.dart';
 
-/// Builds all 50 validated Food Maze Delivery Adventure levels (V3.1)
-/// with bottom-edge delivery exits leading directly into the compact bottom dock
-/// and balanced collectible Health Hearts, saving to `assets/levels/maze_levels.json`.
+/// Builds all 50 validated Food Maze Delivery Adventure levels (V3.5)
+/// featuring progressively complex multi-branch mazes, unique per-level
+/// monster appearances + 10 distinct movement profiles, bottom-edge delivery
+/// exits, and balanced pickups, saving to `assets/levels/maze_levels.json`.
 void main() {
   final levels = <MazeLevel>[
     ..._buildHandcraftedDistrict1(),
@@ -26,6 +28,14 @@ void main() {
   int totalFoods = 0;
   int totalMonsters = 0;
   int totalHearts = 0;
+  final profileCounts = <MonsterMovementProfile, int>{};
+  final tierStats = <int, List<MazeValidationResult>>{
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+  };
   for (final lvl in levels) {
     final res = MazeValidator.validate(lvl);
     if (!res.isValid) {
@@ -42,6 +52,11 @@ void main() {
     totalFoods += lvl.foods.length;
     totalMonsters += lvl.monsters.length;
     totalHearts += lvl.healthPickups.length;
+    tierStats[lvl.district]!.add(res);
+    for (final m in lvl.monsters) {
+      final prof = m.movementProfile ?? MonsterMovementProfile.patrolGuardian;
+      profileCounts[prof] = (profileCounts[prof] ?? 0) + 1;
+    }
   }
 
   final outFile = File('assets/levels/maze_levels.json');
@@ -49,16 +64,30 @@ void main() {
   final encoder = const JsonEncoder.withIndent('  ');
   outFile.writeAsStringSync(
     encoder.convert({
-      'version': 31,
+      'version': 35,
       'campaign': 'food_maze_adventure',
       'levels': levels.map((l) => l.toJson()).toList(),
     }),
   );
 
-  print('Successfully generated & validated 50 V3.1 Food Maze levels!');
+  print('Successfully generated & validated 50 V3.5 Food Maze levels!');
   print('  Total food items:    $totalFoods');
   print('  Total monsters:      $totalMonsters');
   print('  Total health hearts: $totalHearts');
+  for (int d = 1; d <= 5; d++) {
+    final list = tierStats[d]!;
+    final avgInter = list.fold<int>(0, (s, r) => s + r.intersectionCount) / list.length;
+    final avgDead = list.fold<int>(0, (s, r) => s + r.deadEndCount) / list.length;
+    final avgLoop = list.fold<int>(0, (s, r) => s + r.loopCount) / list.length;
+    print(
+      '  District $d avg: intersections=${avgInter.toStringAsFixed(1)}, '
+      'deadEnds=${avgDead.toStringAsFixed(1)}, loops=${avgLoop.toStringAsFixed(1)}',
+    );
+  }
+  print('  Movement profiles covered: ${profileCounts.length}/10');
+  for (final p in MonsterMovementProfile.values) {
+    print('    - ${p.name}: ${profileCounts[p] ?? 0}');
+  }
   print('  Output:              ${outFile.path}');
 }
 
@@ -176,6 +205,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(5, 3),
         patrolPath: [GridPoint(5, 3), GridPoint(6, 3)],
         biteDamage: 25,
+        appearanceId: 'lv3_m0_patrolGuardian',
+        movementProfile: MonsterMovementProfile.patrolGuardian,
       ),
     ],
   );
@@ -220,6 +251,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(2, 3), GridPoint(8, 3)],
         speed: 1.85,
         biteDamage: 25,
+        appearanceId: 'lv4_m0_slowStalker',
+        movementProfile: MonsterMovementProfile.slowStalker,
       ),
     ],
   );
@@ -263,6 +296,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(4, 5),
         patrolPath: [GridPoint(4, 5), GridPoint(6, 5)],
         biteDamage: 25,
+        appearanceId: 'lv5_m0_ambushMonster',
+        movementProfile: MonsterMovementProfile.ambushMonster,
       ),
       MonsterDefinition(
         id: 'l5_p1',
@@ -271,6 +306,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(3, 7), GridPoint(8, 7)],
         speed: 1.85,
         biteDamage: 25,
+        appearanceId: 'lv5_m1_crawlingMonster',
+        movementProfile: MonsterMovementProfile.crawlingMonster,
       ),
     ],
     healthPickups: const [
@@ -321,6 +358,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(3, 3), GridPoint(9, 3)],
         speed: 1.95,
         biteDamage: 25,
+        appearanceId: 'lv6_m0_zigzagMonster',
+        movementProfile: MonsterMovementProfile.zigzagMonster,
       ),
       MonsterDefinition(
         id: 'l6_p2',
@@ -329,6 +368,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(1, 7), GridPoint(9, 7)],
         speed: 1.95,
         biteDamage: 25,
+        appearanceId: 'lv6_m1_jumpingCreature',
+        movementProfile: MonsterMovementProfile.jumpingCreature,
       ),
     ],
     healthPickups: const [
@@ -386,6 +427,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         speed: 2.1,
         detectionRange: 3.5,
         biteDamage: 30,
+        appearanceId: 'lv7_m0_fastHunter',
+        movementProfile: MonsterMovementProfile.fastHunter,
       ),
       MonsterDefinition(
         id: 'l7_g1',
@@ -393,6 +436,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 4),
         patrolPath: [GridPoint(1, 3), GridPoint(1, 5)],
         biteDamage: 35,
+        appearanceId: 'lv7_m1_chargingMonster',
+        movementProfile: MonsterMovementProfile.chargingMonster,
       ),
     ],
     healthPickups: const [
@@ -446,6 +491,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 3),
         patrolPath: [GridPoint(1, 3), GridPoint(9, 3)],
         speed: 1.95,
+        appearanceId: 'lv8_m0_flyingMonster',
+        movementProfile: MonsterMovementProfile.flyingMonster,
       ),
       MonsterDefinition(
         id: 'l8_p2',
@@ -453,12 +500,16 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(9, 7),
         patrolPath: [GridPoint(9, 7), GridPoint(1, 7)],
         speed: 1.95,
+        appearanceId: 'lv8_m1_crawlingMonster',
+        movementProfile: MonsterMovementProfile.crawlingMonster,
       ),
       MonsterDefinition(
         id: 'l8_g1',
         type: MonsterType.guardian,
         start: GridPoint(5, 3),
         patrolPath: [GridPoint(5, 3), GridPoint(6, 3)],
+        appearanceId: 'lv8_m2_patrolGuardian',
+        movementProfile: MonsterMovementProfile.patrolGuardian,
       ),
     ],
     healthPickups: const [
@@ -508,6 +559,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 3),
         patrolPath: [GridPoint(1, 3), GridPoint(11, 3)],
         speed: 2.05,
+        appearanceId: 'lv9_m0_zigzagMonster',
+        movementProfile: MonsterMovementProfile.zigzagMonster,
       ),
       MonsterDefinition(
         id: 'l9_p2',
@@ -515,6 +568,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(11, 7),
         patrolPath: [GridPoint(11, 7), GridPoint(1, 7)],
         speed: 2.05,
+        appearanceId: 'lv9_m1_jumpingCreature',
+        movementProfile: MonsterMovementProfile.jumpingCreature,
       ),
       MonsterDefinition(
         id: 'l9_p3',
@@ -522,6 +577,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(5, 3),
         patrolPath: [GridPoint(5, 3), GridPoint(5, 7)],
         speed: 1.9,
+        appearanceId: 'lv9_m2_ambushMonster',
+        movementProfile: MonsterMovementProfile.ambushMonster,
       ),
     ],
     healthPickups: const [
@@ -572,6 +629,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(1, 3),
         patrolPath: [GridPoint(1, 3), GridPoint(11, 3)],
         speed: 2.05,
+        appearanceId: 'lv10_m0_chargingMonster',
+        movementProfile: MonsterMovementProfile.chargingMonster,
       ),
       MonsterDefinition(
         id: 'l10_p2',
@@ -579,6 +638,8 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         start: GridPoint(11, 7),
         patrolPath: [GridPoint(11, 7), GridPoint(1, 7)],
         speed: 2.05,
+        appearanceId: 'lv10_m1_flyingMonster',
+        movementProfile: MonsterMovementProfile.flyingMonster,
       ),
       MonsterDefinition(
         id: 'l10_h1',
@@ -587,12 +648,16 @@ List<MazeLevel> _buildHandcraftedDistrict1() {
         patrolPath: [GridPoint(3, 5), GridPoint(9, 5)],
         speed: 2.15,
         detectionRange: 3.4,
+        appearanceId: 'lv10_m2_intelligentHunter',
+        movementProfile: MonsterMovementProfile.intelligentHunter,
       ),
       MonsterDefinition(
         id: 'l10_g1',
         type: MonsterType.guardian,
         start: GridPoint(7, 1),
         patrolPath: [GridPoint(6, 1), GridPoint(7, 1)],
+        appearanceId: 'lv10_m3_patrolGuardian',
+        movementProfile: MonsterMovementProfile.patrolGuardian,
       ),
     ],
     healthPickups: const [
@@ -717,20 +782,35 @@ List<MazeLevel> _buildDistrict2To5() {
     final isBoss = indexInDistrict == 9;
     final rng = math.Random(202600 + id * 97);
 
-    final cols = district == 2
-        ? (indexInDistrict < 5 ? 11 : 13)
-        : district == 3
-            ? 13
-            : district == 4
-                ? (indexInDistrict < 5 ? 13 : 15)
-                : 15;
-    final rows = district == 2
-        ? 11
-        : district == 3
-            ? (indexInDistrict < 5 ? 11 : 13)
-            : 13;
+    // V3.5 Progressive Maze Complexity Scaling across Levels 11–50:
+    //  L11–15: 13x11 (braid 0.28) — medium branching corridors & dead ends
+    //  L16–20: 15x11 / 15x13 (braid 0.25) — alternative routes & pockets
+    //  L21–30: 15x13 -> 15x15 (braid 0.23) — deeper multi-branch labyrinths
+    //  L31–40: 15x15 -> 17x15 (braid 0.21) — hard patrol intersections & loops
+    //  L41–50: 17x15 -> 17x17 (braid 0.20) — expert master delivery mazes
+    final int cols;
+    final int rows;
+    final double braidRatio;
+    if (district == 2) {
+      cols = indexInDistrict < 5 ? 13 : 15;
+      rows = indexInDistrict < 7 ? 11 : 13;
+      braidRatio = indexInDistrict < 5 ? 0.28 : 0.25;
+    } else if (district == 3) {
+      cols = 15;
+      rows = indexInDistrict < 5 ? 13 : 15;
+      braidRatio = 0.23;
+    } else if (district == 4) {
+      cols = indexInDistrict < 5 ? 15 : 17;
+      rows = 15;
+      braidRatio = 0.21;
+    } else {
+      cols = 17;
+      rows = indexInDistrict < 4 ? 15 : 17;
+      braidRatio = 0.20;
+    }
 
-    final gridChars = _generateBraidedMaze(cols, rows, rng, braidRatio: 0.42);
+    final gridChars =
+        _generateBraidedMaze(cols, rows, rng, braidRatio: braidRatio);
 
     // Relocated Bottom-Wall Delivery Exit leading directly into the compact Bottom Dock!
     final exitCol = (cols ~/ 2).isOdd ? (cols ~/ 2) : (cols ~/ 2) + 1;
@@ -785,6 +865,8 @@ List<MazeLevel> _buildDistrict2To5() {
       preferQuadrants: true,
       cols: cols,
       rows: rows,
+      gridChars: gridChars,
+      distMap: distMap,
     );
 
     final foods = <FoodSpawn>[];
@@ -829,6 +911,7 @@ List<MazeLevel> _buildDistrict2To5() {
 
       final patrolPath = _buildPatrolPath(tempLevel, startPt, mType, rng);
       final speedScale = 1.0 + (district - 2) * 0.05 + (isBoss ? 0.04 : 0.0);
+      final profile = _movementProfileForLevelSlot(id, i, mType);
 
       monsters.add(MonsterDefinition(
         id: 'l${id}_m$i',
@@ -837,10 +920,14 @@ List<MazeLevel> _buildDistrict2To5() {
         patrolPath: patrolPath,
         speed:
             double.parse((mType.defaultSpeed * speedScale).toStringAsFixed(2)),
-        detectionRange: mType == MonsterType.hunter
-            ? (3.5 + (district - 2) * 0.2)
+        detectionRange: (mType == MonsterType.hunter ||
+                profile == MonsterMovementProfile.fastHunter ||
+                profile == MonsterMovementProfile.intelligentHunter)
+            ? (3.6 + (district - 2) * 0.25)
             : mType.defaultDetectionRange,
         biteDamage: mType.defaultBiteDamage,
+        appearanceId: 'lv${id}_m${i}_${profile.name}',
+        movementProfile: profile,
       ));
     }
 
@@ -923,9 +1010,9 @@ List<MazeLevel> _buildDistrict2To5() {
 
     final preVal = MazeValidator.validate(preLevel);
     final minTime = preVal.estimatedMinSeconds;
-    final timeLimit = ((minTime * 1.95) + 18 + monsters.length * 4)
+    final timeLimit = ((minTime * 2.05) + 20 + monsters.length * 4)
         .round()
-        .clamp(60, 180);
+        .clamp(65, 240);
 
     levels.add(MazeLevel(
       id: id,
@@ -1074,9 +1161,32 @@ List<GridPoint> _pickSpreadPoints(
   required bool preferQuadrants,
   required int cols,
   required int rows,
+  List<List<String>>? gridChars,
+  Map<GridPoint, int>? distMap,
 }) {
   final picked = <GridPoint>[];
   final pool = List<GridPoint>.from(candidates)..shuffle(rng);
+
+  // V3.5 Strategic Food Placement: place 1-2 prized foods inside dead-end pockets
+  // or deep corridor branches so players actively explore the maze architecture!
+  if (gridChars != null) {
+    final pockets = pool.where((p) {
+      int deg = 0;
+      if (gridChars[p.row][p.col + 1] == '.') deg++;
+      if (gridChars[p.row][p.col - 1] == '.') deg++;
+      if (gridChars[p.row + 1][p.col] == '.') deg++;
+      if (gridChars[p.row - 1][p.col] == '.') deg++;
+      return deg == 1 && (distMap?[p] ?? 0) >= 5;
+    }).toList()
+      ..shuffle(rng);
+    final pocketQuota = math.min(2, math.max(1, count ~/ 3));
+    for (final p in pockets) {
+      if (picked.length >= pocketQuota) break;
+      if (picked.every((other) => other.manhattanTo(p) >= minSpacing)) {
+        picked.add(p);
+      }
+    }
+  }
 
   if (preferQuadrants) {
     final midC = cols ~/ 2;
@@ -1113,6 +1223,39 @@ List<GridPoint> _pickSpreadPoints(
   }
 
   return picked;
+}
+
+/// Assigns a distinct per-level, per-slot [MonsterMovementProfile] across all 10
+/// V3.5 behavior archetypes so every level feels fresh and tactically varied!
+MonsterMovementProfile _movementProfileForLevelSlot(
+  int levelId,
+  int slotIndex,
+  MonsterType type,
+) {
+  const allProfiles = MonsterMovementProfile.values;
+  // Slot 0 rotates through all 10 profiles sequentially across levels so
+  // consecutive levels always feature a brand-new signature monster movement!
+  if (slotIndex == 0) {
+    return allProfiles[(levelId - 1) % allProfiles.length];
+  }
+  // Subsequent slots combine level-based stride with anatomy affinity
+  final baseOffset = switch (type) {
+    MonsterType.flyingCreature => 8, // flyingMonster
+    MonsterType.shadowCrawler => 6, // crawlingMonster
+    MonsterType.forestBrute => 7, // chargingMonster
+    MonsterType.redHunter => 1, // fastHunter
+    MonsterType.mushroomBeast => 4, // ambushMonster
+    MonsterType.mazeGuardian => 9, // intelligentHunter
+    MonsterType.guardian => 3, // patrolGuardian
+    MonsterType.patrol => 2, // zigzagMonster
+  };
+  final idx = (baseOffset + levelId * 3 + slotIndex * 4) % allProfiles.length;
+  final candidate = allProfiles[idx];
+  final slot0 = allProfiles[(levelId - 1) % allProfiles.length];
+  if (candidate == slot0) {
+    return allProfiles[(idx + 1) % allProfiles.length];
+  }
+  return candidate;
 }
 
 List<GridPoint> _buildPatrolPath(

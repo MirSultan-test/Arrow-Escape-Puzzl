@@ -243,13 +243,15 @@ void main() {
       }
       expect(ally.totalHitsLanded, 0);
 
-      // Bring boss close to truck & ally -> Ally intercepts and lands a timed knife slash!
+      // Bring boss close to truck & ally -> Ally intercepts and lands a synchronized knife slash!
       boss.x = engine.truckDefense.truck.x + 0.9;
       boss.y = engine.truckDefense.truck.y + 0.5;
       ally.x = boss.x - 0.6;
       ally.y = boss.y;
       final hpBefore = boss.hp;
-      engine.step(0.05);
+      for (int i = 0; i < 6; i++) {
+        engine.step(0.05);
+      }
       expect(ally.totalHitsLanded, greaterThanOrEqualTo(1));
       expect(boss.hp, lessThan(hpBefore));
       // Balanced ally damage: cannot one-shot or solo-melt the giant boss!

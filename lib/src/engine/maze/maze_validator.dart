@@ -8,12 +8,20 @@ class MazeValidationResult {
   final List<String> errors;
   final int estimatedTourSteps;
   final double estimatedMinSeconds;
+  final int walkableCellCount;
+  final int intersectionCount;
+  final int deadEndCount;
+  final int loopCount;
 
   const MazeValidationResult({
     required this.isValid,
     required this.errors,
     required this.estimatedTourSteps,
     required this.estimatedMinSeconds,
+    this.walkableCellCount = 0,
+    this.intersectionCount = 0,
+    this.deadEndCount = 0,
+    this.loopCount = 0,
   });
 }
 
@@ -186,11 +194,44 @@ class MazeValidator {
           'Level ${level.id}: invalid starThresholds (${level.starThresholds}).');
     }
 
+    // Compute maze topology complexity metrics (intersections, dead ends, loops)
+    int walkableCount = 0;
+    int intersections = 0;
+    int deadEnds = 0;
+    int undirectedEdges = 0;
+    for (int r = 0; r < level.rows; r++) {
+      for (int c = 0; c < level.cols; c++) {
+        if (!level.isWalkable(c, r)) continue;
+        walkableCount++;
+        int deg = 0;
+        if (level.isWalkable(c + 1, r)) {
+          deg++;
+          undirectedEdges++;
+        }
+        if (level.isWalkable(c - 1, r)) deg++;
+        if (level.isWalkable(c, r + 1)) {
+          deg++;
+          undirectedEdges++;
+        }
+        if (level.isWalkable(c, r - 1)) deg++;
+        if (deg >= 3) intersections++;
+        if (deg == 1 &&
+            !(c == level.exitCell.col && r == level.exitCell.row)) {
+          deadEnds++;
+        }
+      }
+    }
+    final loops = (undirectedEdges - walkableCount + 1).clamp(0, 999);
+
     return MazeValidationResult(
       isValid: errors.isEmpty,
       errors: errors,
       estimatedTourSteps: tourSteps,
       estimatedMinSeconds: estimatedMinSec,
+      walkableCellCount: walkableCount,
+      intersectionCount: intersections,
+      deadEndCount: deadEnds,
+      loopCount: loops,
     );
   }
 

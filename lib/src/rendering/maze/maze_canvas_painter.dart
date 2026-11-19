@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../engine/maze/maze_game_engine.dart';
+import '../../models/maze/character_animation_state.dart';
 import '../../models/maze/combat_models.dart';
 import '../../models/maze/delivery_state.dart';
 import '../../models/maze/maze_level.dart';
@@ -9,6 +10,8 @@ import '../../models/maze/truck_defense_models.dart';
 import 'boss_cage_illustrator.dart';
 import 'character_illustrator.dart';
 import 'food_illustrator.dart';
+import 'skeletal_character_animator.dart';
+import 'unique_monster_illustrator.dart';
 
 /// Camera & world-to-screen transform helper shared between painter and tap-to-move input.
 /// V3.1: Dock sits compactly BELOW the maze so 100% of horizontal width expands the maze!
@@ -29,6 +32,11 @@ class MazeViewportTransform {
 
   Offset worldToScreen(double wx, double wy) =>
       Offset(originX + wx * tileSize, originY + wy * tileSize);
+
+  Offset screenToWorld(Offset localPos) => Offset(
+        (localPos.dx - originX) / tileSize,
+        (localPos.dy - originY) / tileSize,
+      );
 
   GridPoint screenToCell(Offset localPos) {
     final wx = (localPos.dx - originX) / tileSize;
@@ -184,6 +192,9 @@ class MazeCanvasPainter extends CustomPainter {
     // 6. Redesigned Slim Connected 2.5D Garden-Hedge Maze Walls
     _drawSlimConnectedWalls(canvas, vp, level, district);
 
+    // 6b. V3.5 Invalid-Wall Drag Indicator (drawn ABOVE walls so blocked X is crystal-clear!)
+    _drawInvalidDragIndicator(canvas, vp);
+
     // 7. Collectible Health Recovery Hearts & Combat Supply/Shield Pickups
     for (final hp in engine.activeHealthPickups) {
       final bob = reducedMotion
@@ -239,12 +250,13 @@ class MazeCanvasPainter extends CustomPainter {
     final dockRect = dockGeometry.dockRect;
     final cageRect = dockGeometry.cageRect;
 
-    // Draw Reinforced Fantasy Monster Cage with visible Giant Boss inside!
+    // Draw Reinforced Fantasy Monster Cage with visible unique Giant Boss inside!
     BossCageIllustrator.drawMonsterCage(
       canvas,
       cageRect,
       cageState: td.cageState,
       bossType: td.boss.type,
+      bossAppearance: td.boss.appearance,
       shakeIntensity: td.cageShakeIntensity,
       animPhase: td.boss.animPhase,
       elapsed: engine.elapsedTime,
@@ -261,19 +273,26 @@ class MazeCanvasPainter extends CustomPainter {
         cageRect.center.dx + leapT * ts * 1.4,
         cageRect.center.dy + leapT * ts * 0.65,
       );
-      BossCageIllustrator.drawDistrictBoss(
+      SkeletalCharacterAnimator.drawGiantBossRig(
         canvas,
         escapePos,
-        ts * 0.68,
-        bossType: td.boss.type,
-        animPhase: td.boss.animPhase,
-        facingRight: true,
-        isCaged: false,
-        isEnraged: true,
+        ts * 0.66,
+        BossAnimSnapshot(
+          bossType: td.boss.type,
+          appearance: td.boss.appearance,
+          state: BossAnimState.run,
+          expression: BossExpression.furiousRoar,
+          facingAngle: 0.2,
+          walkCyclePhase: td.boss.animPhase,
+          stateProgress: leapT,
+          elapsed: engine.elapsedTime,
+          hpRatio: 1.0,
+          isCaged: false,
+        ),
       );
     }
 
-    // Peaceful Dock Worker before escape -> draws stylized knife ONLY after escape!
+    // Articulated Dock Worker (peaceful waving/loading before escape; draws knife ONLY after escape!)
     final collectorCenter = Offset(
       dockRect.left + dockRect.width * 0.34,
       dockRect.center.dy + ts * 0.04,
@@ -283,31 +302,12 @@ class MazeCanvasPainter extends CustomPainter {
       dockRect.center.dy + ts * 0.04,
     );
 
-    if (td.ally.hasKnifeDrawn ||
-        engine.collectorState == CollectorAnimState.surprised) {
-      BossCageIllustrator.drawDockWorkerWithKnife(
-        canvas,
-        collectorCenter,
-        ts * 0.42,
-        hasKnifeDrawn: td.ally.hasKnifeDrawn,
-        facingAngle: math.pi,
-        walkPhase: td.ally.walkPhase,
-        slashAnimTimer: td.ally.slashAnimTimer,
-        isSurprised: engine.collectorState == CollectorAnimState.surprised &&
-            !td.ally.hasKnifeDrawn,
-        isRecovering: false,
-        isCelebrating: false,
-        elapsed: engine.elapsedTime,
-      );
-    } else {
-      CharacterIllustrator.drawCollector(
-        canvas,
-        collectorCenter,
-        ts * 0.42,
-        state: engine.collectorState,
-        elapsed: engine.elapsedTime,
-      );
-    }
+    SkeletalCharacterAnimator.drawDockWorkerRig(
+      canvas,
+      collectorCenter,
+      ts * 0.44,
+      engine.buildMazeDockWorkerAnimSnapshot(),
+    );
 
     CharacterIllustrator.drawDeliveryTruck(
       canvas,
@@ -319,32 +319,24 @@ class MazeCanvasPainter extends CustomPainter {
       elapsed: engine.elapsedTime,
     );
 
-    // 10. Active Monsters (6 Frightening Fantasy Archetypes)
+    // 10. V3.5 Unique Articulated Maze Monsters (Per-Level Anatomy & 10 Movement Behaviors)
     for (final monster in engine.monsters) {
       final pos = vp.worldToScreen(monster.x, monster.y);
-      CharacterIllustrator.drawMonster(canvas, pos, ts * 0.43, monster);
+      UniqueMonsterIllustrator.drawUniqueMazeMonster(
+        canvas,
+        pos,
+        ts * 0.46,
+        monster,
+      );
     }
 
-    // 11. Human Delivery Adventurer Courier
+    // 11. Articulated Human Delivery Adventurer Courier (with 9 facial expressions & live Bow/Blaster rig!)
     final courierPos = vp.worldToScreen(engine.playerX, engine.playerY);
-    CharacterIllustrator.drawCourier(
+    SkeletalCharacterAnimator.drawCourierRig(
       canvas,
       courierPos,
-      ts * 0.46,
-      facingAngle: engine.playerFacingAngle,
-      walkPhase: engine.walkAnimPhase,
-      isMoving: engine.playerIsMoving,
-      carriedFoods: engine.carriedFoods,
-      isInvulnerable: engine.invulnerabilityTimer > 0,
-      isDamagedFlash: engine.damageFlashTimer > 0,
-      elapsed: engine.elapsedTime,
-      equippedWeapon:
-          engine.hasCombatUnlocked ? engine.activePrimaryWeapon : null,
-      isAttacking: engine.attackAnimTimer > 0,
-      hasShield: engine.hasShield,
-      isPoisonSlowed: engine.poisonSlowTimer > 0,
-      isHealing: engine.healAnimTimer > 0,
-      isCelebrating: engine.phase == MazeGamePhase.victory,
+      ts * 0.48,
+      engine.buildCourierAnimSnapshot(),
     );
 
     // 11b. Active Projectiles & Combat Visual Effects
@@ -1103,26 +1095,160 @@ class MazeCanvasPainter extends CustomPainter {
 
   void _drawNavTrails(Canvas canvas, MazeViewportTransform vp) {
     final ts = vp.tileSize;
-    if (engine.activeTapPath.isNotEmpty) {
-      final tapPaint = Paint()..color = const Color(0x8826A69A);
-      for (final cell in engine.activeTapPath) {
+    final routeCells = engine.previewRouteCells;
+    final drawing = engine.isDrawingRoute;
+
+    // 1. V3.5 Drag-to-Move / Tap-to-Move Active Route Polyline & Indicators
+    if (routeCells.isNotEmpty) {
+      final courierPos = vp.worldToScreen(engine.playerX, engine.playerY);
+      final pts = <Offset>[
+        courierPos,
+        for (final c in routeCells) vp.worldToScreen(c.centerX, c.centerY),
+      ];
+
+      // Determine accent color based on destination (Gold for Food, Emerald for Dock, Teal otherwise)
+      final dest = routeCells.last;
+      final targetsFood = engine.onMapFoods.any(
+        (f) => f.spawnCol == dest.col && f.spawnRow == dest.row,
+      );
+      final targetsExit = dest == engine.level.exitCell;
+      final Color accentColor = targetsFood
+          ? const Color(0xFFFFB703)
+          : targetsExit
+              ? const Color(0xFF2EC4B6)
+              : const Color(0xFF00B4D8);
+      final Color coreColor = drawing
+          ? accentColor
+          : accentColor.withOpacity(0.86);
+
+      // Build smooth route polyline
+      if (pts.length >= 2) {
+        final routePath = Path()..moveTo(pts.first.dx, pts.first.dy);
+        for (int i = 1; i < pts.length; i++) {
+          routePath.lineTo(pts[i].dx, pts[i].dy);
+        }
+
+        // Soft outer luminous halo
+        canvas.drawPath(
+          routePath,
+          Paint()
+            ..color = coreColor.withOpacity(drawing ? 0.34 : 0.22)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = ts * (drawing ? 0.36 : 0.28)
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+
+        // Crisp main guide stroke
+        canvas.drawPath(
+          routePath,
+          Paint()
+            ..color = coreColor
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = ts * (drawing ? 0.16 : 0.12)
+            ..strokeCap = StrokeCap.round
+            ..strokeJoin = StrokeJoin.round,
+        );
+
+        // Bright center highlight + animated flow dots
+        final flowPhase = reducedMotion ? 0.0 : (engine.elapsedTime * 3.8) % 1.0;
+        for (int i = 0; i < pts.length - 1; i++) {
+          final a = pts[i];
+          final b = pts[i + 1];
+          final mid = Offset.lerp(a, b, flowPhase)!;
+          canvas.drawCircle(
+            mid,
+            ts * (drawing ? 0.068 : 0.052),
+            Paint()..color = Colors.white.withOpacity(0.95),
+          );
+        }
+      }
+
+      // Start halo around Courier while actively dragging route
+      if (drawing) {
+        final pulse = reducedMotion
+            ? 0.56
+            : 0.54 + math.sin(engine.elapsedTime * 7.5) * 0.05;
         canvas.drawCircle(
-          vp.worldToScreen(cell.centerX, cell.centerY),
-          ts * 0.11,
-          tapPaint,
+          courierPos,
+          ts * pulse,
+          Paint()
+            ..color = coreColor.withOpacity(0.18)
+            ..style = PaintingStyle.fill,
+        );
+        canvas.drawCircle(
+          courierPos,
+          ts * pulse,
+          Paint()
+            ..color = coreColor
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.2,
         );
       }
-      final dest = engine.activeTapPath.last;
+
+      // Destination target marker ring
+      final destPos = vp.worldToScreen(dest.centerX, dest.centerY);
+      final destPulse = reducedMotion
+          ? 0.30
+          : 0.28 + math.sin(engine.elapsedTime * 6.0) * 0.04;
       canvas.drawCircle(
-        vp.worldToScreen(dest.centerX, dest.centerY),
-        ts * 0.22,
+        destPos,
+        ts * destPulse,
         Paint()
-          ..color = const Color(0xBB26A69A)
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2.0,
+          ..color = accentColor.withOpacity(0.24)
+          ..style = PaintingStyle.fill,
       );
+      canvas.drawCircle(
+        destPos,
+        ts * destPulse,
+        Paint()
+          ..color = accentColor
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.4,
+      );
+      canvas.drawCircle(
+        destPos,
+        ts * 0.09,
+        Paint()..color = Colors.white,
+      );
+
+      // Compact tile-count pill above destination while finger is drawing
+      if (drawing && routeCells.length >= 2) {
+        final steps = routeCells.length - 1;
+        final badgeTp = TextPainter(
+          text: TextSpan(
+            text: targetsFood
+                ? '★ $steps'
+                : targetsExit
+                    ? '🚚 $steps'
+                    : '$steps',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: math.max(9.5, ts * 0.26),
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout();
+        final bw = badgeTp.width + 10;
+        final bh = badgeTp.height + 4;
+        final badgeRect = Rect.fromCenter(
+          center: Offset(destPos.dx, destPos.dy - ts * 0.52),
+          width: bw,
+          height: bh,
+        );
+        canvas.drawRRect(
+          RRect.fromRectAndRadius(badgeRect, const Radius.circular(8)),
+          Paint()..color = const Color(0xDD1E293B),
+        );
+        badgeTp.paint(
+          canvas,
+          Offset(badgeRect.left + 5, badgeRect.top + 2),
+        );
+      }
     }
 
+    // 2. On-Demand Gold Hint Trail
     if (engine.hintPath.length > 1) {
       final path = Path();
       for (int i = 0; i < engine.hintPath.length; i++) {
@@ -1153,6 +1279,72 @@ class MazeCanvasPainter extends CustomPainter {
         );
       }
     }
+  }
+
+  /// Draws the V3.5 crimson dashed line + crisp X badge ABOVE walls whenever the player
+  /// tries to drag a route into a solid maze wall.
+  void _drawInvalidDragIndicator(Canvas canvas, MazeViewportTransform vp) {
+    final routeCells = engine.previewRouteCells;
+    if (!engine.isDrawingRoute ||
+        engine.invalidDragWorldX == null ||
+        engine.invalidDragWorldY == null ||
+        routeCells.isEmpty) {
+      return;
+    }
+    final ts = vp.tileSize;
+    final anchor = vp.worldToScreen(
+      routeCells.last.centerX,
+      routeCells.last.centerY,
+    );
+    final blocked = vp.worldToScreen(
+      engine.invalidDragWorldX!,
+      engine.invalidDragWorldY!,
+    );
+    final errPaint = Paint()
+      ..color = const Color(0xFFE63946)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = math.max(2.6, ts * 0.12)
+      ..strokeCap = StrokeCap.round;
+
+    final totalLen = (blocked - anchor).distance;
+    if (totalLen > 2.0) {
+      final steps = math.max(2, (totalLen / (ts * 0.22)).ceil());
+      for (int i = 0; i < steps; i += 2) {
+        final t0 = i / steps;
+        final t1 = math.min(1.0, (i + 1) / steps);
+        canvas.drawLine(
+          Offset.lerp(anchor, blocked, t0)!,
+          Offset.lerp(anchor, blocked, t1)!,
+          errPaint,
+        );
+      }
+    }
+    // High-contrast white halo + crimson circle + crisp white X
+    canvas.drawCircle(
+      blocked,
+      ts * 0.30,
+      Paint()..color = Colors.white.withOpacity(0.92),
+    );
+    canvas.drawCircle(
+      blocked,
+      ts * 0.25,
+      Paint()..color = const Color(0xFFE63946),
+    );
+    final xSize = ts * 0.11;
+    final xPaint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 2.4
+      ..strokeCap = StrokeCap.round;
+    canvas.drawLine(
+      blocked + Offset(-xSize, -xSize),
+      blocked + Offset(xSize, xSize),
+      xPaint,
+    );
+    canvas.drawLine(
+      blocked + Offset(xSize, -xSize),
+      blocked + Offset(-xSize, xSize),
+      xPaint,
+    );
   }
 
   void _drawMinimap(Canvas canvas, Size size, MazeLevel level) {

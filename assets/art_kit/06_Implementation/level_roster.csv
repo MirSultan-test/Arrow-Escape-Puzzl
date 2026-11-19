@@ -1,0 +1,51 @@
+level,district,monster,anatomy,feature,intended_locomotion,intended_attack,model,preview
+1,Sunny Orchard,Pipjack,hare,sprout,double hop,spring kick,01_Monsters/L01_pipjack.glb,01_Monsters/L01_pipjack.png
+2,Sunny Orchard,Acorn Tunneler,beetle,acorn,scuttle,horn scoop,01_Monsters/L02_acorn_tunneler.glb,01_Monsters/L02_acorn_tunneler.png
+3,Sunny Orchard,Bramble Pup,wolf,thorns,bound,pounce,01_Monsters/L03_bramble_pup.glb,01_Monsters/L03_bramble_pup.png
+4,Sunny Orchard,Dewdrop Snail,snail,dew,glide,shell shove,01_Monsters/L04_dewdrop_snail.glb,01_Monsters/L04_dewdrop_snail.png
+5,Sunny Orchard,Cherrywing,bat,cherry,flap,dive,01_Monsters/L05_cherrywing.glb,01_Monsters/L05_cherrywing.png
+6,Sunny Orchard,Puddle Pouncer,frog,lotus,crouch hop,tongue flick,01_Monsters/L06_puddle_pouncer.glb,01_Monsters/L06_puddle_pouncer.png
+7,Sunny Orchard,Cider Tusk,boar,tusks,trot,ram,01_Monsters/L07_cider_tusk.glb,01_Monsters/L07_cider_tusk.png
+8,Sunny Orchard,Peel Pincher,crab,peel,sidestep,pinch,01_Monsters/L08_peel_pincher.glb,01_Monsters/L08_peel_pincher.png
+9,Sunny Orchard,Honeycomb Scout,bee,honey,hover,sting,01_Monsters/L09_honeycomb_scout.glb,01_Monsters/L09_honeycomb_scout.png
+10,Sunny Orchard,Thistle Roller,hedgehog,spines,waddle,roll strike,01_Monsters/L10_thistle_roller.glb,01_Monsters/L10_thistle_roller.png
+11,Garden Market,Copper Kettle,golem,kettle,stomp,hammer blow,01_Monsters/L11_copper_kettle.glb,01_Monsters/L11_copper_kettle.png
+12,Garden Market,Lantern Moth,moth,lantern,flutter,wing flare,01_Monsters/L12_lantern_moth.glb,01_Monsters/L12_lantern_moth.png
+13,Garden Market,Radish Rook,bird,radish,strut,beak peck,01_Monsters/L13_radish_rook.glb,01_Monsters/L13_radish_rook.png
+14,Garden Market,Market Mimic,chest,latch,shuffle,lid snap,01_Monsters/L14_market_mimic.glb,01_Monsters/L14_market_mimic.png
+15,Garden Market,Noodle Naga,snake,noodles,slither,coil lunge,01_Monsters/L15_noodle_naga.glb,01_Monsters/L15_noodle_naga.png
+16,Garden Market,Spice Scorpion,scorpion,pepper,skitter,tail jab,01_Monsters/L16_spice_scorpion.glb,01_Monsters/L16_spice_scorpion.png
+17,Garden Market,Cabbage Gripper,octopus,cabbage,pulse crawl,tentacle sweep,01_Monsters/L17_cabbage_gripper.glb,01_Monsters/L17_cabbage_gripper.png
+18,Garden Market,Peppercap Imp,imp,pepper,skip,head feint,01_Monsters/L18_peppercap_imp.glb,01_Monsters/L18_peppercap_imp.png
+19,Garden Market,Saffron Fan,peacock,fan,parade,fan sweep,01_Monsters/L19_saffron_fan.glb,01_Monsters/L19_saffron_fan.png
+20,Garden Market,Scale Sentry,turtle,scale,trundle,shell bash,01_Monsters/L20_scale_sentry.glb,01_Monsters/L20_scale_sentry.png
+21,Forest Food Trail,Moss Elk,deer,antlers,canter,antler swing,01_Monsters/L21_moss_elk.glb,01_Monsters/L21_moss_elk.png
+22,Forest Food Trail,Fern Skipper,mantis,fern,stalk,sickle slash,01_Monsters/L22_fern_skipper.glb,01_Monsters/L22_fern_skipper.png
+23,Forest Food Trail,Bark Centipede,centipede,bark,ripple march,body sweep,01_Monsters/L23_bark_centipede.glb,01_Monsters/L23_bark_centipede.png
+24,Forest Food Trail,Ambercap,mushroom,spots,bob walk,cap slam,01_Monsters/L24_ambercap.glb,01_Monsters/L24_ambercap.png
+25,Forest Food Trail,Glasswing Drake,dragon,crystal,glide flap,tail whip,01_Monsters/L25_glasswing_drake.glb,01_Monsters/L25_glasswing_drake.png
+26,Forest Food Trail,Hollow Watcher,owl,hollow,swoop,talon rake,01_Monsters/L26_hollow_watcher.glb,01_Monsters/L26_hollow_watcher.png
+27,Forest Food Trail,Brook Axolotl,gecko,gills,belly crawl,gill flare,01_Monsters/L27_brook_axolotl.glb,01_Monsters/L27_brook_axolotl.png
+28,Forest Food Trail,Pinecone Pangolin,armadillo,scales,low trot,curl strike,01_Monsters/L28_pinecone_pangolin.glb,01_Monsters/L28_pinecone_pangolin.png
+29,Forest Food Trail,Birch Longlegs,spider,birch,highstep,leg jab,01_Monsters/L29_birch_longlegs.glb,01_Monsters/L29_birch_longlegs.png
+30,Forest Food Trail,Root Lantern,jelly,roots,float,root lash,01_Monsters/L30_root_lantern.glb,01_Monsters/L30_root_lantern.png
+31,Monster Valley,Basalt Ram,sheep,curled horns,heavy trot,horn crash,01_Monsters/L31_basalt_ram.glb,01_Monsters/L31_basalt_ram.png
+32,Monster Valley,Lava Bellows,salamander,vents,prowl,vent burst,01_Monsters/L32_lava_bellows.glb,01_Monsters/L32_lava_bellows.png
+33,Monster Valley,Shale Hammer,gorilla,stone,knuckle walk,double pound,01_Monsters/L33_shale_hammer.glb,01_Monsters/L33_shale_hammer.png
+34,Monster Valley,Gale Harrier,raptor,feathers,bank,wing cut,01_Monsters/L34_gale_harrier.glb,01_Monsters/L34_gale_harrier.png
+35,Monster Valley,Frostwhisker,walrus,ice,heave,tusk thrust,01_Monsters/L35_frostwhisker.glb,01_Monsters/L35_frostwhisker.png
+36,Monster Valley,Rift Ray,ray,rift,undulate,sweeping dive,01_Monsters/L36_rift_ray.glb,01_Monsters/L36_rift_ray.png
+37,Monster Valley,Copperback Hydra,hydra,copper,weave,triple snap,01_Monsters/L37_copperback_hydra.glb,01_Monsters/L37_copperback_hydra.png
+38,Monster Valley,Crag Lynx,cat,tufts,slink,claw swipe,01_Monsters/L38_crag_lynx.glb,01_Monsters/L38_crag_lynx.png
+39,Monster Valley,Quake Clam,clam,pearl,rock,shell clap,01_Monsters/L39_quake_clam.glb,01_Monsters/L39_quake_clam.png
+40,Monster Valley,Thunder Totem,totem,bolt,hover step,drop slam,01_Monsters/L40_thunder_totem.glb,01_Monsters/L40_thunder_totem.png
+41,Grand Delivery City,Signal Cyclops,robot,aerial,march,piston punch,01_Monsters/L41_signal_cyclops.glb,01_Monsters/L41_signal_cyclops.png
+42,Grand Delivery City,Neon Coil,eel,fins,sidewind,electric lunge,01_Monsters/L42_neon_coil.glb,01_Monsters/L42_neon_coil.png
+43,Grand Delivery City,Rivet Hound,hound,rivets,gallop,jaw snap,01_Monsters/L43_rivet_hound.glb,01_Monsters/L43_rivet_hound.png
+44,Grand Delivery City,Market Craner,crane,stripe,tiptoe,spear peck,01_Monsters/L44_market_craner.glb,01_Monsters/L44_market_craner.png
+45,Grand Delivery City,Velvet Glider,squirrel,sail,leap,glide tackle,01_Monsters/L45_velvet_glider.glb,01_Monsters/L45_velvet_glider.png
+46,Grand Delivery City,Boiler Bison,bison,steam,tramp,shoulder rush,01_Monsters/L46_boiler_bison.glb,01_Monsters/L46_boiler_bison.png
+47,Grand Delivery City,Clockwork Koi,fish,gear,flying swim,fin slap,01_Monsters/L47_clockwork_koi.glb,01_Monsters/L47_clockwork_koi.png
+48,Grand Delivery City,Night Hopper,kangaroo,visor,vault,heel kick,01_Monsters/L48_night_hopper.glb,01_Monsters/L48_night_hopper.png
+49,Grand Delivery City,Metro Mole,mole,drill,dig walk,drill nudge,01_Monsters/L49_metro_mole.glb,01_Monsters/L49_metro_mole.png
+50,Grand Delivery City,Crownwing Warden,griffin,crown,royal stride,crest dive,01_Monsters/L50_crownwing_warden.glb,01_Monsters/L50_crownwing_warden.png

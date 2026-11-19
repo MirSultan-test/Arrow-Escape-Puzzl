@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'monster_variants.dart';
 
 /// Logical portrait arena dimensions for the dedicated Full-Screen Road Battle Arena.
 /// Chosen at a 10:14 aspect ratio so curves are spacious and readable on every phone size.
@@ -363,6 +364,7 @@ class TruckDefenseConfig {
   final int levelId;
   final int districtId;
   final DistrictBossType bossType;
+  final BossAppearanceSpec bossAppearance;
   final DestinationBuildingType destinationType;
   final int bossMaxHp;
   final double bossSpeed;
@@ -379,6 +381,7 @@ class TruckDefenseConfig {
     required this.levelId,
     required this.districtId,
     required this.bossType,
+    required this.bossAppearance,
     required this.destinationType,
     required this.bossMaxHp,
     required this.bossSpeed,
@@ -498,11 +501,13 @@ class TruckDefenseConfig {
     }
 
     final road = _buildRoadForLevel(levelId: levelId, districtId: districtId);
+    final bossAppearance = BossAppearanceSpec.forLevel(levelId, districtId);
 
     return TruckDefenseConfig(
       levelId: levelId,
       districtId: districtId,
       bossType: bossType,
+      bossAppearance: bossAppearance,
       destinationType: destType,
       bossMaxHp: bossHp,
       bossSpeed: bossSpeed,
@@ -807,10 +812,25 @@ class DockWorkerAlly {
   double hitFlashTimer = 0.0;
   int totalHitsLanded = 0;
 
+  // V3.4 Synchronized Knife Combo & Drawing Animation State
+  double knifeDrawTimer = 0.0; // >0 while reaching to hip sheath & drawing knife
+  double swingElapsed = 0.0; // 0.0 .. swingDuration (0.42s)
+  double swingDuration = 0.42;
+  bool isSwinging = false;
+  bool hitConfirmedThisSwing = false;
+  int comboStep = 0; // 0 = horizontal swing, 1 = counter upward slash
+  bool swingTargetingBoss = true;
+  RoadHelperMinion? swingTargetMinion;
+  double hurtRecoilTimer = 0.0;
+  double moveSpeedRatio = 0.0;
+
   DockWorkerAlly({
     required this.x,
     required this.y,
   });
+
+  double get swingProgress =>
+      isSwinging ? (swingElapsed / swingDuration).clamp(0.0, 1.0) : 0.0;
 }
 
 enum BossCombatAiState {
@@ -828,6 +848,7 @@ enum BossCombatAiState {
 
 class RoadBossEntity {
   final DistrictBossType type;
+  final BossAppearanceSpec appearance;
   final int maxHp;
   int hp;
   final double baseSpeed;
@@ -859,8 +880,18 @@ class RoadBossEntity {
   bool distractedByAlly = false;
   double distractTimer = 0.0;
 
+  // V3.4 Articulated Skeletal Animation & Combat Sync State
+  double moveSpeedRatio = 0.0; // 0 = idle, 0.5 = walk, 1.0 = running/charging
+  double hurtRecoilTimer = 0.0;
+  double recoilDirX = 0.0;
+  double recoilDirY = 0.0;
+  double followThroughTimer = 0.0;
+  BossAttackType? lastExecutedAttack;
+  double dustSpawnTimer = 0.0;
+
   RoadBossEntity({
     required this.type,
+    BossAppearanceSpec? appearance,
     required this.maxHp,
     required this.baseSpeed,
     required this.attackInterval,
@@ -868,7 +899,10 @@ class RoadBossEntity {
     required this.attackPool,
     required this.x,
     required this.y,
-  }) : hp = maxHp;
+  })  : appearance = appearance ?? BossAppearanceSpec.forLevel(1, 1),
+        hp = maxHp;
+
+  String get displayName => appearance.title;
 
   bool get isDefeated => hp <= 0 || aiState == BossCombatAiState.defeated;
   bool get isCaged => aiState == BossCombatAiState.caged;

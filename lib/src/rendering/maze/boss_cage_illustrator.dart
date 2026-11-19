@@ -1,10 +1,13 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../../models/maze/character_animation_state.dart';
 import '../../models/maze/delivery_state.dart';
 import '../../models/maze/monster.dart';
+import '../../models/maze/monster_variants.dart';
 import '../../models/maze/truck_defense_models.dart';
 import '../../services/sprite_atlas.dart';
 import 'character_illustrator.dart';
+import 'skeletal_character_animator.dart';
 
 /// Professional 2.5D fantasy illustrator for V3.3 Monster Cage,
 /// 5 Distinct District Giant Bosses, Combat-Knife Dock Worker Ally,
@@ -19,6 +22,7 @@ class BossCageIllustrator {
     Rect cageRect, {
     required BossCageState cageState,
     required DistrictBossType bossType,
+    BossAppearanceSpec? bossAppearance,
     required double shakeIntensity,
     required double animPhase,
     required double elapsed,
@@ -103,7 +107,7 @@ class BossCageIllustrator {
       );
     }
 
-    // 4. Giant Boss visible INSIDE the cage (before escaping!)
+    // 4. Giant Boss visible INSIDE the cage (articulated skeletal rig gripping & shaking bars!)
     if (showBossInside &&
         cageState != BossCageState.escaped &&
         cageState != BossCageState.doorOpening) {
@@ -111,18 +115,28 @@ class BossCageIllustrator {
       final shiftY = math.sin(animPhase * 1.3).abs() * h * 0.04;
       final bossCenter = Offset(
         cageRect.center.dx + shiftX,
-        cageRect.center.dy + h * 0.04 - shiftY,
+        cageRect.center.dy + h * 0.06 - shiftY,
       );
-      drawDistrictBoss(
+      final breaking = cageState == BossCageState.rattling ||
+          cageState == BossCageState.lockBreaking;
+      SkeletalCharacterAnimator.drawGiantBossRig(
         canvas,
         bossCenter,
-        math.min(w, h) * 0.36,
-        bossType: bossType,
-        animPhase: animPhase,
-        facingRight: true,
-        isCaged: true,
-        isEnraged: cageState == BossCageState.rattling ||
-            cageState == BossCageState.lockBreaking,
+        math.min(w, h) * 0.34,
+        BossAnimSnapshot(
+          bossType: bossType,
+          appearance: bossAppearance,
+          state: breaking ? BossAnimState.breakingCage : BossAnimState.cagedIdle,
+          expression: breaking
+              ? BossExpression.furiousRoar
+              : BossExpression.angryCaged,
+          facingAngle: 0.0,
+          walkCyclePhase: animPhase,
+          stateProgress: 0.5,
+          elapsed: elapsed,
+          hpRatio: 1.0,
+          isCaged: true,
+        ),
       );
     }
 

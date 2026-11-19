@@ -6,7 +6,7 @@ import '../../models/maze/delivery_state.dart';
 import '../../models/maze/maze_level.dart';
 import '../../models/maze/truck_defense_models.dart';
 import 'boss_cage_illustrator.dart';
-import 'character_illustrator.dart';
+import 'skeletal_character_animator.dart';
 
 /// World-to-screen transform for the Full-Screen Road Battle Arena (10 x 14 world units).
 /// Maximizes available viewport height & width with zero wasted blank margins!
@@ -111,75 +111,79 @@ class RoadBattlePainter extends CustomPainter {
     // 9. Boss Attack Telegraphs (Bomb Target Circles, Charge Lanes, Slam Danger Zones)
     _drawBossTelegraphs(canvas, vp, td);
 
-    // 10. Moving, Smoothly Rotating Delivery Truck
-    BossCageIllustrator.drawRoadTruck(
-      canvas,
-      vp.toScreen(td.truck.x, td.truck.y),
-      s * 0.62,
-      truck: td.truck,
-      elapsed: engine.elapsedTime,
-    );
+    // 9b. Ground Footstep & Charge Dust Puffs!
+    if (!reducedMotion) {
+      for (final d in td.dustPuffs) {
+        final p = d.progress;
+        final alpha = (1.0 - p) * 0.55;
+        canvas.drawCircle(
+          vp.toScreen(d.x, d.y),
+          d.maxRadius * s * (0.45 + p * 0.65),
+          Paint()..color = Color(d.colorHex).withOpacity(alpha.clamp(0.0, 1.0)),
+        );
+      }
+    }
 
-    // 11. Dock Worker Ally (Wielding Stylized Combat Knife!)
-    BossCageIllustrator.drawDockWorkerWithKnife(
-      canvas,
-      vp.toScreen(td.ally.x, td.ally.y),
-      s * 0.48,
-      hasKnifeDrawn: td.ally.hasKnifeDrawn,
-      facingAngle: td.ally.facingAngle,
-      walkPhase: td.ally.walkPhase,
-      slashAnimTimer: td.ally.slashAnimTimer,
-      isSurprised: td.ally.state == AllyCombatState.surprised,
-      isRecovering: td.ally.state == AllyCombatState.recovering,
-      isCelebrating: td.ally.state == AllyCombatState.celebrating,
-      elapsed: engine.elapsedTime,
-    );
+    // 10-14. Proper 2.5D Y-Depth Sorted Character Layering (Section 8)
+    // Ensures Courier, Dock Worker, Giant Boss, Truck & Minions layer cleanly without stacking!
+    final drawQueue = <({double sortY, VoidCallback draw})>[];
 
-    // 12. Helper Minions (Levels 31-50)
+    drawQueue.add((
+      sortY: td.truck.y,
+      draw: () => BossCageIllustrator.drawRoadTruck(
+            canvas,
+            vp.toScreen(td.truck.x, td.truck.y),
+            s * 0.62,
+            truck: td.truck,
+            elapsed: engine.elapsedTime,
+          ),
+    ));
+
+    drawQueue.add((
+      sortY: td.ally.y,
+      draw: () => SkeletalCharacterAnimator.drawDockWorkerRig(
+            canvas,
+            vp.toScreen(td.ally.x, td.ally.y),
+            s * 0.50,
+            td.buildRoadAllyAnimSnapshot(engine.elapsedTime),
+          ),
+    ));
+
     for (final m in td.helperMinions) {
       if (m.isDefeated) continue;
-      _drawHelperMinion(canvas, vp.toScreen(m.x, m.y), s * 0.36, m);
+      drawQueue.add((
+        sortY: m.y,
+        draw: () => _drawHelperMinion(canvas, vp.toScreen(m.x, m.y), s * 0.36, m),
+      ));
     }
 
-    // 13. Escaped Giant District Boss
     if (!td.boss.isDefeated && !td.boss.isCaged) {
-      BossCageIllustrator.drawDistrictBoss(
-        canvas,
-        vp.toScreen(td.boss.x, td.boss.y),
-        s * 0.72,
-        bossType: td.boss.type,
-        animPhase: td.boss.animPhase,
-        facingRight: math.cos(td.boss.facingAngle) >= -0.1,
-        isCaged: false,
-        isEnraged: td.boss.aiState == BossCombatAiState.charging ||
-            td.boss.aiState == BossCombatAiState.telegraphing,
-        isHitFlash: td.boss.hitFlashTimer > 0,
-        isStunned: td.boss.stunTimer > 0,
-        isFrozen: td.boss.freezeTimer > 0,
-        hasShield: td.boss.hasShield,
-        hpRatio: td.boss.hpRatio,
-        nameLabel: td.boss.type.displayName,
-      );
+      drawQueue.add((
+        sortY: td.boss.y,
+        draw: () => SkeletalCharacterAnimator.drawGiantBossRig(
+              canvas,
+              vp.toScreen(td.boss.x, td.boss.y),
+              s * 0.72,
+              td.buildBossAnimSnapshot(engine.elapsedTime),
+              nameLabel: td.boss.displayName,
+            ),
+      ));
     }
 
-    // 14. Player Courier in Road Battle Arena
-    CharacterIllustrator.drawCourier(
-      canvas,
-      vp.toScreen(td.playerX, td.playerY),
-      s * 0.50,
-      facingAngle: td.playerFacingAngle,
-      walkPhase: td.playerWalkPhase,
-      isMoving: td.playerIsMoving,
-      carriedFoods: const [],
-      isInvulnerable: engine.invulnerabilityTimer > 0,
-      isDamagedFlash: engine.damageFlashTimer > 0,
-      elapsed: engine.elapsedTime,
-      equippedWeapon: engine.activePrimaryWeapon,
-      isAttacking: engine.attackAnimTimer > 0,
-      hasShield: engine.hasShield,
-      isCelebrating: engine.phase == MazeGamePhase.truckArrived ||
-          engine.phase == MazeGamePhase.victory,
-    );
+    drawQueue.add((
+      sortY: td.playerY,
+      draw: () => SkeletalCharacterAnimator.drawCourierRig(
+            canvas,
+            vp.toScreen(td.playerX, td.playerY),
+            s * 0.50,
+            engine.buildCourierAnimSnapshot(),
+          ),
+    ));
+
+    drawQueue.sort((a, b) => a.sortY.compareTo(b.sortY));
+    for (final item in drawQueue) {
+      item.draw();
+    }
 
     // 15. Active Projectiles (Player Arrows/Bolts/Freeze Orbs & Boss Fantasy Bombs/Orbs)
     for (final p in td.playerProjectiles) {
@@ -413,6 +417,7 @@ class RoadBattlePainter extends CustomPainter {
       cageRect,
       cageState: td.cageState,
       bossType: td.boss.type,
+      bossAppearance: td.boss.appearance,
       shakeIntensity: td.cageShakeIntensity,
       animPhase: td.boss.animPhase,
       elapsed: engine.elapsedTime,

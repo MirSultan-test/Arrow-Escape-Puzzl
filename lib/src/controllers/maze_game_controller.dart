@@ -158,7 +158,7 @@ class MazeGameController extends ChangeNotifier {
 
     _hudSyncAccum += dtSeconds;
     final td = eng.truckDefense;
-    final hudHash = Object.hash(
+    final hudHash = Object.hashAll([
       eng.phase,
       eng.activeDisplayRemainingTime.ceil(),
       eng.health,
@@ -167,6 +167,7 @@ class MazeGameController extends ChangeNotifier {
       eng.deliveredFoods.length,
       eng.deliveredQuantityPercent,
       eng.hintMessage,
+      eng.routeFeedbackMessage,
       eng.activePrimaryWeapon,
       eng.activeSpecialWeapon,
       eng.ammoFor(eng.activePrimaryWeapon),
@@ -181,7 +182,7 @@ class MazeGameController extends ChangeNotifier {
       td.truck.progressPercent,
       td.boss.hp,
       td.ally.hasKnifeDrawn,
-    );
+    ]);
 
     final hasActiveCooldown =
         eng.weaponCooldowns.values.any((cd) => cd > 0.0) ||
