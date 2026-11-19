@@ -86,6 +86,9 @@ class SpriteAtlas {
     _monsterArtKitSprites[clean] = img;
   }
 
+  /// Registers a pre-decoded monster image into the atlas cache.
+  void registerMonsterImage(String key, ui.Image img) => _registerMonsterImage(key, img);
+
   /// Synchronously retrieves a preloaded 2.5D monster sprite texture by model ID or asset path.
   ui.Image? getMonsterArt(String? key) {
     if (key == null || key.isEmpty) return null;

@@ -431,6 +431,7 @@ class RoadBattlePainter extends CustomPainter {
       cageState: td.cageState,
       bossType: td.boss.type,
       bossAppearance: td.boss.appearance,
+      levelId: td.config.levelId,
       shakeIntensity: td.cageShakeIntensity,
       animPhase: td.boss.animPhase,
       elapsed: engine.elapsedTime,

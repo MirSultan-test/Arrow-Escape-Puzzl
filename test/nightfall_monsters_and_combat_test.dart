@@ -1,21 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:parcel_escape/src/engine/maze/maze_game_engine.dart';
-import 'package:parcel_escape/src/engine/maze/truck_defense_simulation.dart';
 import 'package:parcel_escape/src/models/maze/delivery_state.dart';
 import 'package:parcel_escape/src/models/maze/level_roster.dart';
 import 'package:parcel_escape/src/models/maze/maze_level.dart';
 import 'package:parcel_escape/src/models/maze/monster.dart';
 import 'package:parcel_escape/src/models/maze/monster_variants.dart';
 import 'package:parcel_escape/src/models/maze/truck_defense_models.dart';
-import 'package:parcel_escape/src/rendering/maze/maze_canvas_painter.dart';
 import 'package:parcel_escape/src/rendering/maze/road_battle_painter.dart';
 import 'package:parcel_escape/src/rendering/maze/unique_monster_illustrator.dart';
-import 'package:parcel_escape/src/services/sprite_atlas.dart';
 
 List<MazeLevel> _loadLevels() {
   final raw = jsonDecode(

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../models/maze/character_animation_state.dart';
 import '../../models/maze/combat_models.dart';
+import '../../models/maze/monster_variants.dart';
 import '../../models/maze/truck_defense_models.dart';
 import 'food_illustrator.dart';
 import 'unique_monster_illustrator.dart';
@@ -1365,7 +1366,33 @@ class SkeletalCharacterAnimator {
     // Posture / Body Language Lean (Section 6)
     double bodyLean = 0.0;
     double crouchY = 0.0;
-    if (snap.state == BossAnimState.windupCharge ||
+    if (snap.isCaged) {
+      final shape = snap.appearance?.bodyShape ?? MonsterBodyShape.hulkingBrute;
+      switch (shape) {
+        case MonsterBodyShape.wingedFlier:
+          crouchY = -r * 0.28;
+          bodyLean = math.sin(snap.elapsed * 1.5) * 0.10;
+          break;
+        case MonsterBodyShape.hornedStalker:
+        case MonsterBodyShape.spikyHopper:
+          crouchY = r * 0.16;
+          bodyLean = dirX * 0.14;
+          break;
+        case MonsterBodyShape.lowCrawler:
+        case MonsterBodyShape.mushroomFiend:
+          crouchY = r * 0.22;
+          bodyLean = math.sin(snap.elapsed * 1.2) * 0.08;
+          break;
+        case MonsterBodyShape.phantomWraith:
+          crouchY = r * 0.10;
+          bodyLean = math.sin(snap.elapsed * 2.0) * 0.20;
+          break;
+        default:
+          crouchY = r * 0.05;
+          bodyLean = math.sin(snap.elapsed * 0.8) * 0.04;
+          break;
+      }
+    } else if (snap.state == BossAnimState.windupCharge ||
         snap.state == BossAnimState.windupTireAttack) {
       bodyLean = dirX * 0.26;
       crouchY = r * 0.16;
@@ -1687,8 +1714,30 @@ class SkeletalCharacterAnimator {
         return (backArm: -2.1, frontArm: -1.0);
       case BossAnimState.cagedIdle:
       case BossAnimState.breakingCage:
-        final rattle = math.sin(snap.elapsed * 16.0) * 0.22;
-        return (backArm: 0.3 + rattle, frontArm: -0.3 - rattle);
+        final rattle = math.sin(snap.elapsed * 18.0) * 0.25;
+        final shape = snap.appearance?.bodyShape ?? MonsterBodyShape.hulkingBrute;
+        switch (shape) {
+          case MonsterBodyShape.wingedFlier:
+            final wingFlex = math.sin(snap.elapsed * 2.8) * 0.35;
+            return (
+              backArm: -1.95 + wingFlex + rattle * 0.4,
+              frontArm: -1.95 - wingFlex - rattle * 0.4,
+            );
+          case MonsterBodyShape.lowCrawler:
+            return (backArm: -2.25 + rattle * 0.35, frontArm: 0.45 - rattle);
+          case MonsterBodyShape.phantomWraith:
+            final coil = math.sin(snap.elapsed * 2.2) * 0.35;
+            return (backArm: 0.25 + coil, frontArm: -0.65 - coil + rattle);
+          case MonsterBodyShape.spikyHopper:
+          case MonsterBodyShape.hornedStalker:
+            final scratch = math.sin(snap.elapsed * 24.0) * 0.45;
+            return (backArm: 0.95 + scratch, frontArm: 0.95 - scratch);
+          case MonsterBodyShape.armoredJuggernaut:
+          case MonsterBodyShape.hulkingBrute:
+          case MonsterBodyShape.cyclopsOgre:
+          default:
+            return (backArm: 0.72 + rattle, frontArm: -0.72 - rattle);
+        }
       default:
         if (isMoving) {
           final swing = math.sin(snap.walkCyclePhase) * (isRunning ? 0.85 : 0.45);

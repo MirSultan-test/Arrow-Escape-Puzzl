@@ -257,6 +257,7 @@ class MazeCanvasPainter extends CustomPainter {
       cageState: td.cageState,
       bossType: td.boss.type,
       bossAppearance: td.boss.appearance,
+      levelId: engine.level.id,
       shakeIntensity: td.cageShakeIntensity,
       animPhase: td.boss.animPhase,
       elapsed: engine.elapsedTime,
